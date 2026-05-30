@@ -4,343 +4,279 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import GrowthFramework from "@/components/GrowthFramework";
 
-// ── Shared layout helpers ───────────────────────────────────────────────────
-function Label({ children }: { children: React.ReactNode }) {
+// ── Brand tokens ─────────────────────────────────────────────────────────────
+const HERO_BG = "#13314C";
+const ACCENT = "#4F93E8";
+const ACCENT_SOFT = "rgba(79,147,232,0.12)";
+
+const fade = {
+  initial: { opacity: 0, y: 18 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.55 },
+};
+
+// ── Shared micro-components ───────────────────────────────────────────────────
+function Label({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
-    <span className="font-body text-xs text-muted uppercase tracking-widest block mb-4">
+    <span
+      className="font-body text-xs uppercase tracking-widest block mb-4"
+      style={{ color: dark ? "rgba(255,255,255,0.4)" : "var(--color-muted)" }}
+    >
       {children}
     </span>
   );
 }
 
-function H2({ children }: { children: React.ReactNode }) {
+function H2({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
     <h2
-      className="font-display font-bold text-fg leading-tight"
-      style={{ fontSize: "clamp(1.875rem, 3.5vw, 2.875rem)" }}
+      className="font-display font-bold leading-tight"
+      style={{ fontSize: "clamp(1.875rem, 3.5vw, 2.75rem)", color: dark ? "white" : "var(--color-fg)" }}
     >
       {children}
     </h2>
   );
 }
 
-function BulletRow({ title, body }: { title: string; body: string }) {
+function DetailRow({ head, body }: { head: string; body: string }) {
   return (
-    <div className="flex items-start gap-3 py-4 border-b border-border last:border-0">
-      <span className="w-1 h-1 rounded-full bg-accent shrink-0 mt-2" />
+    <div className="flex items-start gap-2.5 py-3 border-b border-border last:border-0">
+      <span className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5" style={{ background: ACCENT }} />
       <p className="font-body text-muted text-sm leading-relaxed">
-        <span className="font-medium text-fg">{title}</span>
-        {" — "}
-        {body}
+        <span className="font-medium text-fg">{head}:</span> {body}
       </p>
     </div>
   );
 }
 
-// ── Page ────────────────────────────────────────────────────────────────────
+function ImageZone({
+  label,
+  sublabel,
+  aspect = "16/9",
+}: {
+  label: string;
+  sublabel?: string;
+  aspect?: string;
+}) {
+  return (
+    <div
+      className="w-full rounded-2xl flex items-center justify-center border-2 border-dashed"
+      style={{ aspectRatio: aspect, borderColor: "var(--color-border)", backgroundColor: "var(--color-card)" }}
+    >
+      <div className="text-center px-8">
+        <div
+          className="mx-auto mb-3 flex items-center justify-center rounded-xl"
+          style={{ width: 40, height: 40, background: ACCENT_SOFT }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ color: ACCENT }}>
+            <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
+            <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M21 15l-5-5L5 21" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+          </svg>
+        </div>
+        <p className="font-body font-medium text-fg text-sm">{label}</p>
+        {sublabel && (
+          <p className="font-body text-muted text-xs mt-1 leading-relaxed max-w-sm mx-auto">{sublabel}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Career ladder data ─────────────────────────────────────────────────────────
+const OLD_LADDER = [
+  ["L2", "Associate Designer"],
+  ["L3", "Designer 1"],
+  ["L4", "Designer 2"],
+  ["L5", "Senior Designer"],
+  ["L6", "Lead Designer"],
+  ["L7", "Director"],
+  ["L8", "Senior Director"],
+];
+
+const NEW_LADDER: [string, string, string | null][] = [
+  ["L2", "Associate Product Designer", null],
+  ["L3", "Product Designer 1", null],
+  ["L4", "Product Designer 2", null],
+  ["L5", "Senior Product Designer", null],
+  ["L6", "Product Design Lead", "Product Design Manager"],
+  ["L7", "Staff Product Designer", "Director"],
+  ["L8", "Senior Staff Designer", "Senior Director"],
+];
+
+// ── Page ──────────────────────────────────────────────────────────────────────
 export default function SmallcasePage() {
   return (
     <>
       <Nav />
       <main>
 
-        {/* ══ Hero ══════════════════════════════════════════════════════════ */}
+        {/* ══════════════════════════════════════════════════════════════════
+            HERO
+        ══════════════════════════════════════════════════════════════════ */}
         <section
-          className="min-h-[72vh] flex flex-col justify-end px-6 pb-24 pt-36"
-          style={{ backgroundColor: "#1A3550" }}
+          className="px-6 pt-36 pb-16 lg:pb-20"
+          style={{ backgroundColor: HERO_BG }}
         >
           <div className="max-w-5xl mx-auto w-full">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
               <div className="flex flex-wrap gap-2 mb-8">
-                {["Leadership", "Org Building", "Fintech"].map((t) => (
+                {["Design Leadership", "Org Building", "Fintech", "AI Adoption"].map((t) => (
                   <span
                     key={t}
                     className="text-xs px-3 py-1 rounded-full font-body"
-                    style={{ border: "1px solid rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.55)" }}
+                    style={{ border: "1px solid rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.6)" }}
                   >
                     {t}
                   </span>
                 ))}
               </div>
-              <p
-                className="font-body mb-4"
-                style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.8125rem" }}
-              >
-                smallcase &amp; Tickertape · 2024–Present
+              <p className="font-body mb-4" style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.8125rem" }}>
+                Case Platforms · smallcase &amp; Tickertape · Dec 2024–Present
               </p>
               <h1
-                className="font-display font-bold leading-tight"
-                style={{
-                  color: "white",
-                  fontSize: "clamp(2.75rem, 6.5vw, 5.5rem)",
-                  maxWidth: "16ch",
-                }}
+                className="font-display font-bold leading-[1.05] tracking-tight"
+                style={{ color: "white", fontSize: "clamp(2.25rem, 5vw, 4.5rem)" }}
               >
-                Design went from execution layer to strategy table.
+                Transforming product design from an{" "}
+                <span style={{ color: ACCENT }}>execution layer</span> to the{" "}
+                <span style={{ color: ACCENT }}>strategy table</span>
               </h1>
-              <p
-                className="font-body mt-6"
-                style={{ color: "rgba(255,255,255,0.45)", fontSize: "1rem" }}
-              >
-                18 months. Senior Director of Design. smallcase + Tickertape.
+              <p className="font-body mt-7 leading-relaxed" style={{ color: "rgba(255,255,255,0.5)", fontSize: "clamp(1rem, 1.5vw, 1.125rem)" }}>
+                Joined as Head of Product Design to turn a scattered, service-oriented team into a
+                strategic function with its own infrastructure, voice, and authority. Promoted to
+                Senior Director within the first year.
               </p>
             </motion.div>
+
           </div>
         </section>
 
-        {/* ══ The Situation ═════════════════════════════════════════════════ */}
-        <section className="px-6 py-24 max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <Label>The Situation</Label>
-            <H2>Design existed. A design function didn&apos;t.</H2>
-
-            <p className="font-body text-muted leading-relaxed mt-6 mb-8 max-w-3xl" style={{ fontSize: "1rem" }}>
-              When design leadership arrived at smallcase in December 2024, talented designers were
-              scattered across product verticals — with no advocate, no career infrastructure, and
-              no shared identity. The mandate was clear: build design into a strategic function,
-              not just a better service.
+        {/* ══════════════════════════════════════════════════════════════════
+            CONTEXT — about the organization
+        ══════════════════════════════════════════════════════════════════ */}
+        <section className="px-6 pt-24 pb-4 max-w-5xl mx-auto">
+          <motion.div {...fade}>
+            <Label>Context · The organization</Label>
+            <H2>One of India&apos;s leading wealth-tech companies</H2>
+            <p className="font-body text-muted leading-relaxed mt-6 mb-10" style={{ fontSize: "1.0625rem" }}>
+              Case Platforms is the parent company behind smallcase and Tickertape, two products
+              shaping how millions of Indians research, build, and manage their investments. Founded
+              in Bangalore in 2015 and backed by investors including Peak XV and Premji Invest, the
+              platform processes 100K+ orders a day and has facilitated over $5B in assets transacted
+              via smallcases, sitting at the centre of India&apos;s fast-growing retail wealth-tech market.
             </p>
 
-            {/* Remote-first note */}
-            <div className="bg-card border-l-2 border-accent rounded-xl px-6 py-5 mb-10">
-              <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.9375rem" }}>
-                <span className="font-medium text-fg">Remote-first org:</span> the full team met
-                in person only twice a year — making trust-building and culture change uniquely harder.
-              </p>
-            </div>
-
-            {/* Two diagnosis panels */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-10">
-              <div className="bg-card rounded-2xl p-8">
-                <p className="font-body text-xs text-muted uppercase tracking-widest mb-6">
-                  Not present at all
-                </p>
-                <BulletRow
-                  title="Design leadership"
-                  body="Role vacant for years, no advocate or mentor at leadership level"
-                />
-                <BulletRow
-                  title="Growth infrastructure"
-                  body="No career ladders or comp bands, PM framework copy-pasted as a substitute"
-                />
-                <BulletRow
-                  title="Design community"
-                  body="No shared practice or identity, designers isolated in separate product verticals"
-                />
-              </div>
-
-              <div className="bg-card rounded-2xl p-8">
-                <p className="font-body text-xs text-muted uppercase tracking-widest mb-6">
-                  Present, but not working
-                </p>
-                <BulletRow
-                  title="Design's role in product"
-                  body="Contributing as executors only, briefs arrived fully formed"
-                />
-                <BulletRow
-                  title="Trust and representation"
-                  body="Designers felt unheard and unrepresented by their managers"
-                />
-                <BulletRow
-                  title="Retention and motivation"
-                  body="Team intact but fragile, motivation tied to verticals not to craft"
-                />
-              </div>
-            </div>
-
-            {/* Proof note */}
-            <div className="border border-border rounded-xl px-6 py-5 mb-8">
-              <p className="font-body text-muted italic leading-relaxed" style={{ fontSize: "0.9375rem" }}>
-                Early proof the diagnosis was right: a designer had already resigned before the
-                role was filled, citing these exact gaps — and said he would have stayed had he
-                known change was coming.
-              </p>
-            </div>
-
-            {/* Mandate */}
-            <div className="bg-fg rounded-2xl px-10 py-9">
-              <p
-                className="font-display font-semibold text-bg leading-snug"
-                style={{ fontSize: "clamp(1.125rem, 2vw, 1.5rem)" }}
+            {/* ── Products panel ── */}
+            <div className="rounded-2xl border border-border overflow-hidden">
+              <div
+                className="grid grid-cols-1 lg:grid-cols-2 gap-px"
+                style={{ background: "var(--color-border)" }}
               >
-                Build design from a fragmented service into a strategic function — one with its own
-                infrastructure, voice, and the authority to shape what gets built.
-              </p>
+                {[
+                  {
+                    id: "smallcase",
+                    desc: "The investing platform where people build long-term wealth through expert-managed portfolios and direct market access.",
+                    offers: ["Stock Model Portfolios", "Mutual Fund Model Portfolios", "Stocks & ETFs", "Direct mutual funds"],
+                    href: "https://www.smallcase.com/",
+                    host: "smallcase.com",
+                  },
+                  {
+                    id: "tickertape",
+                    desc: "The research and analytics platform where investors screen, analyse, and track markets before they invest.",
+                    offers: ["Stock & ETF analysis", "Screeners", "Mutual funds", "US stocks", "Digital gold", "Market Mood Index"],
+                    href: "https://www.tickertape.in/",
+                    host: "tickertape.in",
+                  },
+                ].map((p) => (
+                  <div key={p.id} className="p-8 bg-bg flex flex-col">
+                    {/* Logo lockup */}
+                    <div className="flex items-center mb-4">
+                      <img
+                        src={p.id === "smallcase" ? "/logos/smallcase.png" : "/logos/tickertape.png"}
+                        alt={`${p.id} logo`}
+                        style={{ height: "44px", width: "auto" }}
+                      />
+                    </div>
+
+                    <p className="font-body text-muted text-sm leading-relaxed">{p.desc}</p>
+
+                    <p className="font-body text-xs uppercase tracking-widest text-muted mt-6 mb-3">What it offers</p>
+                    <div className="flex flex-wrap gap-2 flex-1 content-start">
+                      {p.offers.map((o) => (
+                        <span
+                          key={o}
+                          className="font-body text-xs px-2.5 py-1 rounded-md text-muted"
+                          style={{ background: "var(--color-card)" }}
+                        >
+                          {o}
+                        </span>
+                      ))}
+                    </div>
+
+                    <a
+                      href={p.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-body text-sm font-medium mt-6 inline-flex items-center gap-1.5 hover:opacity-70 transition-opacity"
+                      style={{ color: ACCENT }}
+                    >
+                      {p.host} ↗
+                    </a>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </section>
 
-        {/* ══ What Was Built ════════════════════════════════════════════════ */}
-        <section className="px-6 py-24 bg-card">
-          <div className="max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <Label>What Was Built</Label>
-              <H2>Foundations were laid so design could lead, not just execute.</H2>
-              <p className="font-body text-muted leading-relaxed mt-5 mb-12 max-w-3xl" style={{ fontSize: "1rem" }}>
-                High-performing design orgs don&apos;t emerge from talent alone — they need
-                infrastructure, trust, and craft systems. All three were built in parallel,
-                deliberately, across a remote-first team of 8.
-              </p>
-
-              {/* Three pillars */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
-                {[
-                  {
-                    title: "Team infrastructure",
-                    items: [
-                      ["Reporting restructured", "All designers moved under design leadership on day one"],
-                      ["Career ladders built", "IC and manager tracks with explicit skill expectations at every level"],
-                      ["Compensation framework", "Salary bands established, gaps corrected with founder alignment"],
-                      ["Hiring process created", "Built from nothing, proved twice within a month, adopted by product management"],
-                    ],
-                  },
-                  {
-                    title: "Culture, built remotely",
-                    items: [
-                      ["Weekly 1:1s and retros", "Non-negotiable rhythms for trust and pulse-checking across screens"],
-                      ["Design jams + Slack channel", "Collective identity and shared practice in a remote-first org"],
-                      ["In-person moments used intentionally", "Twice-yearly windows for depth, bonding, and brand-building"],
-                      ["Domain ownership model", "End-to-end vertical ownership replaced fragmented project assignments"],
-                    ],
-                  },
-                  {
-                    title: "Craft and systems",
-                    items: [
-                      ["Design system rebuilt", "Scalable and AI-ready architecture, without adding headcount"],
-                      ["Friction Log ritual", "Team reviews core product flows together to surface quality gaps"],
-                      ["UX Research handbook", "Usability testing turned into a repeatable, structured practice"],
-                      ["UX Writing agent on Claude", "Handbook converted into an AI agent now in daily use"],
-                      ["Designers in the codebase", "GitHub access secured, Figma MCP pilot led to dev seats for engineering"],
-                    ],
-                  },
-                ].map((pillar) => (
-                  <div key={pillar.title} className="bg-bg rounded-2xl p-8">
-                    <p className="font-body font-medium text-fg text-sm mb-6">{pillar.title}</p>
-                    <div>
-                      {pillar.items.map(([head, body]) => (
-                        <div key={head} className="flex items-start gap-2.5 py-3 border-b border-border last:border-0">
-                          <span className="w-1 h-1 rounded-full bg-accent shrink-0 mt-1.5" />
-                          <p className="font-body text-muted text-sm leading-relaxed">
-                            <span className="font-medium text-fg">{head}</span> — {body}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-                {[
-                  { stat: "0", label: "Culture-driven exits", sub: "No designer left because of the environment built around them" },
-                  { stat: "2", label: "Hires via new process", sub: "Both backfills closed within a month using the process built from scratch" },
-                  { stat: "8", label: "Team size, then and now", sub: "Stable through significant change in a remote-first environment" },
-                ].map((s) => (
-                  <div key={s.label} className="bg-bg rounded-2xl p-8">
-                    <div
-                      className="font-display font-bold text-accent mb-2"
-                      style={{ fontSize: "3.5rem", lineHeight: 1 }}
-                    >
-                      {s.stat}
-                    </div>
-                    <p className="font-body font-medium text-fg text-sm mb-1">{s.label}</p>
-                    <p className="font-body text-muted text-xs leading-relaxed">{s.sub}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* ══ Impact ════════════════════════════════════════════════════════ */}
+        {/* ══════════════════════════════════════════════════════════════════
+            01 — THE SITUATION
+        ══════════════════════════════════════════════════════════════════ */}
         <section className="px-6 py-24 max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <Label>Impact</Label>
-            <H2>Design moved from execution layer to strategy table.</H2>
+          <motion.div {...fade}>
+            <Label>01 — The situation at the start</Label>
+            <H2>Design existed. A design function didn&apos;t</H2>
+            <p className="font-body text-muted leading-relaxed mt-6 mb-10" style={{ fontSize: "1.0625rem" }}>
+              After several years without design leadership, design had become fragmented across product
+              teams. While individual designers were succeeding within their verticals, the function
+              lacked the leadership, infrastructure, and shared practices needed to scale its impact.
+            </p>
 
-            {/* Q3 spotlight */}
-            <div className="bg-fg rounded-2xl p-10 mt-10 mb-10 grid grid-cols-12 gap-8 items-center">
-              <div className="col-span-12 lg:col-span-2">
-                <span
-                  className="font-display font-bold text-accent"
-                  style={{ fontSize: "clamp(4rem, 8vw, 6rem)", lineHeight: 1 }}
-                >
-                  Q3
-                </span>
-              </div>
-              <div className="col-span-12 lg:col-span-10">
-                <h3
-                  className="font-display font-bold text-bg leading-snug mb-3"
-                  style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)" }}
-                >
-                  Design earned a seat in the core group after three quarters.
-                </h3>
-                <p className="font-body leading-relaxed" style={{ color: "rgba(246,244,240,0.55)", fontSize: "0.9375rem" }}>
-                  The core group drives quarterly strategy and roadmap planning — heads of product,
-                  engineering, business, compliance, and finance. Design had never had a seat here
-                  before. After three quarters of visible impact, that changed permanently.
-                </p>
-              </div>
-            </div>
-
-            {/* Impact pillars */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <Label>What 1:1s with every designer revealed</Label>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-2">
               {[
                 {
-                  title: "Product quality",
+                  label: "Not present at all",
                   items: [
-                    ["Design reviews transformed", "Leadership Figma comments dropped sharply as alignment replaced disagreement"],
-                    ["Design authority delegated", "Founder stepped back, product leads now defer final experience calls to designers"],
-                    ["Craft bar raised across the org", "Friction Log and UX standards lifted output quality team-wide"],
+                    { head: "Design leadership", body: "The role had been vacant for years. There was no advocate for design, no coaching structure for the team, and no representation of design in leadership conversations." },
+                    { head: "Growth infrastructure", body: "Designers had no career framework, competency model, or compensation benchmarks. Growth, performance, and promotions lacked clear expectations and consistency." },
+                    { head: "Design community", body: "Designers were embedded within product verticals with little connection to one another. There was no shared craft, collective identity, or mechanism for learning across teams." },
                   ],
                 },
                 {
-                  title: "Strategic influence",
+                  label: "Present, but not working",
                   items: [
-                    ["Roadmaps shaped from the bottom up", "Designer-led ideas began populating product planning"],
-                    ["From execution to problem-shaping", "Design started defining what gets built, not just how it looks"],
-                    ["Cross-functional trust earned", "Product and engineering treat design as a strategic input, not a downstream step"],
+                    { head: "Design's role in product", body: "Design was involved in execution, not direction. Product teams brought fully formed briefs, leaving little opportunity for design to shape strategy, frame problems, or influence outcomes." },
+                    { head: "Trust and representation", body: "Designers reported into product teams, where managers often lacked the context to assess design quality, craft growth, or long-term potential. Advocacy for the function was largely absent." },
+                    { head: "Motivation and retention", body: "The team was talented and stable, but lacked visibility into future growth. Career progression depended more on individual product teams than on a coherent design practice." },
                   ],
                 },
-                {
-                  title: "Org recognition",
-                  items: [
-                    ["Seat in the core group", "First ever for design, earned in three quarters"],
-                    ["Permanent structural shift", "Not a project win, design's position in decision-making changed permanently"],
-                    ["Hiring process adopted by PM", "The design hiring framework became the org-wide standard"],
-                  ],
-                },
-              ].map((pillar) => (
-                <div key={pillar.title} className="bg-card rounded-2xl p-8">
-                  <p className="font-body font-medium text-fg text-sm mb-6">{pillar.title}</p>
-                  <div>
-                    {pillar.items.map(([head, body]) => (
-                      <div key={head} className="flex items-start gap-2.5 py-3 border-b border-border last:border-0">
-                        <span className="w-1 h-1 rounded-full bg-accent shrink-0 mt-1.5" />
-                        <p className="font-body text-muted text-sm leading-relaxed">
-                          <span className="font-medium text-fg">{head}</span> — {body}
-                        </p>
+              ].map(({ label, items }) => (
+                <div key={label} className="rounded-2xl border border-border overflow-hidden" style={{ background: "var(--color-bg)" }}>
+                  {/* Card header */}
+                  <div className="px-7 py-4 border-b border-border" style={{ background: "var(--color-card)" }}>
+                    <p className="font-body text-xs uppercase tracking-widest text-muted">{label}</p>
+                  </div>
+                  {/* Items */}
+                  <div className="divide-y divide-border">
+                    {items.map(({ head, body }) => (
+                      <div key={head} className="px-7 py-5">
+                        <p className="font-body font-semibold text-fg mb-1.5" style={{ fontSize: "0.875rem" }}>{head}</p>
+                        <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{body}</p>
                       </div>
                     ))}
                   </div>
@@ -350,37 +286,227 @@ export default function SmallcasePage() {
           </motion.div>
         </section>
 
-        {/* ══ Team Voice ════════════════════════════════════════════════════ */}
+        {/* ══════════════════════════════════════════════════════════════════
+            THE MANDATE — pull quote
+        ══════════════════════════════════════════════════════════════════ */}
+        <section className="px-6 py-20" style={{ backgroundColor: HERO_BG }}>
+          <div className="max-w-5xl mx-auto">
+            <motion.div {...fade}>
+              <Label dark>The mandate</Label>
+              <p
+                className="font-display font-semibold leading-snug"
+                style={{ color: "white", fontSize: "clamp(1.875rem, 4vw, 3rem)" }}
+              >
+                Build product design from a fragmented service into a{" "}
+                <span style={{ color: ACCENT }}>strategic function</span>, one with its own
+                infrastructure, voice, and the authority to shape what gets built.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════
+            02 — THE APPROACH (merged overview + what was built)
+        ══════════════════════════════════════════════════════════════════ */}
+        <section className="px-6 py-24 max-w-5xl mx-auto">
+          <motion.div {...fade}>
+            <Label>02 — How the problem was split</Label>
+            <H2>Three buckets, built in parallel</H2>
+            <p className="font-body text-muted leading-relaxed mt-6 mb-12" style={{ fontSize: "1.0625rem" }}>
+              High-performing design orgs don&apos;t emerge from talent alone. They need
+              infrastructure, trust, and craft systems, none of them sufficient on its own. The work
+              was split into three buckets and built across all three at once.
+            </p>
+
+            {(() => {
+              const BUCKETS = [
+                {
+                  num: "01", cadence: "Foundational", title: "Team infrastructure",
+                  body: "Build the scaffolding designers need to grow, be paid fairly, and trust the system.",
+                  focus: "Retention & Growth",
+                  items: [
+                    { head: "Reporting restructured", body: "All designers moved under design leadership on day one." },
+                    { head: "Career ladders built", body: "IC and manager tracks. Explicit skill expectations at every level." },
+                    { head: "Compensation framework", body: "Salary bands established. Gaps corrected with founder alignment." },
+                    { head: "Hiring process from scratch", body: "Proven twice within a month. Later adopted by product management." },
+                  ],
+                },
+                {
+                  num: "02", cadence: "Continuous", title: "Culture, built remotely",
+                  body: "Forge a community across a distributed team with rituals that survive the screen and in-person windows used deliberately.",
+                  focus: "Identity & Trust",
+                  items: [
+                    { head: "Weekly 1:1s and retros", body: "Non-negotiable rhythms for trust and pulse-checking across screens." },
+                    { head: "Design jams + Slack channel", body: "Collective identity and shared practice in a remote-first org." },
+                    { head: "In-person moments, used intentionally", body: "Twice-yearly windows for depth, bonding, and brand-building." },
+                    { head: "Domain ownership model", body: "End-to-end vertical ownership replaced fragmented project assignments." },
+                  ],
+                },
+                {
+                  num: "03", cadence: "Compounding", title: "Craft & systems",
+                  body: "Raise the ceiling on output. Design system, research practice, and an AI-native workflow built for leverage, not headcount.",
+                  focus: "Quality & Leverage",
+                  items: [
+                    { head: "Design system rebuilt", body: "Scalable and AI-ready architecture. No new headcount." },
+                    { head: "Friction Log ritual", body: "Team reviews core product flows together to surface quality gaps." },
+                    { head: "UX Research handbook", body: "Usability testing turned into a repeatable, structured practice." },
+                    { head: "UX Writing agent + designers in code", body: "Handbook converted into an AI agent. GitHub access; Figma MCP pilot won eng dev seats." },
+                  ],
+                },
+              ];
+              return (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-5 gap-y-0">
+                  {/* Row 1 — overviews: grid enforces equal height across all three */}
+                  {BUCKETS.map((b) => (
+                    <div key={`${b.num}-overview`} className="flex flex-col p-8 rounded-t-2xl border border-b-0 border-border" style={{ background: "var(--color-card)" }}>
+                      <div className="flex items-center justify-between mb-5">
+                        <span className="font-display font-bold" style={{ color: ACCENT, fontSize: "2rem", lineHeight: 1 }}>{b.num}</span>
+                        <span className="font-body text-xs uppercase tracking-widest text-muted">{b.cadence}</span>
+                      </div>
+                      <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.25rem" }}>{b.title}</p>
+                      <p className="font-body text-muted text-sm leading-relaxed mb-8">{b.body}</p>
+                      <div className="mt-auto pt-4 border-t border-border flex items-center justify-between">
+                        <span className="font-body text-xs uppercase tracking-widest text-muted">Focus</span>
+                        <span className="font-body text-xs font-medium text-fg">{b.focus}</span>
+                      </div>
+                    </div>
+                  ))}
+                  {/* Row 2 — initiatives: starts at the same level for all three */}
+                  {BUCKETS.map((b) => (
+                    <div key={`${b.num}-items`} className="flex flex-col rounded-b-2xl border border-t border-border px-8 py-6 gap-4" style={{ background: "var(--color-bg)" }}>
+                      {b.items.map((item) => (
+                        <div key={item.head} className="pb-4 border-b border-border last:border-0 last:pb-0">
+                          <p className="font-display font-semibold text-fg mb-1" style={{ fontSize: "0.875rem" }}>{item.head}</p>
+                          <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{item.body}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
+          </motion.div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════
+            BUCKET 01 — TEAM INFRASTRUCTURE
+        ══════════════════════════════════════════════════════════════════ */}
         <section className="px-6 py-24 bg-card">
           <div className="max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <Label>Team Voice</Label>
-              <H2>In the team&apos;s own words.</H2>
+            <motion.div {...fade}>
+              <Label>Bucket 01 · Team infrastructure</Label>
+              <H2>Rebuilding trust, retention, and a path to grow</H2>
+              <p className="font-body text-muted leading-relaxed mt-6 mb-12" style={{ fontSize: "1.0625rem" }}>
+                The team had been on its own for years. Before anything else, they needed to believe
+                design leadership could actually get things done for them and see a future worth
+                staying for.
+              </p>
+            </motion.div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-10">
-                {[
-                  "Design autonomy is slowly coming into power and decisions are being finalised by designers than product folks.",
-                  "Really love how the design team has come together — from collaborations to team outings. Big thanks to Sugam for making it happen!",
-                  "Much better collaboration within the design team — I've gotten so much helpful feedback and different POVs.",
-                  "More cross-team collaboration and brainstorming has been happening, even outside the design jams.",
-                ].map((quote) => (
-                  <div key={quote} className="bg-bg rounded-2xl p-8 border-l-2 border-accent flex flex-col gap-6">
-                    <p
-                      className="font-display font-medium text-fg leading-relaxed"
-                      style={{ fontSize: "1rem" }}
-                    >
-                      &ldquo;{quote}&rdquo;
+            {/* Career architecture — old vs new */}
+            <motion.div {...fade} className="mb-14">
+              <h3 className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.375rem" }}>
+                A career architecture built for designers
+              </h3>
+              <p className="font-body text-muted text-sm leading-relaxed mb-8">
+                The borrowed PM ladder was replaced with a dual-track model, giving designers a real
+                choice between growing as an individual contributor or as a manager, with
+                design-specific titles at every level.
+              </p>
+
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+                {/* Old */}
+                <div className="lg:col-span-4 rounded-2xl p-6 bg-bg border border-border">
+                  <p className="font-body text-xs uppercase tracking-widest text-muted mb-5">Before · single track</p>
+                  <div className="flex flex-col gap-2">
+                    {OLD_LADDER.map(([lvl, title]) => (
+                      <div key={lvl} className="flex items-center gap-3 rounded-lg px-3 py-2.5" style={{ background: "var(--color-card)" }}>
+                        <span className="font-body text-xs font-semibold text-muted w-6 shrink-0">{lvl}</span>
+                        <span className="font-body text-sm text-muted">{title}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Arrow */}
+                <div className="hidden lg:flex lg:col-span-1 items-center justify-center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 12h15M13 6l6 6-6 6" stroke={ACCENT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+
+                {/* New */}
+                <div className="lg:col-span-7 rounded-2xl p-6 bg-bg border-2" style={{ borderColor: ACCENT }}>
+                  <div className="flex items-center justify-between mb-5">
+                    <p className="font-body text-xs uppercase tracking-widest" style={{ color: ACCENT }}>After · dual track</p>
+                    <div className="flex gap-4">
+                      <span className="font-body text-xs text-muted">IC path</span>
+                      <span className="font-body text-xs text-muted">Manager path</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    {NEW_LADDER.map(([lvl, ic, mgr]) => (
+                      <div key={lvl} className="flex items-center gap-3">
+                        <span className="font-body text-xs font-semibold text-muted w-6 shrink-0">{lvl}</span>
+                        <div className="grid grid-cols-2 gap-2 flex-1">
+                          <span className="font-body text-sm text-fg rounded-lg px-3 py-2.5" style={{ background: ACCENT_SOFT }}>{ic}</span>
+                          {mgr ? (
+                            <span className="font-body text-sm text-fg rounded-lg px-3 py-2.5" style={{ background: "var(--color-card)" }}>{mgr}</span>
+                          ) : (
+                            <span className="rounded-lg px-3 py-2.5 flex items-center" style={{ background: "var(--color-card)" }}>
+                              <span className="font-body text-xs text-muted">–</span>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                    <p className="font-body text-xs text-muted mt-2">
+                      Both tracks converge at VP and above (L9–L12).
                     </p>
-                    <div className="flex items-center gap-3">
-                      <span className="w-6 h-px bg-border" />
-                      <p className="font-body text-muted text-xs">
-                        Designer, smallcase · team retrospective
-                      </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Skill framework */}
+            <motion.div {...fade} className="mb-14">
+              <h3 className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.375rem" }}>
+                A growth framework with ten capability areas
+              </h3>
+              <p className="font-body text-muted text-sm leading-relaxed mb-8">
+                Each level has explicit expectations across a mix of hard and soft skills. Select a
+                level to see what growing into it actually looks like across all ten areas.
+              </p>
+              <GrowthFramework />
+            </motion.div>
+
+            {/* Retention / hiring */}
+            <motion.div {...fade}>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                {[
+                  {
+                    title: "Retention",
+                    items: [
+                      ["Comp bands built", "Salary framework set with HR; senior-designer gaps corrected with founder alignment"],
+                      ["Direct reporting", "Every designer moved under design leadership on day one"],
+                      ["Held the team", "No regretted exits, just one departure to pursue music"],
+                    ],
+                  },
+                  {
+                    title: "Hiring",
+                    items: [
+                      ["Evaluation framework", "Built from scratch, later adopted as the benchmark for PM hiring too"],
+                      ["Onboarding + KT kits", "New-hire onboarding and exit knowledge-transfer checklists"],
+                      ["Two backfills closed", "Replacement hires landed within one to two months"],
+                    ],
+                  },
+                ].map((pillar) => (
+                  <div key={pillar.title} className="bg-bg rounded-2xl p-8 border border-border">
+                    <p className="font-display font-bold text-fg text-base mb-5">{pillar.title}</p>
+                    <div>
+                      {pillar.items.map(([head, body]) => (
+                        <DetailRow key={head} head={head} body={body} />
+                      ))}
                     </div>
                   </div>
                 ))}
@@ -389,13 +515,304 @@ export default function SmallcasePage() {
           </div>
         </section>
 
-        {/* ══ Nav ═══════════════════════════════════════════════════════════ */}
+        {/* ══════════════════════════════════════════════════════════════════
+            BUCKET 02 — CULTURE, BUILT REMOTELY
+        ══════════════════════════════════════════════════════════════════ */}
+        <section className="px-6 py-24 max-w-5xl mx-auto">
+          <motion.div {...fade}>
+            <Label>Bucket 02 · Culture, built remotely</Label>
+            <H2>Turning eight people in silos into one team</H2>
+            <p className="font-body text-muted leading-relaxed mt-6 mb-12" style={{ fontSize: "1.0625rem" }}>
+              With the team meeting in person only once every six months, identity and trust
+              couldn&apos;t be left to chance. Rhythms were built to survive a screen, and the rare
+              in-person windows were used deliberately.
+            </p>
+
+            {(() => {
+              const GROUPS = [
+                {
+                  title: "Rhythms and rituals",
+                  body: "Internal cadences that made trust and alignment possible across a fully distributed team.",
+                  items: [
+                    { head: "Direct reporting + 1:1s", body: "Reporting moved to design leadership on day one, with weekly and bi-weekly 1:1s as a non-negotiable rhythm for trust." },
+                    { head: "Weekly design jams", body: "Brainstorming and critique sessions that made the team work and feel like one unit, not separate verticals." },
+                    { head: "Regular retrospectives", body: "A team-wide retro process to capture sentiment and pulse-check how the interventions were actually landing over time." },
+                  ],
+                },
+                {
+                  title: "Connection and community",
+                  body: "Bridges built inside the team, across functions, and outward into the design community.",
+                  items: [
+                    { head: "#design Slack channel", body: "An always-on home for design-led conversation across product and the brand design team it had never connected with." },
+                    { head: "Cross-team connection", body: "Opened communication channels with brand design and started meeting other functions far more often." },
+                    { head: "Outward brand-building", body: "Took the team to conferences and events to put smallcase design on the Bangalore design community map." },
+                  ],
+                },
+              ];
+              return (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-0">
+                  {/* Row 1 — overviews */}
+                  {GROUPS.map((g) => (
+                    <div key={`${g.title}-overview`} className="flex flex-col p-8 rounded-t-2xl border border-b-0 border-border" style={{ background: "var(--color-card)" }}>
+                      <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.125rem" }}>{g.title}</p>
+                      <p className="font-body text-muted text-sm leading-relaxed">{g.body}</p>
+                    </div>
+                  ))}
+                  {/* Row 2 — items */}
+                  {GROUPS.map((g) => (
+                    <div key={`${g.title}-items`} className="flex flex-col rounded-b-2xl border border-t border-border px-8 py-6 gap-4" style={{ background: "var(--color-bg)" }}>
+                      {g.items.map((item) => (
+                        <div key={item.head} className="pb-4 border-b border-border last:border-0 last:pb-0">
+                          <p className="font-display font-semibold text-fg mb-1" style={{ fontSize: "0.875rem" }}>{item.head}</p>
+                          <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{item.body}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
+
+
+            {/* Team photos grid */}
+            <motion.div {...fade} className="mt-12">
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+                {[
+                  "/team/team-1.png",
+                  "/team/team-2.jpg",
+                  "/team/team-3.jpg",
+                  "/team/team-4.jpg",
+                  "/team/team-5.jpg",
+                  "/team/team-6.jpg",
+                ].map((src, i) => (
+                  <div key={i} className="rounded-2xl overflow-hidden" style={{ aspectRatio: "4/3" }}>
+                    <img
+                      src={src}
+                      alt={`Team photo ${i + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════
+            PRODUCT — craft + AI
+        ══════════════════════════════════════════════════════════════════ */}
+        <section className="px-6 py-24 bg-card">
+          <div className="max-w-5xl mx-auto">
+            <motion.div {...fade}>
+              <Label>Bucket 03 · Craft &amp; systems</Label>
+              <H2>Scaling design through systems, not headcount</H2>
+              <p className="font-body text-muted leading-relaxed mt-6 mb-12" style={{ fontSize: "1.0625rem" }}>
+                With trust and team foundations in place, the focus shifted to increasing leverage. The
+                goal wasn't to grow through headcount, but through better systems, stronger ownership,
+                higher craft quality, and early adoption of AI.
+              </p>
+            </motion.div>
+
+            {/* How work flows */}
+            <motion.div {...fade} className="mb-14">
+              <h3 className="font-display font-bold text-fg mb-6" style={{ fontSize: "1.375rem" }}>
+                Creating Clarity and Ownership
+              </h3>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                {[
+                  {
+                    title: "Domain ownership",
+                    sub: "Shifted designers from projects to product-domain ownership.",
+                    items: [
+                      { head: "End-to-end domain ownership", body: "Replaced fragmented project assignments with ownership of product domains, giving designers responsibility across every customer touchpoint where their domain appeared." },
+                      { head: "Deeper fintech expertise", body: "Long-term ownership helped designers build stronger domain knowledge, enabling decisions grounded in both customer needs and financial concepts." },
+                      { head: "Better product outcomes", body: "Consistent ownership across web, app, and other touchpoints improved continuity, reduced context switching, and led to more informed design decisions." },
+                    ],
+                  },
+                  {
+                    title: "Design operations",
+                    sub: "Creating clarity, predictability, and quality at scale.",
+                    items: [
+                      { head: "Cross-functional collaboration", body: "Established a consistent handoff and collaboration model across product design, brand design, and engineering, reducing ambiguity and improving execution quality." },
+                      { head: "Planning and visibility", body: "Made priorities, bandwidth, and dependencies visible through shared roadmap planning, enabling better capacity allocation and more predictable delivery." },
+                      { head: "Quality and decision-making", body: "Introduced structured design reviews and stronger specification practices, raising quality and improving alignment across product teams." },
+                    ],
+                  },
+                ].map(({ title, sub, items }) => (
+                  <div key={title} className="rounded-2xl p-7 bg-bg border border-border flex flex-col gap-5">
+                    <div>
+                      <p className="font-display font-bold text-fg mb-1" style={{ fontSize: "1.0625rem" }}>{title}</p>
+                      <p className="font-body text-muted text-sm leading-relaxed">{sub}</p>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                      {items.map((item) => (
+                        <div key={item.head} className="pb-4 border-b border-border last:border-0 last:pb-0">
+                          <p className="font-display font-semibold text-fg mb-1" style={{ fontSize: "0.875rem" }}>{item.head}</p>
+                          <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{item.body}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Systems that Scale Quality */}
+            <motion.div {...fade} className="mb-3">
+              <h3 className="font-display font-bold text-fg mb-6" style={{ fontSize: "1.375rem" }}>
+                Systems that Scale Quality
+              </h3>
+            </motion.div>
+            <motion.div {...fade} className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-14">
+              {[
+                ["Friction Log", "A recurring ritual where designers audit core user journeys together, creating a shared pipeline of usability improvements, engineering fixes, and AI-driven opportunities."],
+                ["Product Design Vision Workshop", "Aligned the team on a shared vision and the capabilities needed to become a best-in-class design organization."],
+                ["UX Research handbook", "Established a UX research handbook, repeatable testing practices, and a shared repository of insights, making user research more accessible and systematic across the team."],
+                ["Figma source of truth", "Introduced a culture of maintaining production-ready designs and flows in Figma, improving alignment across design, product, and engineering."],
+              ].map(([head, body]) => (
+                <div key={head} className="rounded-2xl p-7 bg-bg border border-border">
+                  <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.0625rem" }}>{head}</p>
+                  <p className="font-body text-muted text-sm leading-relaxed">{body}</p>
+                </div>
+              ))}
+            </motion.div>
+
+            {/* Building for an AI-Native Future */}
+            <motion.div {...fade} className="mb-3">
+              <h3 className="font-display font-bold text-fg mb-6" style={{ fontSize: "1.375rem" }}>
+                Building for an AI-Native Future
+              </h3>
+            </motion.div>
+            <motion.div {...fade} className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-8">
+              {[
+                ["Design systems charter", "Restructured foundations, components, and tokens into a scalable system with shared nomenclature and AI-ready architecture."],
+                ["AI-powered UX Writing", "Defined the brand's tone of voice, UX writing principles, and AI protocols, then operationalized them through a Claude agent used across design and product teams."],
+              ].map(([head, body]) => (
+                <div key={head} className="rounded-2xl p-7 bg-bg border border-border">
+                  <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.0625rem" }}>{head}</p>
+                  <p className="font-body text-muted text-sm leading-relaxed">{body}</p>
+                </div>
+              ))}
+            </motion.div>
+
+            {/* AI adoption spotlight */}
+            <motion.div {...fade} className="mb-14">
+              <div className="rounded-2xl p-8 lg:p-10" style={{ background: HERO_BG }}>
+                <Label dark>Spotlight · Pushing AI adoption</Label>
+                <h3 className="font-display font-bold leading-snug mb-4" style={{ color: "white", fontSize: "clamp(1.375rem, 2.5vw, 1.875rem)" }}>
+                  Designers who ship code, and a design system machines can read
+                </h3>
+                <p className="font-body leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9375rem" }}>
+                  A four-week pilot built the business case for Figma Dev Mode, securing GitHub and
+                  Claude access for designers and establishing AI as a roadmap priority with
+                  engineering. By making the design system machine-readable through Figma MCP,
+                  screenshot-based interpretation was removed entirely.
+                </p>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-xl overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+                  {[
+                    ["100%", "of designers now raise PRs to the codebase"],
+                    ["~7.5×", "token efficiency gain from MCP design foundation"],
+                    ["80%", "of UI generated by engineering agents in the pilot"],
+                    ["80–90%", "implementation accuracy on generated UI"],
+                  ].map(([big, small]) => (
+                    <div key={small} className="px-5 py-6" style={{ background: HERO_BG }}>
+                      <div className="font-display font-bold mb-1.5" style={{ color: ACCENT, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", lineHeight: 1 }}>{big}</div>
+                      <p className="font-body" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.8125rem", lineHeight: 1.4 }}>{small}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════
+            IMPACT
+        ══════════════════════════════════════════════════════════════════ */}
+        <section className="px-6 py-24 max-w-5xl mx-auto">
+          <motion.div {...fade}>
+            <Label>03 — Impact</Label>
+            <H2>Design moved from the execution layer to the strategy table</H2>
+
+            {/* Core team spotlight */}
+            <div className="rounded-2xl p-10 mt-10 mb-10 grid grid-cols-12 gap-8 items-center" style={{ background: HERO_BG }}>
+              <div className="col-span-12 lg:col-span-3">
+                <span className="font-display font-bold leading-none" style={{ color: ACCENT, fontSize: "clamp(2.5rem, 6vw, 4.5rem)" }}>
+                  1<span style={{ fontSize: "0.45em" }}>st</span>
+                </span>
+              </div>
+              <div className="col-span-12 lg:col-span-9">
+                <h3 className="font-display font-bold leading-snug mb-3" style={{ color: "white", fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)" }}>
+                  A design seat on the parent company&apos;s core leadership team
+                </h3>
+                <p className="font-body leading-relaxed" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9375rem" }}>
+                  As the impact on the product design team became visible, a design seat was created
+                  in the core group of Case Platforms, the key leaders across every company in the
+                  parent group. Design had never been represented at that level before.
+                </p>
+              </div>
+            </div>
+
+            {/* Impact stat row */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
+              {[
+                { stat: "Promoted", label: "to Senior Director in year one", sub: "Leadership's vote of confidence in the function being built" },
+                { stat: "0", label: "regretted exits", sub: "The whole team retained, just one left to pursue music" },
+                { stat: "100%", label: "of designers ship code", sub: "Raising PRs, building internal tools, and fixing bugs directly" },
+              ].map((s) => (
+                <div key={s.label} className="bg-card rounded-2xl p-8 border border-border">
+                  <div className="font-display font-bold mb-2" style={{ color: ACCENT, fontSize: "clamp(1.75rem, 3vw, 2.5rem)", lineHeight: 1 }}>{s.stat}</div>
+                  <p className="font-body font-medium text-fg text-sm mb-1">{s.label}</p>
+                  <p className="font-body text-muted text-xs leading-relaxed">{s.sub}</p>
+                </div>
+              ))}
+            </div>
+
+            <p className="font-body text-muted leading-relaxed" style={{ fontSize: "1rem" }}>
+              The team&apos;s retrospective sentiment transformed. Design autonomy grew, decisions
+              moved to designers, and the function that had been working in silos now operated and
+              felt like one unit. All of it achieved without additional resources or cost.
+            </p>
+          </motion.div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════
+            TEAM VOICE
+        ══════════════════════════════════════════════════════════════════ */}
+        <section className="px-6 py-24 bg-card">
+          <div className="max-w-5xl mx-auto">
+            <motion.div {...fade}>
+              <Label>In their own words</Label>
+              <H2>What the team and partners said</H2>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-10">
+                {[
+                  ["Design autonomy is slowly coming into power, decisions are being finalised by designers, not product folks.", "Product Designer · team retrospective"],
+                  ["Really love how the design team has come together, from collaborations to team outings. Big thanks to Sugam for making it happen!", "Product Designer · team retrospective"],
+                  ["The product design team now feels and works like one unit. That's something you've been able to achieve successfully.", "Product Manager"],
+                  ["I've always admired the structure and motivation you brought to the design team. Glad we had time together, so I could learn from you.", "Product Manager"],
+                ].map(([quote, attr]) => (
+                  <div key={quote} className="bg-bg rounded-2xl p-8 flex flex-col gap-6" style={{ borderLeft: `3px solid ${ACCENT}` }}>
+                    <p className="font-display font-medium text-fg leading-relaxed" style={{ fontSize: "1.0625rem" }}>
+                      &ldquo;{quote}&rdquo;
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <span className="w-6 h-px bg-border" />
+                      <p className="font-body text-muted text-xs">{attr}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════════════
+            NAV
+        ══════════════════════════════════════════════════════════════════ */}
         <section className="px-6 py-16 max-w-5xl mx-auto">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-t border-border pt-10">
-            <Link
-              href="/#work"
-              className="font-body text-sm text-muted hover:text-fg transition-colors"
-            >
+            <Link href="/#work" className="font-body text-sm text-muted hover:text-fg transition-colors">
               ← All Work
             </Link>
             <Link

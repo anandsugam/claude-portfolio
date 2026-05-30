@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Rethink_Sans } from "next/font/google";
+import { Inter, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,10 +8,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const rethink = Rethink_Sans({
+const rethink = Instrument_Sans({
   variable: "--font-rethink",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
