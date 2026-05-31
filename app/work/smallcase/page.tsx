@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Nav from "@/components/Nav";
@@ -34,7 +35,7 @@ function H2({ children, dark = false }: { children: React.ReactNode; dark?: bool
   return (
     <h2
       className="font-display font-bold leading-tight"
-      style={{ fontSize: "clamp(1.875rem, 3.5vw, 2.75rem)", color: dark ? "white" : "var(--color-fg)" }}
+      style={{ fontSize: "clamp(1.875rem, 3.5vw, 2.75rem)", color: dark ? "white" : "var(--color-fg)", letterSpacing: "-0.02em" }}
     >
       {children}
     </h2>
@@ -107,8 +108,66 @@ const NEW_LADDER: [string, string, string | null][] = [
   ["L8", "Senior Staff Designer", "Senior Director"],
 ];
 
+// ── Modal ─────────────────────────────────────────────────────────────────────
+function Modal({ open, onClose, title, description, children }: {
+  open: boolean;
+  onClose: () => void;
+  title: string;
+  description?: string;
+  children: React.ReactNode;
+}) {
+  useEffect(() => {
+    if (open) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  if (!open) return null;
+  return (
+    <>
+      <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <div className="fixed inset-0 z-[101] overflow-y-auto">
+        <div className="flex min-h-full items-start justify-center p-4 lg:p-8">
+          <div
+            className="relative w-full max-w-4xl rounded-2xl border border-border my-8 flex flex-col"
+            style={{ background: "var(--color-bg)", maxHeight: "calc(100vh - 4rem)" }}
+          >
+            {/* Non-scrolling header */}
+            <div className="flex items-start justify-between gap-4 px-8 pt-8 pb-6 lg:px-12 lg:pt-10 shrink-0">
+              <div className="flex flex-col gap-2">
+                <h3
+                  className="font-display font-bold text-fg leading-tight"
+                  style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", letterSpacing: "-0.02em" }}
+                >
+                  {title}
+                </h3>
+                {description && (
+                  <p className="font-body text-muted text-sm leading-relaxed">{description}</p>
+                )}
+              </div>
+              <button
+                onClick={onClose}
+                className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-muted hover:text-fg transition-colors border border-border font-body text-sm"
+              >
+                ✕
+              </button>
+            </div>
+            {/* Scrollable body */}
+            <div className="overflow-y-auto flex-1 px-8 pb-8 lg:px-12 lg:pb-12">
+              {children}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function SmallcasePage() {
+  const [careerModalOpen, setCareerModalOpen] = useState(false);
+  const [growthModalOpen, setGrowthModalOpen] = useState(false);
+
   return (
     <>
       <Nav />
@@ -295,7 +354,7 @@ export default function SmallcasePage() {
               <Label dark>The mandate</Label>
               <p
                 className="font-display font-semibold leading-snug"
-                style={{ color: "white", fontSize: "clamp(1.875rem, 4vw, 3rem)" }}
+                style={{ color: "white", fontSize: "clamp(1.875rem, 4vw, 3rem)", letterSpacing: "-0.02em" }}
               >
                 Build product design from a fragmented service into a{" "}
                 <span style={{ color: ACCENT }}>strategic function</span>, one with its own
@@ -403,91 +462,74 @@ export default function SmallcasePage() {
               </p>
             </motion.div>
 
-            {/* Career architecture — old vs new */}
+            {/* Career architecture + Growth framework — summary cards */}
             <motion.div {...fade} className="mb-14">
-              <h3 className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.375rem" }}>
-                A career architecture built for designers
-              </h3>
-              <p className="font-body text-muted text-sm leading-relaxed mb-8">
-                The borrowed PM ladder was replaced with a dual-track model, giving designers a real
-                choice between growing as an individual contributor or as a manager, with
-                design-specific titles at every level.
-              </p>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-                {/* Old */}
-                <div className="lg:col-span-4 rounded-2xl p-6 bg-bg border border-border">
-                  <p className="font-body text-xs uppercase tracking-widest text-muted mb-5">Before · single track</p>
-                  <div className="flex flex-col gap-2">
-                    {OLD_LADDER.map(([lvl, title]) => (
-                      <div key={lvl} className="flex items-center gap-3 rounded-lg px-3 py-2.5" style={{ background: "var(--color-card)" }}>
-                        <span className="font-body text-xs font-semibold text-muted w-6 shrink-0">{lvl}</span>
-                        <span className="font-body text-sm text-muted">{title}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Arrow */}
-                <div className="hidden lg:flex lg:col-span-1 items-center justify-center">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M4 12h15M13 6l6 6-6 6" stroke={ACCENT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-
-                {/* New */}
-                <div className="lg:col-span-7 rounded-2xl p-6 bg-bg border-2" style={{ borderColor: ACCENT }}>
-                  <div className="flex items-center justify-between mb-5">
-                    <p className="font-body text-xs uppercase tracking-widest" style={{ color: ACCENT }}>After · dual track</p>
-                    <div className="flex gap-4">
-                      <span className="font-body text-xs text-muted">IC path</span>
-                      <span className="font-body text-xs text-muted">Manager path</span>
+                {/* Career architecture card */}
+                <div className="rounded-2xl p-7 bg-bg border border-border flex flex-col">
+                  <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.25rem" }}>
+                    Career architecture built for designers
+                  </p>
+                  <p className="font-body text-muted text-sm leading-relaxed flex-1">
+                    Replaced the inherited PM ladder with a purpose-built dual-track model, giving
+                    designers a real choice between IC and manager growth with design-specific titles
+                    at every level.
+                  </p>
+                  <div className="flex items-center gap-6 mt-6 pt-5 border-t border-border">
+                    <div>
+                      <p className="font-display font-bold leading-none" style={{ fontSize: "1.5rem", color: ACCENT }}>8</p>
+                      <p className="font-body text-xs text-muted mt-0.5">levels</p>
                     </div>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    {NEW_LADDER.map(([lvl, ic, mgr]) => (
-                      <div key={lvl} className="flex items-center gap-3">
-                        <span className="font-body text-xs font-semibold text-muted w-6 shrink-0">{lvl}</span>
-                        <div className="grid grid-cols-2 gap-2 flex-1">
-                          <span className="font-body text-sm text-fg rounded-lg px-3 py-2.5" style={{ background: ACCENT_SOFT }}>{ic}</span>
-                          {mgr ? (
-                            <span className="font-body text-sm text-fg rounded-lg px-3 py-2.5" style={{ background: "var(--color-card)" }}>{mgr}</span>
-                          ) : (
-                            <span className="rounded-lg px-3 py-2.5 flex items-center" style={{ background: "var(--color-card)" }}>
-                              <span className="font-body text-xs text-muted">–</span>
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                    <p className="font-body text-xs text-muted mt-2">
-                      Both tracks converge at VP and above (L9–L12).
-                    </p>
+                    <div>
+                      <p className="font-display font-bold leading-none" style={{ fontSize: "1.5rem", color: ACCENT }}>2</p>
+                      <p className="font-body text-xs text-muted mt-0.5">tracks (IC + Manager)</p>
+                    </div>
+                    <button
+                      onClick={() => setCareerModalOpen(true)}
+                      className="ml-auto font-body text-sm font-medium hover:opacity-70 transition-opacity"
+                      style={{ color: ACCENT }}
+                    >
+                      View full ladder →
+                    </button>
                   </div>
                 </div>
-              </div>
-            </motion.div>
 
-            {/* Skill framework */}
-            <motion.div {...fade} className="mb-14">
-              <h3 className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.375rem" }}>
-                A growth framework with ten capability areas
-              </h3>
-              <p className="font-body text-muted text-sm leading-relaxed mb-8">
-                Each level has explicit expectations across a mix of hard and soft skills. Select a
-                level to see what growing into it actually looks like across all ten areas.
-              </p>
-              <GrowthFramework />
+                {/* Growth framework card */}
+                <div className="rounded-2xl p-7 bg-bg border border-border flex flex-col">
+                  <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.25rem" }}>
+                    Growth framework with ten capability areas
+                  </p>
+                  <p className="font-body text-muted text-sm leading-relaxed flex-1">
+                    Each level has explicit expectations across hard and soft skills, giving every
+                    designer a clear picture of what growing into their next level actually looks like.
+                  </p>
+                  <div className="flex items-center gap-6 mt-6 pt-5 border-t border-border">
+                    <div>
+                      <p className="font-display font-bold leading-none" style={{ fontSize: "1.5rem", color: ACCENT }}>10</p>
+                      <p className="font-body text-xs text-muted mt-0.5">capability areas</p>
+                    </div>
+                    <button
+                      onClick={() => setGrowthModalOpen(true)}
+                      className="ml-auto font-body text-sm font-medium hover:opacity-70 transition-opacity"
+                      style={{ color: ACCENT }}
+                    >
+                      Explore framework →
+                    </button>
+                  </div>
+                </div>
+
+              </div>
             </motion.div>
 
             {/* Retention / hiring */}
             <motion.div {...fade}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                {[
+              {(() => {
+                const PILLARS = [
                   {
                     title: "Retention",
                     items: [
-                      ["Comp bands built", "Salary framework set with HR; senior-designer gaps corrected with founder alignment"],
+                      ["Comp bands built", "Salary bands established. Gaps corrected with founder alignment."],
                       ["Direct reporting", "Every designer moved under design leadership on day one"],
                       ["Held the team", "No regretted exits, just one departure to pursue music"],
                     ],
@@ -500,17 +542,29 @@ export default function SmallcasePage() {
                       ["Two backfills closed", "Replacement hires landed within one to two months"],
                     ],
                   },
-                ].map((pillar) => (
-                  <div key={pillar.title} className="bg-bg rounded-2xl p-8 border border-border">
-                    <p className="font-display font-bold text-fg text-base mb-5">{pillar.title}</p>
-                    <div>
-                      {pillar.items.map(([head, body]) => (
-                        <DetailRow key={head} head={head} body={body} />
-                      ))}
-                    </div>
+                ];
+                return (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-0">
+                    {/* Row 1 — titles */}
+                    {PILLARS.map((pillar) => (
+                      <div key={`${pillar.title}-header`} className="flex flex-col px-8 py-4 rounded-t-2xl border border-b-0 border-border" style={{ background: "var(--color-card)" }}>
+                        <p className="font-display font-bold text-fg" style={{ fontSize: "1.125rem" }}>{pillar.title}</p>
+                      </div>
+                    ))}
+                    {/* Row 2 — items */}
+                    {PILLARS.map((pillar) => (
+                      <div key={`${pillar.title}-items`} className="flex flex-col rounded-b-2xl border border-t border-border px-8 py-6 gap-4" style={{ background: "var(--color-bg)" }}>
+                        {pillar.items.map(([head, body]) => (
+                          <div key={head} className="pb-4 border-b border-border last:border-0 last:pb-0">
+                            <p className="font-display font-semibold text-fg mb-1" style={{ fontSize: "0.875rem" }}>{head}</p>
+                            <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{body}</p>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                );
+              })()}
             </motion.div>
           </div>
         </section>
@@ -553,9 +607,8 @@ export default function SmallcasePage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-0">
                   {/* Row 1 — overviews */}
                   {GROUPS.map((g) => (
-                    <div key={`${g.title}-overview`} className="flex flex-col p-8 rounded-t-2xl border border-b-0 border-border" style={{ background: "var(--color-card)" }}>
-                      <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.125rem" }}>{g.title}</p>
-                      <p className="font-body text-muted text-sm leading-relaxed">{g.body}</p>
+                    <div key={`${g.title}-overview`} className="flex flex-col px-8 py-4 rounded-t-2xl border border-b-0 border-border" style={{ background: "var(--color-card)" }}>
+                      <p className="font-display font-bold text-fg" style={{ fontSize: "1.125rem" }}>{g.title}</p>
                     </div>
                   ))}
                   {/* Row 2 — items */}
@@ -591,6 +644,29 @@ export default function SmallcasePage() {
                       alt={`Team photo ${i + 1}`}
                       className="w-full h-full object-cover"
                     />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Team voice */}
+            <motion.div {...fade} className="mt-14">
+              <Label>In their own words</Label>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                {[
+                  ["The product design team now feels and works like one unit. That's something you've been able to achieve successfully.", "Product Manager"],
+                  ["Design autonomy is slowly coming into power, decisions are being finalised by designers, not product folks.", "Product Designer"],
+                  ["Really love how the design team has come together, from collaborations to team outings. Big thanks to Sugam for making it happen!", "Product Designer"],
+                  ["I've always admired the structure and motivation you brought to the design team. Glad we had time together, so I could learn from you.", "Product Manager"],
+                ].map(([quote, attr]) => (
+                  <div key={quote} className="rounded-2xl p-7 border border-border flex flex-col gap-3" style={{ background: "var(--color-bg)" }}>
+                    {/* Large decorative quote mark */}
+                    <span className="font-display font-bold leading-none select-none" style={{ fontSize: "3rem", color: ACCENT, lineHeight: 1 }}>&ldquo;</span>
+                    <p className="font-display font-bold text-fg -mt-3" style={{ fontSize: "1.0625rem" }}>
+                      {quote}
+                    </p>
+                    <p className="font-body text-muted text-sm leading-relaxed">{attr}</p>
                   </div>
                 ))}
               </div>
@@ -639,12 +715,12 @@ export default function SmallcasePage() {
                     ],
                   },
                 ].map(({ title, sub, items }) => (
-                  <div key={title} className="rounded-2xl p-7 bg-bg border border-border flex flex-col gap-5">
-                    <div>
+                  <div key={title} className="rounded-2xl bg-bg border border-border flex flex-col overflow-hidden">
+                    <div className="px-7 py-5 border-b border-border" style={{ background: "var(--color-card)" }}>
                       <p className="font-display font-bold text-fg mb-1" style={{ fontSize: "1.0625rem" }}>{title}</p>
                       <p className="font-body text-muted text-sm leading-relaxed">{sub}</p>
                     </div>
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 px-7 py-6">
                       {items.map((item) => (
                         <div key={item.head} className="pb-4 border-b border-border last:border-0 last:pb-0">
                           <p className="font-display font-semibold text-fg mb-1" style={{ fontSize: "0.875rem" }}>{item.head}</p>
@@ -735,22 +811,15 @@ export default function SmallcasePage() {
             <H2>Design moved from the execution layer to the strategy table</H2>
 
             {/* Core team spotlight */}
-            <div className="rounded-2xl p-10 mt-10 mb-10 grid grid-cols-12 gap-8 items-center" style={{ background: HERO_BG }}>
-              <div className="col-span-12 lg:col-span-3">
-                <span className="font-display font-bold leading-none" style={{ color: ACCENT, fontSize: "clamp(2.5rem, 6vw, 4.5rem)" }}>
-                  1<span style={{ fontSize: "0.45em" }}>st</span>
-                </span>
-              </div>
-              <div className="col-span-12 lg:col-span-9">
-                <h3 className="font-display font-bold leading-snug mb-3" style={{ color: "white", fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)" }}>
-                  A design seat on the parent company&apos;s core leadership team
-                </h3>
-                <p className="font-body leading-relaxed" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9375rem" }}>
-                  As the impact on the product design team became visible, a design seat was created
-                  in the core group of Case Platforms, the key leaders across every company in the
-                  parent group. Design had never been represented at that level before.
-                </p>
-              </div>
+            <div className="rounded-2xl p-10 mt-10 mb-10" style={{ background: HERO_BG }}>
+              <h3 className="font-display font-bold leading-snug mb-3" style={{ color: "white", fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)" }}>
+                A design seat on the parent company&apos;s core leadership team
+              </h3>
+              <p className="font-body leading-relaxed" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.9375rem" }}>
+                As the impact on the product design team became visible, a design seat was created
+                in the core group of Case Platforms, the key leaders across every company in the
+                parent group. Design had never been represented at that level before.
+              </p>
             </div>
 
             {/* Impact stat row */}
@@ -777,37 +846,6 @@ export default function SmallcasePage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════
-            TEAM VOICE
-        ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-24 bg-card">
-          <div className="max-w-5xl mx-auto">
-            <motion.div {...fade}>
-              <Label>In their own words</Label>
-              <H2>What the team and partners said</H2>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-10">
-                {[
-                  ["Design autonomy is slowly coming into power, decisions are being finalised by designers, not product folks.", "Product Designer · team retrospective"],
-                  ["Really love how the design team has come together, from collaborations to team outings. Big thanks to Sugam for making it happen!", "Product Designer · team retrospective"],
-                  ["The product design team now feels and works like one unit. That's something you've been able to achieve successfully.", "Product Manager"],
-                  ["I've always admired the structure and motivation you brought to the design team. Glad we had time together, so I could learn from you.", "Product Manager"],
-                ].map(([quote, attr]) => (
-                  <div key={quote} className="bg-bg rounded-2xl p-8 flex flex-col gap-6" style={{ borderLeft: `3px solid ${ACCENT}` }}>
-                    <p className="font-display font-medium text-fg leading-relaxed" style={{ fontSize: "1.0625rem" }}>
-                      &ldquo;{quote}&rdquo;
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <span className="w-6 h-px bg-border" />
-                      <p className="font-body text-muted text-xs">{attr}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════════════
             NAV
         ══════════════════════════════════════════════════════════════════ */}
         <section className="px-6 py-16 max-w-5xl mx-auto">
@@ -825,6 +863,76 @@ export default function SmallcasePage() {
         </section>
 
       </main>
+
+      {/* ── Career ladder modal ── */}
+      <Modal
+        open={careerModalOpen}
+        onClose={() => setCareerModalOpen(false)}
+        title="Career architecture built for designers"
+        description="The borrowed PM ladder was replaced with a dual-track model, giving designers a real choice between growing as an individual contributor or as a manager, with design-specific titles at every level."
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+          {/* Old */}
+          <div className="lg:col-span-4 rounded-2xl p-6 border border-border" style={{ background: "var(--color-card)" }}>
+            <p className="font-body text-xs uppercase tracking-widest text-muted mb-5">Before · single track</p>
+            <div className="flex flex-col gap-2">
+              {OLD_LADDER.map(([lvl, title]) => (
+                <div key={lvl} className="flex items-center gap-3 rounded-lg px-3 py-2.5" style={{ background: "var(--color-bg)" }}>
+                  <span className="font-body text-xs font-semibold text-muted w-6 shrink-0">{lvl}</span>
+                  <span className="font-body text-sm text-muted">{title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Arrow */}
+          <div className="hidden lg:flex lg:col-span-1 items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 12h15M13 6l6 6-6 6" stroke={ACCENT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          {/* New */}
+          <div className="lg:col-span-7 rounded-2xl p-6 border-2" style={{ borderColor: ACCENT, background: "var(--color-bg)" }}>
+            <div className="flex items-center justify-between mb-5">
+              <p className="font-body text-xs uppercase tracking-widest" style={{ color: ACCENT }}>After · dual track</p>
+              <div className="flex gap-4">
+                <span className="font-body text-xs text-muted">IC path</span>
+                <span className="font-body text-xs text-muted">Manager path</span>
+              </div>
+            </div>
+            <div className="flex flex-col gap-2">
+              {NEW_LADDER.map(([lvl, ic, mgr]) => (
+                <div key={lvl} className="flex items-center gap-3">
+                  <span className="font-body text-xs font-semibold text-muted w-6 shrink-0">{lvl}</span>
+                  <div className="grid grid-cols-2 gap-2 flex-1">
+                    <span className="font-body text-sm text-fg rounded-lg px-3 py-2.5" style={{ background: ACCENT_SOFT }}>{ic}</span>
+                    {mgr ? (
+                      <span className="font-body text-sm text-fg rounded-lg px-3 py-2.5" style={{ background: "var(--color-card)" }}>{mgr}</span>
+                    ) : (
+                      <span className="rounded-lg px-3 py-2.5 flex items-center" style={{ background: "var(--color-card)" }}>
+                        <span className="font-body text-xs text-muted">–</span>
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+              <p className="font-body text-xs text-muted mt-2">
+                Both tracks converge at VP and above (L9–L12).
+              </p>
+            </div>
+          </div>
+        </div>
+      </Modal>
+
+      {/* ── Growth framework modal ── */}
+      <Modal
+        open={growthModalOpen}
+        onClose={() => setGrowthModalOpen(false)}
+        title="Growth framework with ten capability areas"
+        description="Each level has explicit expectations across a mix of hard and soft skills. Select a level to see what growing into it actually looks like across all ten areas."
+      >
+        <GrowthFramework />
+      </Modal>
+
       <Footer />
     </>
   );

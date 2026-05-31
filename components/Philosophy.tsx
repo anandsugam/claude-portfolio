@@ -35,12 +35,12 @@ export default function Philosophy() {
         transition={{ duration: 0.5 }}
         className="mb-16 text-center"
       >
-        <span className="font-body text-xs text-muted uppercase tracking-widest">
+        <span className="font-body font-medium text-xs text-muted uppercase tracking-widest">
           How I Work
         </span>
         <h2
-          className="font-display font-bold text-fg leading-tight mt-3"
-          style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+          className="font-display text-fg mt-3 leading-[1.05]"
+          style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, letterSpacing: "-0.03em" }}
         >
           Few beliefs I earned through the work
         </h2>
@@ -56,10 +56,10 @@ export default function Philosophy() {
             transition={{ duration: 0.45, delay: i * 0.07 }}
             className="bg-bg p-10"
           >
-            <span className="font-body text-xs text-muted block mb-6">{p.num}</span>
+            <span className="font-body font-medium text-xs text-muted block mb-6">{p.num}</span>
             <h3
               className="font-display font-bold text-fg leading-snug mb-4"
-              style={{ fontSize: "1.1875rem" }}
+              style={{ fontSize: "1.125rem", letterSpacing: "-0.01em" }}
             >
               {p.title}
             </h3>

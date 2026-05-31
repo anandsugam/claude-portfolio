@@ -12,7 +12,6 @@ function PhotoPlaceholder() {
         background: "linear-gradient(160deg, #E8E4DE 0%, #D4CFC8 50%, #C2BBB2 100%)",
       }}
     >
-      {/* Ambient blob */}
       <div
         className="absolute"
         style={{
@@ -31,8 +30,8 @@ function PhotoPlaceholder() {
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
         <span
-          className="font-display font-bold select-none"
-          style={{ fontSize: "clamp(5rem, 12vw, 9rem)", color: "rgba(17,17,16,0.09)", lineHeight: 1 }}
+          className="font-display select-none"
+          style={{ fontSize: "clamp(5rem, 12vw, 9rem)", fontWeight: 800, color: "rgba(17,17,16,0.09)", lineHeight: 1 }}
         >
           SA
         </span>
@@ -49,10 +48,9 @@ export default function Hero() {
     <section className="px-6 pt-20 pb-12 lg:pt-28 lg:pb-16 overflow-hidden">
       <div className="max-w-7xl mx-auto w-full">
 
-        {/* 3-zone layout: left heading | center photo | right bio */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-end">
 
-          {/* LEFT — big heading + status + CTAs */}
+          {/* LEFT — heading + role + description + CTAs */}
           <div className="lg:col-span-5 flex flex-col justify-end pb-0 lg:pb-8">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -61,7 +59,7 @@ export default function Hero() {
               className="flex items-center gap-2 mb-6"
             >
               <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#00C047" }} />
-              <span className="font-body text-sm text-muted">
+              <span className="font-body font-medium text-sm text-muted">
                 Open to senior design leadership roles
               </span>
             </motion.div>
@@ -70,25 +68,34 @@ export default function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.12 }}
-              className="font-display font-bold text-fg leading-[1.0] tracking-tight"
-              style={{ fontSize: "clamp(3.25rem, 6.5vw, 6rem)" }}
+              className="font-display text-fg leading-[1.0]"
+              style={{ fontSize: "clamp(3.25rem, 6.5vw, 6rem)", fontWeight: 800, letterSpacing: "-0.03em" }}
             >
               Sugam
               <br />
               Anand.
             </motion.h1>
 
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.28 }}
-              className="font-body text-muted leading-relaxed mt-5"
-              style={{ fontSize: "clamp(0.9375rem, 1.25vw, 1.0625rem)", maxWidth: "30rem" }}
+              className="mt-5 flex flex-col gap-2"
+              style={{ maxWidth: "30rem" }}
             >
-              Senior Director of Product Design.
-              <br />
-              Building teams, systems, and the conditions where great design consistently happens.
-            </motion.p>
+              <p
+                className="font-body font-medium text-fg"
+                style={{ fontSize: "clamp(0.9375rem, 1.2vw, 1.0625rem)" }}
+              >
+                Senior Director of Product Design
+              </p>
+              <p
+                className="font-body text-muted leading-relaxed"
+                style={{ fontSize: "clamp(0.875rem, 1.1vw, 0.9375rem)" }}
+              >
+                Building teams, systems, and the conditions where great design consistently happens.
+              </p>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -123,7 +130,7 @@ export default function Hero() {
             <PhotoPlaceholder />
           </motion.div>
 
-          {/* RIGHT — bio + company strip */}
+          {/* RIGHT — bio + experience */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -134,17 +141,17 @@ export default function Hero() {
               className="font-body text-muted leading-relaxed"
               style={{ fontSize: "0.9375rem" }}
             >
-              A full-stack design leader — hands-on enough to know what great
+              A full-stack design leader. Hands-on enough to know what great
               feels like, fluent in technology to shape how it&apos;s built,
               and grounded in people to build teams that last.
             </p>
 
             <div className="space-y-1">
-              <p className="font-body text-xs text-muted uppercase tracking-widest mb-3">
+              <p className="font-body font-medium text-xs text-muted uppercase tracking-widest mb-3">
                 Experience at
               </p>
               {["Smallcase & Tickertape", "Gojek", "MAQ Software"].map((b) => (
-                <p key={b} className="font-body text-sm text-fg font-medium">{b}</p>
+                <p key={b} className="font-body font-medium text-sm text-fg">{b}</p>
               ))}
             </div>
           </motion.div>

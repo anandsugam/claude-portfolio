@@ -13,12 +13,12 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
           className="max-w-xl"
         >
-          <span className="font-body text-xs text-muted uppercase tracking-widest block mb-5">
+          <span className="font-body font-medium text-xs text-muted uppercase tracking-widest block mb-5">
             Get in Touch
           </span>
           <h2
-            className="font-display font-bold text-fg leading-tight"
-            style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+            className="font-display text-fg leading-[1.05]"
+            style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, letterSpacing: "-0.03em" }}
           >
             Interested in working together?
           </h2>

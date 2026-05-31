@@ -60,11 +60,11 @@ export default function Work() {
         transition={{ duration: 0.5 }}
         className="flex items-end justify-between mb-12"
       >
-        <div className="w-full text-center">
-          <span className="text-xs font-body text-muted uppercase tracking-widest">
+        <div className="w-full">
+          <span className="text-xs font-body font-medium text-muted uppercase tracking-widest">
             Selected Work
           </span>
-          <h2 className="font-display font-bold text-fg mt-3" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>
+          <h2 className="font-display text-fg mt-3 leading-[1.05]" style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, letterSpacing: "-0.03em" }}>
             Four case studies
           </h2>
         </div>
@@ -142,7 +142,7 @@ export default function Work() {
                   {/* Title */}
                   <h3
                     className="font-display font-bold text-fg leading-snug group-hover:text-accent transition-colors duration-200"
-                    style={{ fontSize: "1.1875rem" }}
+                    style={{ fontSize: "1.125rem", letterSpacing: "-0.01em" }}
                   >
                     {cs.title}
                   </h3>

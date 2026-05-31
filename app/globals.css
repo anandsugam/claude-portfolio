@@ -8,8 +8,8 @@
   --color-accent: #EF8354;
   --color-border: #BFC0C0;
 
-  --font-display: var(--font-rethink), "Instrument Sans", system-ui, sans-serif;
-  --font-body: var(--font-rethink), "Instrument Sans", system-ui, sans-serif;
+  --font-display: "Satoshi", "Instrument Sans", system-ui, sans-serif;
+  --font-body: "Satoshi", "Instrument Sans", system-ui, sans-serif;
 }
 
 * {

@@ -460,50 +460,53 @@ export default function GrowthFramework() {
   const activeLevel = LEVELS.find((l) => l.code === selected)!;
 
   return (
-    <div className="rounded-2xl border border-border overflow-hidden" style={{ background: "var(--color-bg)" }}>
-      {/* Level selector — top of the card */}
-      <div className="border-b border-border px-4 py-3" role="tablist" aria-label="Designer level">
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-1.5">
-          {LEVELS.map((lvl) => {
-            const isActive = lvl.code === selected;
-            return (
-              <button
-                key={lvl.code}
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => setSelected(lvl.code)}
-                className="flex flex-col items-center justify-center rounded-xl px-3 py-2.5 transition-colors text-center"
-                style={{
-                  background: isActive ? ACCENT : "transparent",
-                  color: isActive ? "white" : "var(--color-fg)",
-                }}
-              >
-                <span className="font-display font-bold" style={{ fontSize: "0.8125rem", color: isActive ? "rgba(255,255,255,0.7)" : ACCENT }}>
-                  {lvl.code}
-                </span>
-                <span className="font-body mt-0.5 leading-tight" style={{ fontSize: "0.75rem", opacity: isActive ? 1 : 0.7 }}>
-                  {lvl.short}
-                </span>
-              </button>
-            );
-          })}
+    <div className="rounded-2xl border border-border overflow-clip" style={{ background: "var(--color-bg)" }}>
+      {/* Sticky header — tabs + active level title together */}
+      <div className="sticky top-0 z-10" style={{ background: "var(--color-bg)" }}>
+        {/* Level selector */}
+        <div className="border-b border-border px-4 py-3" role="tablist" aria-label="Designer level">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-1.5">
+            {LEVELS.map((lvl) => {
+              const isActive = lvl.code === selected;
+              return (
+                <button
+                  key={lvl.code}
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setSelected(lvl.code)}
+                  className="flex flex-col items-center justify-center rounded-xl px-3 py-2.5 transition-colors text-center"
+                  style={{
+                    background: isActive ? ACCENT : "transparent",
+                    color: isActive ? "white" : "var(--color-fg)",
+                  }}
+                >
+                  <span className="font-display font-bold" style={{ fontSize: "0.8125rem", color: isActive ? "rgba(255,255,255,0.7)" : ACCENT }}>
+                    {lvl.code}
+                  </span>
+                  <span className="font-body mt-0.5 leading-tight" style={{ fontSize: "0.75rem", opacity: isActive ? 1 : 0.7 }}>
+                    {lvl.short}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      {/* Active-level title row */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={`header-${selected}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="flex items-baseline gap-3 px-7 py-4 border-b border-border"
-        >
-          <span className="font-display font-bold text-fg" style={{ fontSize: "1.0625rem" }}>{activeLevel.title}</span>
-          <span className="font-body text-xs uppercase tracking-widest" style={{ color: ACCENT }}>{activeLevel.code}</span>
-        </motion.div>
-      </AnimatePresence>
+        {/* Active-level title row */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`header-${selected}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="flex items-baseline gap-3 px-7 py-4 border-b border-border"
+          >
+            <span className="font-display font-bold text-fg" style={{ fontSize: "1.0625rem" }}>{activeLevel.title}</span>
+            <span className="font-body text-xs uppercase tracking-widest" style={{ color: ACCENT }}>{activeLevel.code}</span>
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
       {/* Capability rows */}
       <div>
