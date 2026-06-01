@@ -23,6 +23,7 @@ const HERO_BG = "#0A1F12";
 const BRAND_GREEN = "#6EE87A";
 const ACCENT_DIM = "rgba(110,232,122,0.12)";
 const ACCENT_BORDER = "rgba(110,232,122,0.55)";
+const CARD_BORDER = "#f0f0f0";
 
 // ─── Micro-components ─────────────────────────────────────────────────────────
 
@@ -136,10 +137,10 @@ function PhaseCarousel({
   const slide = slides[current];
 
   return (
-    <div className="mb-14">
-      {/* Full-width image */}
+    <div className="mb-14 rounded-2xl overflow-hidden" style={{ backgroundColor: "#fff" }}>
+      {/* Image */}
       {slide.image ? (
-        <div className="w-full rounded-2xl overflow-hidden" style={{ height: 600 }}>
+        <div className="w-full" style={{ height: 560 }}>
           <img
             src={slide.image}
             alt={slide.label}
@@ -148,8 +149,8 @@ function PhaseCarousel({
         </div>
       ) : (
         <div
-          className="w-full rounded-2xl flex flex-col items-center justify-center border-2 border-dashed"
-          style={{ height: 600, borderColor: "var(--color-border)", backgroundColor: "var(--color-card)" }}
+          className="w-full flex flex-col items-center justify-center"
+          style={{ height: 560, backgroundColor: "#f5f5f5" }}
         >
           <div className="text-center px-8">
             <div
@@ -170,34 +171,35 @@ function PhaseCarousel({
         </div>
       )}
 
-      {/* Dots — full width row below image */}
-      <div className="flex items-center gap-1.5 mt-5">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className="rounded-full transition-all"
-            style={{
-              width: i === current ? 20 : 6,
-              height: 6,
-              backgroundColor: i === current ? BRAND_GREEN : "var(--color-border)",
-            }}
-          />
-        ))}
-      </div>
+      {/* Divider */}
+      <div style={{ height: 1, backgroundColor: "var(--color-border)" }} />
 
-      {/* Caption + prev/next */}
-      <div className="flex items-start justify-between gap-6 mt-3">
-        {/* Caption */}
-        <div className="flex-1">
-          <p className="font-body font-semibold text-fg mb-1" style={{ fontSize: "0.9375rem" }}>
+      {/* Bottom bar: caption + prev/next */}
+      <div className="flex items-center justify-between gap-6 px-6 py-5" style={{ backgroundColor: "#fff" }}>
+        {/* Dots above caption */}
+        <div className="min-w-0">
+          <div className="flex items-center gap-1.5 mb-2">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className="rounded-full transition-all"
+                style={{
+                  width: i === current ? 20 : 6,
+                  height: 6,
+                  backgroundColor: i === current ? BRAND_GREEN : "var(--color-border)",
+                }}
+              />
+            ))}
+          </div>
+          <p className="font-body font-semibold text-fg" style={{ fontSize: "0.9375rem" }}>
             {slide.label}
           </p>
-          <p className="font-body text-muted text-sm leading-relaxed">{slide.caption}</p>
+          <p className="font-body text-muted text-sm leading-relaxed mt-0.5">{slide.caption}</p>
         </div>
 
-        {/* Prev / Next only */}
-        <div className="flex items-center gap-2 shrink-0 mt-0.5">
+        {/* Prev / Next */}
+        <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={prev}
             className="w-9 h-9 rounded-full border border-border flex items-center justify-center transition-colors hover:border-fg"
@@ -209,8 +211,8 @@ function PhaseCarousel({
           </button>
           <button
             onClick={next}
-            className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
-            style={{ backgroundColor: BRAND_GREEN, color: "#0A1F12" }}
+            className="w-9 h-9 rounded-full border border-border flex items-center justify-center transition-colors hover:border-fg"
+            style={{ color: "var(--color-muted)" }}
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M5.5 2.5L10 7l-4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -414,11 +416,11 @@ export default function GojekPlusPage() {
                       key={p.logo}
                       className="bg-card rounded-xl p-4 flex items-center gap-4"
                     >
-                      <div className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden">
+                      <div className="shrink-0 w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden">
                         <img
                           src={`/logos/gojek/${p.logo}.png`}
                           alt={p.name}
-                          style={{ width: 36, height: 36, objectFit: "contain" }}
+                          style={{ width: 52, height: 52, objectFit: "contain" }}
                         />
                       </div>
                       <div>
@@ -667,15 +669,12 @@ export default function GojekPlusPage() {
 
               <div className="mt-6 mb-10 space-y-4">
                 <Paragraph>
-                  Before investing in a new brand, product architecture, and dozens of new touchpoints,
+                  Before investing in a new brand, product architecture, and dozens of new touch points,
                   the first challenge was validating whether customers would actually find value in a
-                  multi-service membership.
+                  multi-service membership. The goal was to answer key business questions fast, not
+                  build a perfect experience.
                 </Paragraph>
-                <Paragraph>
-                  Instead of building a completely new experience, a lightweight pilot was launched
-                  using existing GoFood+ infrastructure. The goal was to learn as quickly as possible
-                  while keeping engineering investment low.
-                </Paragraph>
+
               </div>
 
 
@@ -685,14 +684,10 @@ export default function GojekPlusPage() {
               </h3>
               <div className="mt-3 mb-8 max-w-3xl">
                 <Paragraph>
-                  The pilot focused on answering key business questions rather than perfecting the
-                  experience.
-                </Paragraph>
-                <Paragraph>
-                  Existing GoFood+ touchpoints were adapted to communicate ecosystem-wide benefits.
-                  Discovery surfaces were introduced across multiple Gojek products, subscription
-                  messaging was updated, and the existing purchase flow was reused rather than
-                  redesigned.
+                  The goal was to answer key business questions fast, not build a perfect experience.
+                  Adaptations were limited to three areas: updating subscription messaging to reflect
+                  ecosystem-wide benefits, introducing discovery surfaces across Gojek products, and
+                  reusing the purchase flow as-is.
                 </Paragraph>
               </div>
 
@@ -719,17 +714,12 @@ export default function GojekPlusPage() {
               />
 
               {/* 14+ constructs */}
-              <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.375rem" }}>
-                Designing for learning
+              <h3 className="font-display font-semibold text-fg mb-3 max-w-3xl" style={{ fontSize: "1.375rem" }}>
+                With discovery and branding updates live, 14+ subscription plan constructs were
+                experimented with a limited rollout, varying across three levers
               </h3>
-              <div className="mt-3 mb-8 max-w-3xl">
-                <Paragraph>
-                  With discovery and branding updates live, 14+ different plan constructs were run
-                  with a limited rollout, varying across three levers:
-                </Paragraph>
-              </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-10">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-10 mt-6">
                 {[
                   { n: "01", title: "Benefit types + value", body: "What discounts and perks unlock, and how much" },
                   { n: "02", title: "Plan pricing + types", body: "Trial pricing, renewal pricing, tiered structures" },
@@ -743,30 +733,69 @@ export default function GojekPlusPage() {
                 ))}
               </div>
 
-              {/* Winning plan structure */}
-              <SectionLabel>Winning plan structure</SectionLabel>
-              <div className="rounded-2xl overflow-hidden border border-border mb-12">
-                <div className="grid grid-cols-3 gap-px" style={{ background: "var(--color-border)" }}>
-                  {[
-                    { duration: "7 days", tier: "Entry" },
-                    { duration: "14 days", tier: "Mid" },
-                    { duration: "30 days", tier: "Best value" },
-                  ].map((p) => (
-                    <div key={p.duration} className="px-8 py-7 text-center bg-card">
-                      <p className="font-display font-bold text-fg mb-1" style={{ fontSize: "1.375rem" }}>{p.duration}</p>
-                      <span
-                        className="font-body text-xs px-2.5 py-1 rounded-full"
-                        style={{ background: ACCENT_DIM, color: BRAND_GREEN }}
-                      >
-                        {p.tier}
-                      </span>
+              {/* Winning plan construct */}
+              {(() => {
+                const plans = [
+                  { duration: "90 days", tier: "Best value", actual: "Rp44,900", price: "Rp18,900" },
+                  { duration: "30 days", tier: "Mid",        actual: "Rp29,900", price: "Rp14,900" },
+                  { duration: "14 days", tier: "Entry",      actual: "Rp18,900", price: "Rp8,900"  },
+                ];
+                const services = [
+                  { icon: "/logos/gojek/gofood.png",    label: "GoFood",    values: ["Up to 12k off", "Up to 12k off", "Up to 12k off"], vch: ["900 vouchers", "300 vouchers", "140 vouchers"] },
+                  { icon: "/logos/gojek/goride.png",    label: "GoRide",    values: ["Up to 8k off",  "Up to 8k off",  "Up to 8k off" ], vch: ["360 vouchers", "120 vouchers", "60 vouchers"  ] },
+                  { icon: "/logos/gojek/gocar.png",     label: "GoCar",     values: ["Up to 8k off",  "Up to 8k off",  "Up to 8k off" ], vch: ["360 vouchers", "120 vouchers", "60 vouchers"  ] },
+                  { icon: "/logos/gojek/gotransit.png", label: "GoTransit", values: ["Up to 15k off", "Up to 15k off", "Up to 15k off"], vch: ["360 vouchers", "120 vouchers", "60 vouchers"  ] },
+                  { icon: "/logos/gojek/gosend.png",    label: "GoSend",    values: ["Up to 4k off",  "Up to 4k off",  "Up to 4k off" ], vch: ["180 vouchers", "60 vouchers",  "30 vouchers"  ] },
+                  { icon: "/logos/gojek/gomart.png",    label: "GoMart",    values: ["Up to 8k off",  "Up to 8k off",  "Up to 8k off" ], vch: ["60 vouchers",  "20 vouchers",  "10 vouchers"  ] },
+                ];
+                const col = "1fr";
+                const border = `1px solid ${CARD_BORDER}`;
+                return (
+                  <div className="mb-12 rounded-2xl overflow-hidden" style={{ display: "grid", gridTemplateColumns: `1.4fr ${col} ${col} ${col}`, backgroundColor: "#fff", border }}>
+                    {/* Header row */}
+                    <div className="px-6 py-6 flex flex-col justify-end" style={{ borderBottom: border, backgroundColor: "#fff" }}>
+                      <p className="font-display font-bold text-fg" style={{ fontSize: "1.5rem", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>Winning construct</p>
+                      <span className="font-body text-xs px-2.5 py-1 rounded-full self-start" style={{ background: "transparent", color: "var(--color-muted)", fontWeight: 500, border }}>3 tier subscription plan</span>
                     </div>
-                  ))}
-                </div>
-              </div>
+                    {plans.map((p, i) => (
+                      <div key={p.duration} className="px-6 py-6 flex flex-col justify-end" style={{ backgroundColor: "#fff", borderBottom: border, borderLeft: border }}>
+                        <p className="font-display font-bold text-fg" style={{ fontSize: "1.5rem", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>{p.duration}</p>
+                        <span className="font-body text-xs px-2.5 py-1 rounded-full self-start" style={{ background: "transparent", color: "var(--color-muted)", fontWeight: 500, border }}>{p.tier}</span>
+                      </div>
+                    ))}
+
+                    {/* Service rows */}
+                    {services.map((s) => (
+                      <>
+                        <div key={s.label + "-label"} className="px-6 py-4 flex items-center gap-3" style={{ borderBottom: border, backgroundColor: "#fff" }}>
+                          <img src={s.icon} alt={s.label} className="rounded-lg shrink-0" style={{ width: 32, height: 32, objectFit: "cover" }} />
+                          <p className="font-body text-sm text-fg" style={{ fontWeight: 500 }}>{s.label}</p>
+                        </div>
+                        {s.values.map((v, i) => (
+                          <div key={i} className="px-6 py-4 flex flex-col justify-center" style={{ backgroundColor: "#fff", borderBottom: border, borderLeft: border }}>
+                            <p className="font-body font-semibold text-fg" style={{ fontSize: "0.875rem" }}>{v}</p>
+                            {s.vch[i] && <p className="font-body text-xs mt-0.5" style={{ color: "var(--color-muted)", fontWeight: 400 }}>{s.vch[i]}</p>}
+                          </div>
+                        ))}
+                      </>
+                    ))}
+
+                    {/* Price row */}
+                    <div className="px-6 py-5 flex items-center" style={{ backgroundColor: "#fff" }}>
+                      <p className="font-body text-xs uppercase tracking-widest font-medium" style={{ color: "var(--color-muted)" }}>Subscription price</p>
+                    </div>
+                    {plans.map((p, i) => (
+                      <div key={p.duration + "-price"} className="px-6 py-5 flex flex-col justify-center" style={{ backgroundColor: "#fff", borderLeft: border }}>
+                        <p className="font-body text-xs line-through mb-1" style={{ color: "var(--color-muted)" }}>{p.actual}</p>
+                        <p className="font-display font-bold text-fg" style={{ fontSize: "1.25rem", letterSpacing: "-0.02em" }}>{p.price}</p>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
 
               {/* Learnings */}
-              <SectionLabel>What Phase 1 taught us</SectionLabel>
+              <h3 className="font-display font-semibold text-fg mb-6" style={{ fontSize: "1.375rem" }}>What the pilot revealed</h3>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {[
                   {
@@ -781,22 +810,16 @@ export default function GojekPlusPage() {
                   },
                   {
                     n: "03",
-                    title: "3-tier plan structure performs best",
-                    body: "A 7/14/30-day split drove the best results, giving users a clear value ladder and reducing decision paralysis.",
+                    title: "Users preferred longer-term plans",
+                    body: "A clear value ladder concentrated demand toward the 90-day plan (63%), followed by the 14-day (28%) and 30-day (9%) plans.",
                   },
                   {
                     n: "04",
                     title: "Business model validated before full investment",
-                    body: "By reusing existing GoFood+ touchpoints, real signal was gathered to proceed with confidence — without significant engineering cost.",
+                    body: "By reusing existing GoFood+ touchpoints, real signal was gathered to proceed with confidence without significant engineering cost.",
                   },
                 ].map((l) => (
                   <div key={l.n} className="bg-bg rounded-2xl p-7">
-                    <span
-                      className="font-display font-bold block mb-3"
-                      style={{ fontSize: "1.5rem", color: BRAND_GREEN, lineHeight: 1 }}
-                    >
-                      {l.n}
-                    </span>
                     <p className="font-body font-semibold text-fg mb-2" style={{ fontSize: "0.9375rem" }}>{l.title}</p>
                     <p className="font-body text-muted text-sm leading-relaxed">{l.body}</p>
                   </div>
@@ -846,10 +869,10 @@ export default function GojekPlusPage() {
                 { pct: "67%", label: "Of new subscribers had GoFood+ before" },
                 { pct: "80%", label: "Felt the new plan was an upgrade on GoFood+" },
               ].map((s) => (
-                <div key={s.label} className="bg-card rounded-2xl p-7">
+                <div key={s.label} className="rounded-2xl p-7" style={{ backgroundColor: "#fff", border: `1px solid ${CARD_BORDER}` }}>
                   <div
-                    className="font-display font-bold mb-2"
-                    style={{ fontSize: "clamp(1.75rem, 3vw, 2.25rem)", color: BRAND_GREEN, lineHeight: 1 }}
+                    className="font-display font-bold mb-2 text-fg"
+                    style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", lineHeight: 1 }}
                   >
                     {s.pct}
                   </div>
