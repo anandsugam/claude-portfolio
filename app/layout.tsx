@@ -20,6 +20,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+        <script dangerouslySetInnerHTML={{__html:`if(location.hash.indexOf('figmacapture')!==-1){var s=document.createElement('style');s.textContent='*{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}';document.documentElement.appendChild(s)}`}} />
       </head>
       <body className="min-h-full flex flex-col bg-bg text-fg">{children}</body>
     </html>

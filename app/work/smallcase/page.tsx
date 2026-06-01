@@ -7,6 +7,16 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import GrowthFramework from "@/components/GrowthFramework";
 
+// ── Section tabs ─────────────────────────────────────────────────────────────
+const TABS = [
+  { id: "context",        label: "Context" },
+  { id: "situation",      label: "Situation" },
+  { id: "infrastructure", label: "Infrastructure" },
+  { id: "culture",        label: "Culture" },
+  { id: "craft",          label: "Craft & Systems" },
+  { id: "impact",         label: "Impact" },
+] as const;
+
 // ── Brand tokens ─────────────────────────────────────────────────────────────
 const HERO_BG = "#13314C";
 const ACCENT = "#4F93E8";
@@ -167,6 +177,23 @@ function Modal({ open, onClose, title, description, children }: {
 export default function SmallcasePage() {
   const [careerModalOpen, setCareerModalOpen] = useState(false);
   const [growthModalOpen, setGrowthModalOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("context");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: "-20% 0px -65% 0px", threshold: 0 }
+    );
+    TABS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -214,10 +241,34 @@ export default function SmallcasePage() {
           </div>
         </section>
 
+        {/* ── Sticky section tabs ─────────────────────────────────────── */}
+        <div className="sticky top-14 z-40 border-b border-border" style={{ background: "var(--color-bg)", backdropFilter: "blur(12px)" }}>
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="flex items-center overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+              {TABS.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => { setActiveSection(tab.id); document.getElementById(tab.id)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
+                  className="relative shrink-0 font-body text-sm px-4 py-3.5 transition-colors"
+                  style={{ color: activeSection === tab.id ? "var(--color-fg)" : "var(--color-muted)" }}
+                >
+                  {tab.label}
+                  {activeSection === tab.id && (
+                    <span
+                      className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
+                      style={{ backgroundColor: ACCENT }}
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* ══════════════════════════════════════════════════════════════════
             CONTEXT — about the organization
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 pt-24 pb-4 max-w-5xl mx-auto">
+        <section id="context" className="px-6 pt-24 pb-4 max-w-5xl mx-auto scroll-mt-28">
           <motion.div {...fade}>
             <Label>Context · The organization</Label>
             <H2>One of India&apos;s leading wealth-tech companies</H2>
@@ -295,7 +346,7 @@ export default function SmallcasePage() {
         {/* ══════════════════════════════════════════════════════════════════
             01 — THE SITUATION
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-24 max-w-5xl mx-auto">
+        <section id="situation" className="px-6 py-24 max-w-5xl mx-auto scroll-mt-28">
           <motion.div {...fade}>
             <Label>01 — The situation at the start</Label>
             <H2>Design existed. A design function didn&apos;t</H2>
@@ -450,7 +501,7 @@ export default function SmallcasePage() {
         {/* ══════════════════════════════════════════════════════════════════
             BUCKET 01 — TEAM INFRASTRUCTURE
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-24 bg-card">
+        <section id="infrastructure" className="px-6 py-24 bg-card scroll-mt-28">
           <div className="max-w-5xl mx-auto">
             <motion.div {...fade}>
               <Label>Bucket 01 · Team infrastructure</Label>
@@ -572,7 +623,7 @@ export default function SmallcasePage() {
         {/* ══════════════════════════════════════════════════════════════════
             BUCKET 02 — CULTURE, BUILT REMOTELY
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-24 max-w-5xl mx-auto">
+        <section id="culture" className="px-6 py-24 max-w-5xl mx-auto scroll-mt-28">
           <motion.div {...fade}>
             <Label>Bucket 02 · Culture, built remotely</Label>
             <H2>Turning eight people in silos into one team</H2>
@@ -677,7 +728,7 @@ export default function SmallcasePage() {
         {/* ══════════════════════════════════════════════════════════════════
             PRODUCT — craft + AI
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-24 bg-card">
+        <section id="craft" className="px-6 py-24 bg-card scroll-mt-28">
           <div className="max-w-5xl mx-auto">
             <motion.div {...fade}>
               <Label>Bucket 03 · Craft &amp; systems</Label>
@@ -805,7 +856,7 @@ export default function SmallcasePage() {
         {/* ══════════════════════════════════════════════════════════════════
             IMPACT
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-24 max-w-5xl mx-auto">
+        <section id="impact" className="px-6 py-24 max-w-5xl mx-auto scroll-mt-28">
           <motion.div {...fade}>
             <Label>03 — Impact</Label>
             <H2>Design moved from the execution layer to the strategy table</H2>

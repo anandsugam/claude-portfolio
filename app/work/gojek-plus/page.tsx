@@ -1,15 +1,28 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
+// ─── Section tabs ─────────────────────────────────────────────────────────────
+const TABS = [
+  { id: "context",    label: "Context" },
+  { id: "brief",      label: "Objective" },
+  { id: "strategy",   label: "Strategy" },
+  { id: "phase-1",    label: "Phase 1" },
+  { id: "phase-2",    label: "Phase 2" },
+  { id: "phase-3",    label: "Phase 3" },
+  { id: "outcome",    label: "Outcome" },
+  { id: "reflection", label: "Reflection" },
+] as const;
+
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const HERO_BG = "#0A1F12";
 const BRAND_GREEN = "#6EE87A";
 const ACCENT_DIM = "rgba(110,232,122,0.12)";
-const ACCENT_BORDER = "rgba(110,232,122,0.25)";
+const ACCENT_BORDER = "rgba(110,232,122,0.55)";
 
 // ─── Micro-components ─────────────────────────────────────────────────────────
 
@@ -63,7 +76,7 @@ function H2({ children }: { children: React.ReactNode }) {
   return (
     <h2
       className="font-display font-bold text-fg leading-tight"
-      style={{ fontSize: "clamp(1.875rem, 3.5vw, 2.75rem)" }}
+      style={{ fontSize: "clamp(1.875rem, 3.5vw, 2.75rem)", letterSpacing: "-0.02em" }}
     >
       {children}
     </h2>
@@ -74,7 +87,7 @@ function H2Dark({ children }: { children: React.ReactNode }) {
   return (
     <h2
       className="font-display font-bold leading-tight"
-      style={{ fontSize: "clamp(1.875rem, 3.5vw, 2.75rem)", color: "white" }}
+      style={{ fontSize: "clamp(1.875rem, 3.5vw, 2.75rem)", color: "white", letterSpacing: "-0.02em" }}
     >
       {children}
     </h2>
@@ -83,24 +96,128 @@ function H2Dark({ children }: { children: React.ReactNode }) {
 
 function Paragraph({ children }: { children: React.ReactNode }) {
   return (
-    <p className="font-body text-muted leading-relaxed" style={{ fontSize: "1rem" }}>
+    <p className="font-body text-muted leading-relaxed" style={{ fontSize: "1.0625rem" }}>
       {children}
     </p>
   );
 }
 
-function ThesisBlock({ children }: { children: React.ReactNode }) {
+function ThesisBlock({ children, logo }: { children: React.ReactNode; logo?: string }) {
   return (
     <div
       className="my-10 px-8 py-8 rounded-2xl border-l-4"
       style={{ backgroundColor: ACCENT_DIM, borderColor: BRAND_GREEN }}
     >
+      {logo && (
+        <img
+          src={logo}
+          alt=""
+          style={{ height: 32, width: "auto", objectFit: "contain", marginBottom: 14 }}
+        />
+      )}
       <p
         className="font-display font-bold text-fg leading-snug"
-        style={{ fontSize: "clamp(1.125rem, 2.5vw, 1.625rem)" }}
+        style={{ fontSize: "clamp(0.875rem, 1.5vw, 1.0625rem)" }}
       >
         {children}
       </p>
+    </div>
+  );
+}
+
+function PhaseCarousel({
+  slides,
+}: {
+  slides: { label: string; sublabel?: string; caption: string; image?: string }[];
+}) {
+  const [current, setCurrent] = useState(0);
+  const prev = () => setCurrent((c) => (c - 1 + slides.length) % slides.length);
+  const next = () => setCurrent((c) => (c + 1) % slides.length);
+  const slide = slides[current];
+
+  return (
+    <div className="mb-14">
+      {/* Full-width image */}
+      {slide.image ? (
+        <div className="w-full rounded-2xl overflow-hidden" style={{ height: 600 }}>
+          <img
+            src={slide.image}
+            alt={slide.label}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      ) : (
+        <div
+          className="w-full rounded-2xl flex flex-col items-center justify-center border-2 border-dashed"
+          style={{ height: 600, borderColor: "var(--color-border)", backgroundColor: "var(--color-card)" }}
+        >
+          <div className="text-center px-8">
+            <div
+              className="mx-auto mb-3 flex items-center justify-center rounded-xl"
+              style={{ width: 40, height: 40, backgroundColor: ACCENT_DIM }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ color: BRAND_GREEN }}>
+                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M21 15l-5-5L5 21" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <p className="font-body font-medium text-fg text-sm">{slide.label}</p>
+            {slide.sublabel && (
+              <p className="font-body text-muted text-xs mt-1 leading-relaxed max-w-xs">{slide.sublabel}</p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Dots — full width row below image */}
+      <div className="flex items-center gap-1.5 mt-5">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className="rounded-full transition-all"
+            style={{
+              width: i === current ? 20 : 6,
+              height: 6,
+              backgroundColor: i === current ? BRAND_GREEN : "var(--color-border)",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Caption + prev/next */}
+      <div className="flex items-start justify-between gap-6 mt-3">
+        {/* Caption */}
+        <div className="flex-1">
+          <p className="font-body font-semibold text-fg mb-1" style={{ fontSize: "0.9375rem" }}>
+            {slide.label}
+          </p>
+          <p className="font-body text-muted text-sm leading-relaxed">{slide.caption}</p>
+        </div>
+
+        {/* Prev / Next only */}
+        <div className="flex items-center gap-2 shrink-0 mt-0.5">
+          <button
+            onClick={prev}
+            className="w-9 h-9 rounded-full border border-border flex items-center justify-center transition-colors hover:border-fg"
+            style={{ color: "var(--color-muted)" }}
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M8.5 2.5L4 7l4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <button
+            onClick={next}
+            className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
+            style={{ backgroundColor: BRAND_GREEN, color: "#0A1F12" }}
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M5.5 2.5L10 7l-4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -149,6 +266,24 @@ function ImageZone({
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
 export default function GojekPlusPage() {
+  const [activeSection, setActiveSection] = useState<string>("context");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: "-20% 0px -65% 0px", threshold: 0 }
+    );
+    TABS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <Nav />
@@ -158,18 +293,10 @@ export default function GojekPlusPage() {
             HERO
         ══════════════════════════════════════════════════════════════════ */}
         <section
-          className="min-h-screen flex flex-col justify-end px-6 pb-20 pt-36 relative overflow-hidden"
+          className="px-6 pt-36 pb-16 lg:pb-20"
           style={{ backgroundColor: HERO_BG }}
         >
-          <div
-            className="absolute inset-0 opacity-[0.035] pointer-events-none"
-            style={{
-              backgroundImage:
-                "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-            }}
-          />
-
-          <div className="max-w-5xl mx-auto w-full relative">
+          <div className="max-w-5xl mx-auto w-full">
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-8">
@@ -189,7 +316,7 @@ export default function GojekPlusPage() {
               </p>
 
               <h1
-                className="font-display font-bold leading-[1.0] tracking-tight"
+                className="font-display font-bold leading-[1.05] tracking-tight"
                 style={{ color: "white", fontSize: "clamp(2.25rem, 5vw, 4.5rem)" }}
               >
                 Building{" "}
@@ -197,71 +324,45 @@ export default function GojekPlusPage() {
               </h1>
 
               <p
-                className="font-body leading-relaxed mt-8"
+                className="font-body leading-relaxed mt-7"
                 style={{ color: "rgba(255,255,255,0.5)", fontSize: "clamp(1rem, 1.5vw, 1.125rem)" }}
               >
-                Southeast Asia&apos;s first super-app-wide subscription brand, designed from a pilot
-                experiment to a nationwide launch that set record daily purchases.
+                This case study talks about the story of designing Gojek&apos;s first unified subscription
+                brand from an early experiment to a nationwide launch that set record daily purchases.
               </p>
 
-              {/* Hero stats */}
-              <div
-                className="grid grid-cols-3 gap-px mt-14 rounded-2xl overflow-hidden"
-                style={{ background: "rgba(255,255,255,0.08)" }}
-              >
-                {[
-                  { value: "200k+", label: "Daily active subscribers" },
-                  { value: "40%", label: "Conversion rate uplift" },
-                  { value: "6", label: "Products unified under one brand" },
-                ].map((s) => (
-                  <div key={s.label} className="px-6 py-8" style={{ background: HERO_BG }}>
-                    <div
-                      className="font-display font-bold mb-1"
-                      style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", color: BRAND_GREEN, lineHeight: 1 }}
-                    >
-                      {s.value}
-                    </div>
-                    <p className="font-body text-xs leading-snug" style={{ color: "rgba(255,255,255,0.45)" }}>
-                      {s.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
             </motion.div>
           </div>
         </section>
 
-        {/* ══════════════════════════════════════════════════════════════════
-            CONTEXT BAR
-        ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-10 border-b border-border">
-          <div className="max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              className="grid grid-cols-2 lg:grid-cols-4 gap-8"
-            >
-              {[
-                { label: "My Role", value: "Product Design Lead" },
-                { label: "Team", value: "GoFood · cross-functional" },
-                { label: "Duration", value: "3 months (Feb–May 2024)" },
-                { label: "Scope", value: "Strategy · Research · Brand · UX" },
-              ].map((item) => (
-                <div key={item.label}>
-                  <p className="font-body text-xs text-muted uppercase tracking-widest mb-1.5">{item.label}</p>
-                  <p className="font-body font-medium text-fg" style={{ fontSize: "0.9375rem" }}>{item.value}</p>
-                </div>
+        {/* ── Sticky section tabs ─────────────────────────────────────── */}
+        <div className="sticky top-14 z-40 border-b border-border" style={{ background: "var(--color-bg)", backdropFilter: "blur(12px)" }}>
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="flex items-center overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+              {TABS.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => { setActiveSection(tab.id); document.getElementById(tab.id)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
+                  className="relative shrink-0 font-body text-sm px-4 py-3.5 transition-colors"
+                  style={{ color: activeSection === tab.id ? "var(--color-fg)" : "var(--color-muted)" }}
+                >
+                  {tab.label}
+                  {activeSection === tab.id && (
+                    <span
+                      className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
+                      style={{ backgroundColor: BRAND_GREEN }}
+                    />
+                  )}
+                </button>
               ))}
-            </motion.div>
+            </div>
           </div>
-        </section>
+        </div>
 
         {/* ══════════════════════════════════════════════════════════════════
             01 — CONTEXT
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-20 max-w-5xl mx-auto">
+        <section id="context" className="px-6 py-20 max-w-5xl mx-auto scroll-mt-28">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -292,9 +393,8 @@ export default function GojekPlusPage() {
                   </Paragraph>
                 </div>
 
-                <ThesisBlock>
-                  &ldquo;GoFood+ subscribers generated 3x more transactions than non-subscribers.
-                  The goal was to bring that engine to every product.&rdquo;
+                <ThesisBlock logo="/logos/gojek/gofood+.png">
+                  Leadership&apos;s ask: replicate what GoFood+ did, but at the Gojek level, spanning all six products.
                 </ThesisBlock>
               </div>
 
@@ -303,23 +403,24 @@ export default function GojekPlusPage() {
                 <SectionLabel>6 products to unify</SectionLabel>
                 <div className="grid grid-cols-1 gap-3">
                   {[
-                    { n: "01", name: "GoFood", type: "Food delivery" },
-                    { n: "02", name: "GoRide", type: "Motorcycle taxi" },
-                    { n: "03", name: "GoCar", type: "Car rides" },
-                    { n: "04", name: "GoTransit", type: "Public transit" },
-                    { n: "05", name: "GoMart", type: "Grocery delivery" },
-                    { n: "06", name: "GoSend", type: "Package delivery" },
+                    { logo: "gofood",    name: "GoFood",    type: "Food delivery" },
+                    { logo: "goride",    name: "GoRide",    type: "Motorcycle taxi" },
+                    { logo: "gocar",     name: "GoCar",     type: "Car rides" },
+                    { logo: "gotransit", name: "GoTransit", type: "Public transit" },
+                    { logo: "gomart",    name: "GoMart",    type: "Grocery delivery" },
+                    { logo: "gosend",    name: "GoSend",    type: "Package delivery" },
                   ].map((p) => (
                     <div
-                      key={p.n}
-                      className="bg-card rounded-xl p-4 flex items-start gap-4"
+                      key={p.logo}
+                      className="bg-card rounded-xl p-4 flex items-center gap-4"
                     >
-                      <span
-                        className="font-display font-bold shrink-0"
-                        style={{ fontSize: "1.125rem", color: BRAND_GREEN, lineHeight: 1, marginTop: 2 }}
-                      >
-                        {p.n}
-                      </span>
+                      <div className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden">
+                        <img
+                          src={`/logos/gojek/${p.logo}.png`}
+                          alt={p.name}
+                          style={{ width: 36, height: 36, objectFit: "contain" }}
+                        />
+                      </div>
                       <div>
                         <p className="font-body font-semibold text-fg text-sm">{p.name}</p>
                         <p className="font-body text-muted text-xs mt-0.5">{p.type}</p>
@@ -335,7 +436,7 @@ export default function GojekPlusPage() {
         {/* ══════════════════════════════════════════════════════════════════
             02 — THE BRIEF
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-20 bg-card">
+        <section id="brief" className="px-6 py-20 bg-card scroll-mt-28">
           <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -343,49 +444,12 @@ export default function GojekPlusPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <ChapterMark num="02" label="The Brief" />
+              <ChapterMark num="02" label="Objective" />
 
-              <H2>Scale subscriptions to 10x by end of 2024</H2>
-
-              <div className="mt-6 mb-12 space-y-4 max-w-3xl">
-                <Paragraph>
-                  The business target was clear: 10x current subscription scale by year-end. That
-                  required rebuilding the brand, reimagining the product architecture, and designing
-                  20+ in-app touchpoints — all while keeping the pilot running and planning a
-                  Southeast Asian rollout.
-                </Paragraph>
-              </div>
-
-              {/* Power user definition */}
-              <div
-                className="rounded-2xl p-8 mb-12"
-                style={{ backgroundColor: HERO_BG }}
-              >
-                <p
-                  className="font-body text-xs uppercase tracking-widest mb-4"
-                  style={{ color: "rgba(255,255,255,0.3)" }}
-                >
-                  Power user definition
-                </p>
-                <p
-                  className="font-display font-semibold leading-snug"
-                  style={{ color: "white", fontSize: "clamp(1rem, 2vw, 1.25rem)", maxWidth: "40ch" }}
-                >
-                  &ldquo;Users who completed 30+ orders in a month across any combination of Food,
-                  Ride, Car, Transit, Send and Mart.&rdquo;
-                </p>
-                <p
-                  className="font-body mt-5 leading-relaxed"
-                  style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.9375rem" }}
-                >
-                  These were Gojek&apos;s most valuable users — and competitors were actively targeting
-                  them with predictable discounts and bundled benefits.
-                </p>
-              </div>
+              <H2>Scale subscriptions to 2.5x by end of 2024</H2>
 
               {/* 3 business targets */}
-              <SectionLabel>Business targets</SectionLabel>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-6 mb-12">
                 {[
                   {
                     n: "01",
@@ -410,10 +474,37 @@ export default function GojekPlusPage() {
                     >
                       {t.n}
                     </span>
-                    <p className="font-body font-semibold text-fg text-sm mb-2">{t.title}</p>
+                    <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.25rem", letterSpacing: "-0.02em" }}>{t.title}</p>
                     <p className="font-body text-muted text-sm leading-relaxed">{t.body}</p>
                   </div>
                 ))}
+              </div>
+
+              {/* Power user definition */}
+              <div
+                className="rounded-2xl p-8"
+                style={{ backgroundColor: ACCENT_DIM, border: `1px solid ${ACCENT_BORDER}` }}
+              >
+                <p
+                  className="font-body text-xs uppercase tracking-widest mb-4"
+                  style={{ color: "var(--color-muted)" }}
+                >
+                  Power user definition
+                </p>
+                <p
+                  className="font-display font-semibold leading-snug text-fg"
+                  style={{ fontSize: "clamp(1rem, 2vw, 1.25rem)", maxWidth: "40ch" }}
+                >
+                  &ldquo;Users who completed 30+ orders in a month across any combination of Food,
+                  Ride, Car, Transit, Send and Mart.&rdquo;
+                </p>
+                <p
+                  className="font-body text-muted mt-5 leading-relaxed"
+                  style={{ fontSize: "0.9375rem" }}
+                >
+                  These were Gojek&apos;s most valuable users. Competitors were actively targeting
+                  them with predictable discounts and bundled benefits.
+                </p>
               </div>
             </motion.div>
           </div>
@@ -422,7 +513,7 @@ export default function GojekPlusPage() {
         {/* ══════════════════════════════════════════════════════════════════
             03 — STRATEGY
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-20 max-w-5xl mx-auto">
+        <section id="strategy" className="px-6 py-20 max-w-5xl mx-auto scroll-mt-28">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -433,7 +524,7 @@ export default function GojekPlusPage() {
 
             <H2>A 3-phase approach: test, learn, scale</H2>
 
-            <div className="mt-6 mb-12 max-w-3xl">
+            <div className="mt-6 mb-12">
               <Paragraph>
                 With a fixed launch date and a 3-month runway, the project strategy was designed to
                 de-risk each phase. Rather than building everything at once, Phase 1 validated the
@@ -441,13 +532,13 @@ export default function GojekPlusPage() {
               </Paragraph>
             </div>
 
-            {/* Roadmap strip */}
-            <div className="grid grid-cols-3 gap-3 mb-2">
-              {[
+            {/* Timeline */}
+            {(() => {
+              const phases = [
                 {
                   dates: "Feb – Mar 2024",
                   phase: "Phase 1",
-                  title: "Testing the Waters",
+                  title: "Validate",
                   items: [
                     "Pilot launch with existing infrastructure",
                     "Business construct design",
@@ -459,7 +550,7 @@ export default function GojekPlusPage() {
                 {
                   dates: "Mar – Apr 2024",
                   phase: "Phase 2",
-                  title: "Redesign + Brand Building",
+                  title: "Design to Scale",
                   items: [
                     "Post-pilot user research (700+ participants)",
                     "Full UX research programme",
@@ -471,7 +562,7 @@ export default function GojekPlusPage() {
                 {
                   dates: "Apr – May 2024",
                   phase: "Phase 3",
-                  title: "Nationwide Launch",
+                  title: "Launch to Grow",
                   items: [
                     "New Gojek PLUS brand system",
                     "Nationwide launch campaign",
@@ -480,46 +571,89 @@ export default function GojekPlusPage() {
                   ],
                   active: true,
                 },
-              ].map((p) => (
-                <div
-                  key={p.phase}
-                  className="rounded-2xl px-7 py-7"
-                  style={{
-                    backgroundColor: p.active ? ACCENT_DIM : "var(--color-card)",
-                    border: `1px solid ${p.active ? ACCENT_BORDER : "var(--color-border)"}`,
-                  }}
-                >
-                  <p
-                    className="font-body text-xs uppercase tracking-widest mb-1"
-                    style={{ color: p.active ? BRAND_GREEN : "var(--color-muted)" }}
-                  >
-                    {p.dates}
-                  </p>
-                  <p className="font-body text-xs mb-2 text-muted">{p.phase}</p>
-                  <p className="font-display font-bold text-fg mb-4" style={{ fontSize: "1rem" }}>
-                    {p.title}
-                  </p>
-                  <ul className="space-y-2">
-                    {p.items.map((item) => (
-                      <li key={item} className="flex items-start gap-2">
-                        <span
-                          className="w-1 h-1 rounded-full shrink-0 mt-2"
-                          style={{ backgroundColor: p.active ? BRAND_GREEN : "var(--color-muted)" }}
-                        />
-                        <span className="font-body text-muted text-xs leading-relaxed">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+              ];
+              return (
+                <div className="grid grid-cols-3 gap-4 mt-2 mb-2">
+                  {phases.map((p, i) => (
+                    <div
+                      key={p.phase}
+                      className="rounded-2xl border overflow-hidden flex flex-col"
+                      style={{ borderColor: p.active ? ACCENT_BORDER : "var(--color-border)" }}
+                    >
+                      {/* Card header */}
+                      <div
+                        className="px-7 pt-7 pb-0 flex flex-col"
+                        style={{ backgroundColor: p.active ? ACCENT_DIM : "var(--color-card)" }}
+                      >
+                        {/* Number + phase label row */}
+                        <div className="flex items-center justify-between mb-5">
+                          <span
+                            className="font-display font-bold"
+                            style={{ fontSize: "2rem", color: BRAND_GREEN, lineHeight: 1 }}
+                          >
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span className="font-body text-xs uppercase tracking-widest text-muted">
+                            {p.phase}
+                          </span>
+                        </div>
+
+                        {/* Title */}
+                        <p
+                          className="font-display font-bold text-fg mb-2"
+                          style={{ fontSize: "1.25rem", letterSpacing: "-0.02em" }}
+                        >
+                          {p.title}
+                        </p>
+
+                        <div className="flex-1 min-h-4" />
+
+                        {/* Footer row */}
+                        <div
+                          className="flex items-center justify-between pt-4 pb-5 mt-auto border-t"
+                          style={{ borderColor: p.active ? ACCENT_BORDER : "var(--color-border)" }}
+                        >
+                          <span className="font-body text-xs uppercase tracking-widest text-muted">Timeline</span>
+                          <span
+                            className="font-body text-xs font-medium"
+                            style={{ color: "var(--color-fg)" }}
+                          >
+                            {p.dates}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Card body — bullets */}
+                      <div
+                        className="px-7 py-5 border-t flex flex-col"
+                        style={{
+                          backgroundColor: "var(--color-bg)",
+                          borderColor: p.active ? ACCENT_BORDER : "var(--color-border)",
+                        }}
+                      >
+                        {p.items.map((item) => (
+                          <div key={item} className="py-3 border-b border-border last:border-0 first:pt-0 last:pb-0">
+                            <p
+                              className="font-body text-muted leading-relaxed"
+                              style={{ fontSize: "0.8125rem" }}
+                            >
+                              {item}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              );
+            })()}
           </motion.div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════
             04 — PHASE 1
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-20 bg-card">
+        <section id="phase-1" className="px-6 py-20 bg-card scroll-mt-28">
           <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -529,76 +663,64 @@ export default function GojekPlusPage() {
             >
               <ChapterMark num="04" label="Phase 1 · Feb – Mar 2024" />
 
-              <H2>Testing the Waters</H2>
+              <H2>Phase 1: Pilot to Learn</H2>
 
-              <div className="mt-6 mb-10 max-w-3xl">
+              <div className="mt-6 mb-10 space-y-4">
                 <Paragraph>
-                  Before investing in a full redesign, a lightweight experiment was designed to
-                  validate whether users would adopt a multi-product subscription at all.
+                  Before investing in a new brand, product architecture, and dozens of new touchpoints,
+                  the first challenge was validating whether customers would actually find value in a
+                  multi-service membership.
+                </Paragraph>
+                <Paragraph>
+                  Instead of building a completely new experience, a lightweight pilot was launched
+                  using existing GoFood+ infrastructure. The goal was to learn as quickly as possible
+                  while keeping engineering investment low.
                 </Paragraph>
               </div>
 
-              {/* Design decision callout */}
-              <div
-                className="rounded-2xl p-8 mb-12"
-                style={{
-                  backgroundColor: "var(--color-bg)",
-                  borderTop: "1px solid var(--color-border)",
-                  borderRight: "1px solid var(--color-border)",
-                  borderBottom: "1px solid var(--color-border)",
-                  borderLeft: `4px solid ${BRAND_GREEN}`,
-                }}
-              >
-                <p className="font-body text-xs uppercase tracking-widest mb-3" style={{ color: BRAND_GREEN }}>
-                  Design decision
-                </p>
-                <p className="font-body text-fg leading-relaxed" style={{ fontSize: "1rem" }}>
-                  Rather than building new screens from scratch, existing GoFood+ touchpoints were
-                  modified to communicate a multi-product subscription. This approach required minimal
-                  engineering investment while providing real signal on user intent and adoption.
-                </p>
-              </div>
 
               {/* Discovery */}
-              <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.25rem" }}>
-                Improving discoverability across all 6 products
+              <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.375rem" }}>
+                Designing for learning
               </h3>
               <div className="mt-3 mb-8 max-w-3xl">
                 <Paragraph>
-                  New entry points were added across all 6 product journeys to surface the subscription
-                  outside of GoFood — critical because users discovering the plan only through GoFood
-                  would naturally assume it was a GoFood-only benefit.
+                  The pilot focused on answering key business questions rather than perfecting the
+                  experience.
+                </Paragraph>
+                <Paragraph>
+                  Existing GoFood+ touchpoints were adapted to communicate ecosystem-wide benefits.
+                  Discovery surfaces were introduced across multiple Gojek products, subscription
+                  messaging was updated, and the existing purchase flow was reused rather than
+                  redesigned.
                 </Paragraph>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-14">
-                {[
+              <PhaseCarousel
+                slides={[
                   {
                     label: "New entry points",
                     sublabel: "Cross-product entry points across 6 verticals",
-                    caption: "Entry points surfaced the subscription across all 6 product journeys, not just GoFood",
+                    caption: "Entry points surfaced the subscription across all 6 product journeys, not just GoFood.",
+                    image: "/logos/carousel/img2.png",
                   },
                   {
                     label: "Updated branding",
                     sublabel: "GoFood+ touchpoints updated with multi-product messaging",
-                    caption: "GoFood+ branding updated to communicate multi-product value while retaining existing subscriber recognition",
+                    caption: "GoFood+ branding updated to communicate multi-product value while retaining existing subscriber recognition and familiarity.",
                   },
                   {
                     label: "Reframed purchase page",
                     sublabel: "Same page, new content hierarchy",
-                    caption: "Minimal structural changes — the existing page reframed with new content hierarchy to sell cross-vertical benefits",
+                    caption: "The existing purchase page reframed with a new content hierarchy to sell cross-vertical benefits without engineering overhead.",
+                    image: "/logos/carousel/img1.png",
                   },
-                ].map((item) => (
-                  <div key={item.label} className="flex flex-col gap-3">
-                    <ImageZone label={item.label} sublabel={item.sublabel} aspect="9/16" />
-                    <p className="font-body text-muted text-sm leading-relaxed">{item.caption}</p>
-                  </div>
-                ))}
-              </div>
+                ]}
+              />
 
               {/* 14+ constructs */}
-              <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.25rem" }}>
-                14+ subscription plan constructs tested at scale
+              <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.375rem" }}>
+                Designing for learning
               </h3>
               <div className="mt-3 mb-8 max-w-3xl">
                 <Paragraph>
@@ -609,19 +731,14 @@ export default function GojekPlusPage() {
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-10">
                 {[
-                  { letter: "A", title: "Benefit types + value", body: "What discounts and perks unlock, and how much" },
-                  { letter: "B", title: "Plan pricing", body: "Trial pricing, renewal pricing, tiered structures" },
-                  { letter: "C", title: "Minimum cart value", body: "Threshold to unlock benefits per order" },
+                  { n: "01", title: "Benefit types + value", body: "What discounts and perks unlock, and how much" },
+                  { n: "02", title: "Plan pricing + types", body: "Trial pricing, renewal pricing, tiered structures" },
+                  { n: "03", title: "Minimum cart value", body: "Threshold to unlock benefits per order" },
                 ].map((l) => (
-                  <div key={l.letter} className="bg-bg rounded-2xl p-6">
-                    <span
-                      className="font-display font-bold block mb-3"
-                      style={{ fontSize: "2rem", color: BRAND_GREEN, lineHeight: 1 }}
-                    >
-                      {l.letter}
-                    </span>
-                    <p className="font-body font-semibold text-fg text-sm mb-1">{l.title}</p>
-                    <p className="font-body text-muted text-xs leading-relaxed">{l.body}</p>
+                  <div key={l.n} className="bg-bg rounded-2xl p-7">
+                    <span className="font-display font-bold block mb-3" style={{ fontSize: "2rem", color: BRAND_GREEN, lineHeight: 1 }}>{l.n}</span>
+                    <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.25rem", letterSpacing: "-0.02em" }}>{l.title}</p>
+                    <p className="font-body text-muted text-sm leading-relaxed">{l.body}</p>
                   </div>
                 ))}
               </div>
@@ -692,7 +809,7 @@ export default function GojekPlusPage() {
         {/* ══════════════════════════════════════════════════════════════════
             05 — PHASE 2
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-20 max-w-5xl mx-auto">
+        <section id="phase-2" className="px-6 py-20 max-w-5xl mx-auto scroll-mt-28">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -711,7 +828,7 @@ export default function GojekPlusPage() {
             </div>
 
             {/* Research stats */}
-            <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.25rem" }}>
+            <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.375rem" }}>
               Post-pilot research: understanding who we were serving
             </h3>
             <div className="mt-3 mb-8 max-w-3xl">
@@ -762,7 +879,7 @@ export default function GojekPlusPage() {
             </div>
 
             {/* 7 questions + 5 content clusters */}
-            <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.25rem" }}>
+            <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.375rem" }}>
               Building the information architecture from user mental models
             </h3>
             <div className="mt-3 mb-8 max-w-3xl">
@@ -833,7 +950,7 @@ export default function GojekPlusPage() {
             </div>
 
             {/* Usability testing */}
-            <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.25rem" }}>
+            <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.375rem" }}>
               Usability testing: two design explorations
             </h3>
             <div className="mt-3 mb-8 max-w-3xl">
@@ -844,70 +961,56 @@ export default function GojekPlusPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              <div className="rounded-2xl overflow-hidden border border-border">
-                <div
-                  className="px-6 py-4 border-b border-border bg-card flex items-center justify-between"
-                >
-                  <p className="font-display font-bold text-fg" style={{ fontSize: "1rem" }}>Design A</p>
-                  <span
-                    className="font-body text-xs px-2.5 py-1 rounded-full text-muted"
-                    style={{ background: "var(--color-border)" }}
-                  >
-                    Rejected
-                  </span>
+              {/* Design A */}
+              <div className="rounded-2xl border overflow-hidden flex flex-col" style={{ borderColor: "var(--color-border)" }}>
+                {/* Header */}
+                <div className="px-7 pt-7 pb-0 flex flex-col" style={{ backgroundColor: "var(--color-card)" }}>
+                  <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.25rem", letterSpacing: "-0.02em" }}>Design A</p>
+                  <div className="flex-1 min-h-4" />
+                  <div className="flex items-center justify-between pt-4 pb-5 mt-auto border-t border-border">
+                    <span className="font-body text-xs uppercase tracking-widest text-muted">Two-step flow</span>
+                    <span className="font-body text-xs font-medium text-muted">Rejected</span>
+                  </div>
                 </div>
-                <div className="p-6 bg-bg">
-                  <ImageZone
-                    label="Design A screens"
-                    sublabel="Two-step flow: benefit view separate from plan selection"
-                    aspect="4/3"
-                  />
-                  <div className="mt-5 flex flex-col gap-2.5">
+                {/* Body */}
+                <div className="px-7 py-5 border-t border-border flex flex-col" style={{ backgroundColor: "var(--color-bg)" }}>
+                  <ImageZone label="Design A screens" sublabel="Benefit view separate from plan selection" aspect="4/3" />
+                  <div className="mt-5 flex flex-col">
                     {[
                       "Required back-and-forth to compare benefits and plans",
                       "Package options not visible on first scan",
                       "Difficult to compare differences between subscription tiers",
                     ].map((item) => (
-                      <div key={item} className="flex items-start gap-2">
-                        <span className="text-muted text-xs mt-0.5 shrink-0">–</span>
-                        <span className="font-body text-muted text-xs leading-relaxed">{item}</span>
+                      <div key={item} className="py-3 border-b border-border last:border-0 first:pt-0 last:pb-0">
+                        <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{item}</p>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
 
-              <div
-                className="rounded-2xl overflow-hidden border"
-                style={{ borderColor: ACCENT_BORDER }}
-              >
-                <div
-                  className="px-6 py-4 border-b flex items-center justify-between"
-                  style={{ backgroundColor: ACCENT_DIM, borderColor: "rgba(110,232,122,0.2)" }}
-                >
-                  <p className="font-display font-bold text-fg" style={{ fontSize: "1rem" }}>Design B</p>
-                  <span
-                    className="font-body text-xs px-2.5 py-1 rounded-full font-medium"
-                    style={{ background: BRAND_GREEN, color: "#0A1F12" }}
-                  >
-                    Preferred
-                  </span>
+              {/* Design B */}
+              <div className="rounded-2xl border overflow-hidden flex flex-col" style={{ borderColor: ACCENT_BORDER }}>
+                {/* Header */}
+                <div className="px-7 pt-7 pb-0 flex flex-col" style={{ backgroundColor: ACCENT_DIM }}>
+                  <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.25rem", letterSpacing: "-0.02em" }}>Design B</p>
+                  <div className="flex-1 min-h-4" />
+                  <div className="flex items-center justify-between pt-4 pb-5 mt-auto border-t" style={{ borderColor: ACCENT_BORDER }}>
+                    <span className="font-body text-xs uppercase tracking-widest text-muted">One-step flow</span>
+                    <span className="font-body text-xs font-medium" style={{ color: "var(--color-fg)" }}>Preferred</span>
+                  </div>
                 </div>
-                <div className="p-6 bg-bg">
-                  <ImageZone
-                    label="Design B screens"
-                    sublabel="One-step flow: benefits and plan selection on a single screen"
-                    aspect="4/3"
-                  />
-                  <div className="mt-5 flex flex-col gap-2.5">
+                {/* Body */}
+                <div className="px-7 py-5 border-t flex flex-col" style={{ backgroundColor: "var(--color-bg)", borderColor: ACCENT_BORDER }}>
+                  <ImageZone label="Design B screens" sublabel="Benefits and plan selection on a single screen" aspect="4/3" />
+                  <div className="mt-5 flex flex-col">
                     {[
                       "Users immediately noticed all plan options and compared price and duration at a glance",
                       "Duration labelling refined: \"14 days\" perceived as 2 weeks, \"30 days\" as 1 month",
                       "Benefit usage indicators needed stronger visual weight — addressed in final design",
                     ].map((item) => (
-                      <div key={item} className="flex items-start gap-2">
-                        <span style={{ color: BRAND_GREEN }} className="text-xs mt-0.5 shrink-0">+</span>
-                        <span className="font-body text-muted text-xs leading-relaxed">{item}</span>
+                      <div key={item} className="py-3 border-b border-border last:border-0 first:pt-0 last:pb-0">
+                        <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{item}</p>
                       </div>
                     ))}
                   </div>
@@ -921,7 +1024,8 @@ export default function GojekPlusPage() {
             06 — PHASE 3 (dark)
         ══════════════════════════════════════════════════════════════════ */}
         <section
-          className="px-6 py-20 relative overflow-hidden"
+          id="phase-3"
+          className="px-6 py-20 relative overflow-hidden scroll-mt-28"
           style={{ backgroundColor: HERO_BG }}
         >
           <div
@@ -945,7 +1049,7 @@ export default function GojekPlusPage() {
 
               <p
                 className="font-body leading-relaxed mt-6 mb-12 max-w-2xl"
-                style={{ color: "rgba(255,255,255,0.45)", fontSize: "1rem" }}
+                style={{ color: "rgba(255,255,255,0.45)", fontSize: "1.0625rem" }}
               >
                 Phase 3 combined the creation of an entirely new brand identity with a nationwide
                 launch, requiring close coordination across product, marketing, brand, and on-ground
@@ -955,13 +1059,13 @@ export default function GojekPlusPage() {
               {/* Brand identity */}
               <h3
                 className="font-display font-semibold mb-4"
-                style={{ color: "white", fontSize: "1.25rem" }}
+                style={{ color: "white", fontSize: "clamp(1.375rem, 2.5vw, 1.875rem)" }}
               >
                 Creating the Gojek PLUS brand identity
               </h3>
               <p
                 className="font-body leading-relaxed mb-10 max-w-2xl"
-                style={{ color: "rgba(255,255,255,0.45)", fontSize: "1rem" }}
+                style={{ color: "rgba(255,255,255,0.45)", fontSize: "1.0625rem" }}
               >
                 After extensive creative explorations and alignment with brand marketing and creative
                 design teams, three principles guided the final naming and identity decision.
@@ -1026,7 +1130,7 @@ export default function GojekPlusPage() {
                 >
                   Brand deliverable
                 </p>
-                <p className="font-body leading-relaxed" style={{ color: "rgba(255,255,255,0.75)", fontSize: "1rem" }}>
+                <p className="font-body leading-relaxed" style={{ color: "rgba(255,255,255,0.75)", fontSize: "1.0625rem" }}>
                   A full brand book was created and shared with marketing, on-ground, and creative
                   teams, ensuring consistent application across print, digital, and in-app touchpoints.
                   Brand system applied across: App UI, marketing materials, OOH, and digital campaigns.
@@ -1036,7 +1140,7 @@ export default function GojekPlusPage() {
               {/* 20+ touchpoints */}
               <h3
                 className="font-display font-semibold mb-6"
-                style={{ color: "white", fontSize: "1.25rem" }}
+                style={{ color: "white", fontSize: "clamp(1.375rem, 2.5vw, 1.875rem)" }}
               >
                 20+ touchpoints for the full subscription journey
               </h3>
@@ -1075,13 +1179,13 @@ export default function GojekPlusPage() {
               <div className="mt-12">
                 <h3
                   className="font-display font-semibold mb-4"
-                  style={{ color: "white", fontSize: "1.25rem" }}
+                  style={{ color: "white", fontSize: "clamp(1.375rem, 2.5vw, 1.875rem)" }}
                 >
                   Cross-functional leadership
                 </h3>
                 <p
                   className="font-body leading-relaxed mb-8 max-w-2xl"
-                  style={{ color: "rgba(255,255,255,0.45)", fontSize: "1rem" }}
+                  style={{ color: "rgba(255,255,255,0.45)", fontSize: "1.0625rem" }}
                 >
                   Launching Gojek PLUS required orchestrating across eight distinct teams simultaneously.
                 </p>
@@ -1113,7 +1217,7 @@ export default function GojekPlusPage() {
         {/* ══════════════════════════════════════════════════════════════════
             07 — OUTCOME
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-20 bg-card">
+        <section id="outcome" className="px-6 py-20 bg-card scroll-mt-28">
           <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -1144,7 +1248,7 @@ export default function GojekPlusPage() {
                     <span
                       className="font-display font-bold"
                       style={{
-                        fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
+                        fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
                         lineHeight: 1,
                         color: s.accent ? BRAND_GREEN : "var(--color-fg)",
                       }}
@@ -1167,7 +1271,7 @@ export default function GojekPlusPage() {
                     <span
                       className="font-display font-bold"
                       style={{
-                        fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
+                        fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
                         lineHeight: 1,
                         color: "var(--color-fg)",
                       }}
@@ -1205,7 +1309,7 @@ export default function GojekPlusPage() {
         {/* ══════════════════════════════════════════════════════════════════
             08 — REFLECTION
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-20 max-w-5xl mx-auto">
+        <section id="reflection" className="px-6 py-20 max-w-5xl mx-auto scroll-mt-28">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
