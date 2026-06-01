@@ -23,7 +23,7 @@ const HERO_BG = "#0A1F12";
 const BRAND_GREEN = "#6EE87A";
 const ACCENT_DIM = "rgba(110,232,122,0.12)";
 const ACCENT_BORDER = "rgba(110,232,122,0.55)";
-const CARD_BORDER = "#f0f0f0";
+const CARD_BORDER = "#e8e8e8";
 
 // ─── Micro-components ─────────────────────────────────────────────────────────
 
@@ -389,7 +389,7 @@ export default function GojekPlusPage() {
                     versus non-subscribers.
                   </Paragraph>
                   <Paragraph>
-                    But Gojek&apos;s other products — GoRide, GoCar, GoTransit, GoMart, GoSend —
+                    But Gojek&apos;s other products (GoRide, GoCar, GoTransit, GoMart, GoSend)
                     were losing their most valuable users to competitors. Without predictable
                     discounts, there was no stickiness.
                   </Paragraph>
@@ -403,7 +403,7 @@ export default function GojekPlusPage() {
               {/* 6 products */}
               <div className="lg:col-span-5">
                 <SectionLabel>6 products to unify</SectionLabel>
-                <div className="grid grid-cols-1 gap-3">
+                <div className="grid grid-cols-1 gap-3 w-[calc(100%-24px)]">
                   {[
                     { logo: "gofood",    name: "GoFood",    type: "Food delivery" },
                     { logo: "goride",    name: "GoRide",    type: "Motorcycle taxi" },
@@ -414,13 +414,14 @@ export default function GojekPlusPage() {
                   ].map((p) => (
                     <div
                       key={p.logo}
-                      className="bg-card rounded-xl p-4 flex items-center gap-4"
+                      className="rounded-xl px-3 py-4 flex items-center gap-3"
+                      style={{ border: `1px solid ${CARD_BORDER}` }}
                     >
-                      <div className="shrink-0 w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden">
+                      <div className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden">
                         <img
                           src={`/logos/gojek/${p.logo}.png`}
                           alt={p.name}
-                          style={{ width: 52, height: 52, objectFit: "contain" }}
+                          style={{ width: 40, height: 40, objectFit: "contain" }}
                         />
                       </div>
                       <div>
@@ -768,8 +769,8 @@ export default function GojekPlusPage() {
                     {services.map((s) => (
                       <>
                         <div key={s.label + "-label"} className="px-6 py-4 flex items-center gap-3" style={{ borderBottom: border, backgroundColor: "#fff" }}>
-                          <img src={s.icon} alt={s.label} className="rounded-lg shrink-0" style={{ width: 32, height: 32, objectFit: "cover" }} />
-                          <p className="font-body text-sm text-fg" style={{ fontWeight: 500 }}>{s.label}</p>
+                          <img src={s.icon} alt={s.label} className="rounded-lg shrink-0" style={{ width: 40, height: 40, objectFit: "cover" }} />
+                          <p className="font-body text-fg" style={{ fontWeight: 500, fontSize: "0.9375rem" }}>{s.label}</p>
                         </div>
                         {s.values.map((v, i) => (
                           <div key={i} className="px-6 py-4 flex flex-col justify-center" style={{ backgroundColor: "#fff", borderBottom: border, borderLeft: border }}>
@@ -841,12 +842,12 @@ export default function GojekPlusPage() {
           >
             <ChapterMark num="05" label="Phase 2 · Mar – Apr 2024" />
 
-            <H2>Redesigning the Experience</H2>
+            <H2>Phase 2: Redesigning the Experience</H2>
 
             <div className="mt-6 mb-12 max-w-3xl">
               <Paragraph>
                 With the business model validated, a multi-track design effort ran in parallel: deep
-                user research, purchase journey redesign, and a new loyalty brand — all at once.
+                user research, purchase journey redesign, and a new loyalty brand, all running at once.
               </Paragraph>
             </div>
 
@@ -856,7 +857,7 @@ export default function GojekPlusPage() {
             </h3>
             <div className="mt-3 mb-8 max-w-3xl">
               <Paragraph>
-                A structured research programme was commissioned — surveys distributed to over 350
+                A structured research programme was commissioned: surveys distributed to over 350
                 subscribers and 350 non-subscribers to understand who adopted the pilot plan, and why.
                 The findings shaped every design decision in Phase 2.
               </Paragraph>
@@ -897,13 +898,13 @@ export default function GojekPlusPage() {
                 style={{ color: "white", fontSize: "clamp(1rem, 2vw, 1.25rem)", maxWidth: "42ch" }}
               >
                 Non-subscribers skewed heavily toward transport-only users who had never tried the
-                subscription programme — revealing a clear growth opportunity in product cross-sell.
+                subscription programme, revealing a clear growth opportunity in product cross-sell.
               </p>
             </div>
 
             {/* 7 questions + 5 content clusters */}
             <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.375rem" }}>
-              Building the information architecture from user mental models
+              Understanding decision-making
             </h3>
             <div className="mt-3 mb-8 max-w-3xl">
               <Paragraph>
@@ -915,13 +916,13 @@ export default function GojekPlusPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-14">
-              <div className="rounded-2xl overflow-hidden border border-border">
-                <div className="px-8 py-5 border-b border-border bg-card">
+              <div className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${CARD_BORDER}` }}>
+                <div className="px-8 py-5 bg-card" style={{ borderBottom: `1px solid ${CARD_BORDER}` }}>
                   <p className="font-body text-xs uppercase tracking-widest text-muted">
-                    User mental model — 7 key questions
+                    User mental model · 7 key questions
                   </p>
                 </div>
-                <div className="divide-y divide-border bg-bg">
+                <div className="bg-bg">
                   {[
                     "What is this about?",
                     "What are the benefits?",
@@ -930,8 +931,8 @@ export default function GojekPlusPage() {
                     "How long is this for?",
                     "Can I cancel after purchase?",
                     "Are there any restrictions?",
-                  ].map((q, i) => (
-                    <div key={q} className="flex items-center gap-4 px-8 py-4">
+                  ].map((q, i, arr) => (
+                    <div key={q} className="flex items-center gap-4 px-8 py-4" style={{ borderBottom: i < arr.length - 1 ? `1px solid ${CARD_BORDER}` : "none" }}>
                       <span
                         className="font-display font-bold shrink-0"
                         style={{ fontSize: "0.875rem", color: BRAND_GREEN, width: 24 }}
@@ -944,21 +945,21 @@ export default function GojekPlusPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl overflow-hidden border border-border">
-                <div className="px-8 py-5 border-b border-border bg-card">
+              <div className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${CARD_BORDER}` }}>
+                <div className="px-8 py-5 bg-card" style={{ borderBottom: `1px solid ${CARD_BORDER}` }}>
                   <p className="font-body text-xs uppercase tracking-widest text-muted">
-                    Purchase page architecture — 5 content clusters
+                    Purchase page architecture · 5 content clusters
                   </p>
                 </div>
-                <div className="divide-y divide-border bg-bg">
+                <div className="bg-bg">
                   {[
                     "Brand + Intro",
                     "Benefits",
                     "Package Selection",
                     "T&Cs, FAQ + Social Proof",
                     "Trial Pricing + Renewal Info",
-                  ].map((c, i) => (
-                    <div key={c} className="flex items-center gap-4 px-8 py-5">
+                  ].map((c, i, arr) => (
+                    <div key={c} className="flex items-center gap-4 px-8 py-5" style={{ borderBottom: i < arr.length - 1 ? `1px solid ${CARD_BORDER}` : "none" }}>
                       <span
                         className="font-display font-bold shrink-0"
                         style={{ fontSize: "0.875rem", color: BRAND_GREEN, width: 24 }}
@@ -1030,7 +1031,7 @@ export default function GojekPlusPage() {
                     {[
                       "Users immediately noticed all plan options and compared price and duration at a glance",
                       "Duration labelling refined: \"14 days\" perceived as 2 weeks, \"30 days\" as 1 month",
-                      "Benefit usage indicators needed stronger visual weight — addressed in final design",
+                      "Benefit usage indicators needed stronger visual weight, addressed in final design",
                     ].map((item) => (
                       <div key={item} className="py-3 border-b border-border last:border-0 first:pt-0 last:pb-0">
                         <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{item}</p>
@@ -1099,17 +1100,17 @@ export default function GojekPlusPage() {
                   {
                     letter: "A",
                     title: "Retain Gojek green",
-                    body: "The brand needed to feel connected to Gojek — users should immediately recognise it as a Gojek product, not a third-party service.",
+                    body: "The brand needed to feel connected to Gojek so users would immediately recognise it as a Gojek product, not a third-party service.",
                   },
                   {
                     letter: "B",
                     title: "Add distinct identity",
-                    body: "Gojek PLUS needed its own visual language — enough to stand apart and signal exclusivity and premium value.",
+                    body: "Gojek PLUS needed its own visual language, distinct enough to stand apart and signal exclusivity and premium value.",
                   },
                   {
                     letter: "C",
                     title: "Retain PLUS equity",
-                    body: "After testing naming options, PLUS was retained — existing GoFood+ subscribers already associated PLUS with subscription value.",
+                    body: "After testing naming options, PLUS was retained. Existing GoFood+ subscribers already associated PLUS with subscription value.",
                   },
                 ].map((p) => (
                   <div
@@ -1185,7 +1186,7 @@ export default function GojekPlusPage() {
                       style={{ backgroundColor: BRAND_GREEN }}
                     />
                     <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
-                      <span className="font-medium" style={{ color: "white" }}>{t.area} — </span>
+                      <span className="font-medium" style={{ color: "white" }}>{t.area}: </span>
                       {t.detail}
                     </p>
                   </div>
@@ -1287,7 +1288,7 @@ export default function GojekPlusPage() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {[
                   { value: "6x", label: "Daily subscriber growth rate", sub: "vs. pre-launch baseline", accent: false },
-                  { value: "8.3%", label: "New users among purchasers", sub: "Week 1 — never subscribed before", accent: false },
+                  { value: "8.3%", label: "New users among purchasers", sub: "Week 1, never subscribed before", accent: false },
                   { value: "10%", label: "Reactivated users", sub: "Lapsed subscribers returned in week 1", accent: false },
                 ].map((s) => (
                   <div key={s.label} className="bg-bg rounded-2xl p-7 flex flex-col gap-2">
@@ -1321,7 +1322,7 @@ export default function GojekPlusPage() {
                   }}
                 >
                   The 200k+ daily active subscribers metric reflects sustained engagement, not
-                  launch-day traffic — a strong signal that the product and brand redesign delivered
+                  launch-day traffic. A strong signal that the product and brand redesign delivered
                   lasting value, not just novelty.
                 </p>
               </div>
@@ -1346,7 +1347,7 @@ export default function GojekPlusPage() {
             <div className="mt-6 mb-12 max-w-3xl">
               <Paragraph>
                 Gojek PLUS was the largest, most complex project on this portfolio. It required
-                operating simultaneously as strategist, researcher, brand designer, and UX lead —
+                operating simultaneously as strategist, researcher, brand designer, and UX lead,
                 while keeping eight cross-functional teams aligned toward a single, ambitious goal.
               </Paragraph>
             </div>
@@ -1355,7 +1356,7 @@ export default function GojekPlusPage() {
               {[
                 {
                   title: "Start with the riskiest assumption",
-                  body: "The decision to run Phase 1 as a low-effort experiment rather than jumping into a full redesign was the most important leadership call. It provided real data — not assumptions — to design the right product.",
+                  body: "The decision to run Phase 1 as a low-effort experiment rather than jumping into a full redesign was the most important leadership call. It provided real data, not assumptions, to design the right product.",
                 },
                 {
                   title: "Design the strategy, not just the screens",
@@ -1363,7 +1364,7 @@ export default function GojekPlusPage() {
                 },
                 {
                   title: "Research creates shared conviction",
-                  body: "Surveying 700+ users gave the team a shared language with product, marketing, and engineering. When stakeholders asked why the page looked a certain way — the answer was always grounded in user evidence.",
+                  body: "Surveying 700+ users gave the team a shared language with product, marketing, and engineering. When stakeholders asked why the page looked a certain way, the answer was always grounded in user evidence.",
                 },
                 {
                   title: "Brand coherence is a product decision",
@@ -1389,7 +1390,7 @@ export default function GojekPlusPage() {
                 className="font-display font-bold leading-snug mb-10"
                 style={{ color: "white", fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)" }}
               >
-                &ldquo;From a GoFood-only loyalty programme to a Gojek-wide subscription brand — built,
+                &ldquo;From a GoFood-only loyalty programme to a Gojek-wide subscription brand. Built,
                 validated, and launched in 3 months.&rdquo;
               </p>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
