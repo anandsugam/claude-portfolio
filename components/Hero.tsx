@@ -8,7 +8,7 @@ function PhotoPlaceholder() {
       className="relative w-full overflow-hidden"
       style={{
         aspectRatio: "3/4",
-        borderRadius: "40px",
+        borderRadius: "32px",
         background: "linear-gradient(160deg, #E8E4DE 0%, #D4CFC8 50%, #C2BBB2 100%)",
       }}
     >
@@ -45,63 +45,42 @@ function PhotoPlaceholder() {
 
 export default function Hero() {
   return (
-    <section className="px-6 pt-20 pb-12 lg:pt-28 lg:pb-16 overflow-hidden">
+    <section className="px-6 pt-20 pb-12 lg:pt-28 lg:pb-20 overflow-hidden">
       <div className="max-w-7xl mx-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-end">
+          {/* LEFT — text content */}
+          <div className="lg:col-span-7 flex flex-col">
 
-          {/* LEFT — heading + role + description + CTAs */}
-          <div className="lg:col-span-5 flex flex-col justify-end pb-0 lg:pb-8">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.05 }}
-              className="flex items-center gap-2 mb-6"
-            >
-              <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#00C047" }} />
-              <span className="font-body font-medium text-sm text-muted">
-                Open to senior design leadership roles
-              </span>
-            </motion.div>
-
+            {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.12 }}
-              className="font-display text-fg leading-[1.0]"
-              style={{ fontSize: "clamp(3.25rem, 6.5vw, 6rem)", fontWeight: 800, letterSpacing: "-0.03em" }}
+              className="font-display text-fg leading-[1.05]"
+              style={{ fontSize: "clamp(2.25rem, 4.5vw, 4rem)", fontWeight: 700, letterSpacing: "-0.03em" }}
             >
-              Sugam
-              <br />
-              Anand.
+              <span className="block" style={{ fontSize: "0.45em", fontWeight: 500, letterSpacing: "-0.01em", opacity: 0.5, marginBottom: "0.3em" }}>I&apos;m Sugam Anand</span>
+              A full-stack<br />design leader.
             </motion.h1>
 
-            <motion.div
+            {/* Body */}
+            <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.28 }}
-              className="mt-5 flex flex-col gap-2"
-              style={{ maxWidth: "30rem" }}
+              transition={{ duration: 0.55, delay: 0.25 }}
+              className="font-body text-muted leading-relaxed mt-6"
+              style={{ fontSize: "1.0625rem", maxWidth: "42rem" }}
             >
-              <p
-                className="font-body font-medium text-fg"
-                style={{ fontSize: "clamp(0.9375rem, 1.2vw, 1.0625rem)" }}
-              >
-                Senior Director of Product Design
-              </p>
-              <p
-                className="font-body text-muted leading-relaxed"
-                style={{ fontSize: "clamp(0.875rem, 1.1vw, 0.9375rem)" }}
-              >
-                Building teams, systems, and the conditions where great design consistently happens.
-              </p>
-            </motion.div>
+              Hands-on enough to know what great feels like, fluent enough in technology to shape how it&apos;s built, and grounded enough in people to build teams that last.
+            </motion.p>
 
+            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.42 }}
-              className="flex items-center gap-3 mt-8 flex-wrap"
+              transition={{ duration: 0.45, delay: 0.45 }}
+              className="flex items-center gap-3 mt-10 flex-wrap"
             >
               <a
                 href="/#work"
@@ -118,42 +97,29 @@ export default function Hero() {
                 View My Journey →
               </a>
             </motion.div>
+
+            {/* Availability status */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.45, delay: 0.55 }}
+              className="flex items-center gap-2 mt-10"
+            >
+              <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#00C047" }} />
+              <span className="font-body text-sm text-muted">
+                Open to senior design leadership roles
+              </span>
+            </motion.div>
           </div>
 
-          {/* CENTER — portrait photo */}
+          {/* RIGHT — portrait photo */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.85, delay: 0.08 }}
-            className="lg:col-span-4 order-first lg:order-none"
+            className="lg:col-span-5 order-first lg:order-none"
           >
             <PhotoPlaceholder />
-          </motion.div>
-
-          {/* RIGHT — bio + experience */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.3 }}
-            className="lg:col-span-3 flex flex-col justify-end pb-0 lg:pb-8 gap-8"
-          >
-            <p
-              className="font-body text-muted leading-relaxed"
-              style={{ fontSize: "0.9375rem" }}
-            >
-              A full-stack design leader. Hands-on enough to know what great
-              feels like, fluent in technology to shape how it&apos;s built,
-              and grounded in people to build teams that last.
-            </p>
-
-            <div className="space-y-1">
-              <p className="font-body font-medium text-xs text-muted uppercase tracking-widest mb-3">
-                Experience at
-              </p>
-              {["Smallcase & Tickertape", "Gojek", "MAQ Software"].map((b) => (
-                <p key={b} className="font-body font-medium text-sm text-fg">{b}</p>
-              ))}
-            </div>
           </motion.div>
 
         </div>

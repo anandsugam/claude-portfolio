@@ -71,7 +71,7 @@ export default function Story() {
         </span>
         <h2
           className="font-display font-bold text-fg leading-tight mt-3"
-          style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+          style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700 }}
         >
           A decade in design
         </h2>

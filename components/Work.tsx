@@ -64,7 +64,7 @@ export default function Work() {
           <span className="text-xs font-body font-medium text-muted uppercase tracking-widest">
             Selected Work
           </span>
-          <h2 className="font-display text-fg mt-3 leading-[1.05]" style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, letterSpacing: "-0.03em" }}>
+          <h2 className="font-display text-fg mt-3 leading-[1.05]" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.03em" }}>
             Four case studies
           </h2>
         </div>

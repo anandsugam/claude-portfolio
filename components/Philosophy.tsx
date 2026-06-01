@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 
+const CARD_BORDER = "#e8e8e8";
+
 const principles = [
   {
     num: "01",
@@ -33,20 +35,20 @@ export default function Philosophy() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="mb-16 text-center"
+        className="mb-12"
       >
         <span className="font-body font-medium text-xs text-muted uppercase tracking-widest">
           How I Work
         </span>
         <h2
           className="font-display text-fg mt-3 leading-[1.05]"
-          style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, letterSpacing: "-0.03em" }}
+          style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.03em" }}
         >
           Few beliefs I earned through the work
         </h2>
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-border">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {principles.map((p, i) => (
           <motion.div
             key={p.num}
@@ -54,11 +56,16 @@ export default function Philosophy() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.45, delay: i * 0.07 }}
-            className="bg-bg p-10"
+            className="rounded-2xl p-7 flex flex-col gap-4"
+            style={{ backgroundColor: "#fff", border: `1px solid ${CARD_BORDER}` }}
           >
-            <span className="font-body font-medium text-xs text-muted block mb-6">{p.num}</span>
+            <span
+              className="font-body font-medium text-xs text-muted uppercase tracking-widest"
+            >
+              {p.num}
+            </span>
             <h3
-              className="font-display font-bold text-fg leading-snug mb-4"
+              className="font-display font-bold text-fg leading-snug"
               style={{ fontSize: "1.125rem", letterSpacing: "-0.01em" }}
             >
               {p.title}
