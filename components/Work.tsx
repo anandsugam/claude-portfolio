@@ -52,25 +52,22 @@ const caseStudies = [
 
 export default function Work() {
   return (
-    <section id="work" className="px-6 pt-12 pb-24 max-w-7xl mx-auto">
+    <section id="work" className="pt-12 pb-24">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="flex items-end justify-between mb-12"
+        className="flex items-end justify-between mb-12 px-6 max-w-7xl mx-auto"
       >
         <div className="w-full">
-          <span className="text-xs font-body font-medium text-muted uppercase tracking-widest">
-            Selected Work
-          </span>
           <h2 className="font-display text-fg mt-3 leading-[1.05]" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.03em" }}>
-            Four case studies
+            Selected work
           </h2>
         </div>
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div className="flex flex-col gap-4 px-6 max-w-7xl mx-auto w-full">
         {caseStudies.map((cs, i) => (
           <motion.div
             key={cs.slug}
@@ -79,17 +76,70 @@ export default function Work() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
           >
-            <Link href={`/work/${cs.slug}`} className="group block h-full">
+            <Link href={`/work/${cs.slug}`} className="group block">
               <div
-                className="flex flex-col h-full overflow-hidden border border-border hover:border-fg/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="flex flex-col lg:flex-row overflow-hidden border border-border hover:border-fg/30 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
                 style={{ borderRadius: "24px" }}
               >
-                {/* Color block top */}
+                {/* LEFT — text content */}
+                <div className="flex flex-col justify-between flex-1 p-8 lg:p-10 bg-bg gap-6">
+                  {/* Top: company + year */}
+                  <div className="flex items-center justify-between">
+                    <span
+                      className="font-body text-xs font-medium text-muted uppercase tracking-widest"
+                    >
+                      {cs.company}
+                    </span>
+                    <span
+                      className="font-body text-xs px-3 py-1 text-muted"
+                      style={{ backgroundColor: "#F0F0F0", borderRadius: "100px" }}
+                    >
+                      {cs.year}
+                    </span>
+                  </div>
+
+                  {/* Middle: title + description */}
+                  <div className="flex flex-col gap-3">
+                    <h3
+                      className="font-display font-bold text-fg leading-snug group-hover:text-accent transition-colors duration-200"
+                      style={{ fontSize: "clamp(1.125rem, 1.75vw, 1.375rem)", letterSpacing: "-0.02em" }}
+                    >
+                      {cs.title}
+                    </h3>
+                    <p
+                      className="font-body text-muted leading-relaxed"
+                      style={{ fontSize: "0.9375rem", maxWidth: "52ch" }}
+                    >
+                      {cs.description}
+                    </p>
+                  </div>
+
+                  {/* Bottom: tags */}
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
+                    {cs.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="font-body text-xs px-3 py-1 text-muted"
+                        style={{ backgroundColor: "#F0F0F0", borderRadius: "100px" }}
+                      >
+                        {t}
+                      </span>
+                    ))}
+                    <span
+                      className="font-body text-xs px-3 py-1 text-fg font-medium"
+                      style={{ backgroundColor: "#E8E8E8", borderRadius: "100px" }}
+                    >
+                      {cs.role}
+                    </span>
+                  </div>
+                </div>
+
+                {/* RIGHT — color cover */}
                 <div
-                  className="relative overflow-hidden"
-                  style={{ backgroundColor: cs.color, height: "200px" }}
+                  className="relative overflow-hidden shrink-0 lg:w-2/5"
+                  style={{ backgroundColor: cs.color, minHeight: "240px" }}
                 >
-                  {/* Subtle noise overlay */}
+                  {/* Noise overlay */}
                   <div
                     className="absolute inset-0 opacity-30"
                     style={{
@@ -98,89 +148,32 @@ export default function Work() {
                       backgroundRepeat: "repeat",
                     }}
                   />
-                  {/* Ghost case number */}
+                  {/* Ghost number */}
                   <span
                     className="absolute font-display font-bold select-none"
                     style={{
-                      fontSize: "8.5rem",
+                      fontSize: "clamp(7rem, 10vw, 11rem)",
                       lineHeight: 1,
                       color: "rgba(255,255,255,0.07)",
-                      bottom: "-12px",
-                      right: "20px",
+                      bottom: "-8px",
+                      right: "24px",
                     }}
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  {/* Role label bottom-left */}
+                  {/* Role label */}
                   <span
                     className="absolute font-body uppercase tracking-widest select-none"
                     style={{
                       fontSize: "0.6rem",
                       color: "rgba(255,255,255,0.3)",
-                      bottom: "20px",
-                      left: "24px",
+                      bottom: "24px",
+                      left: "28px",
                       letterSpacing: "0.14em",
                     }}
                   >
                     {cs.role}
                   </span>
-                  {/* Year badge */}
-                  <span
-                    className="absolute top-4 right-4 font-body text-xs px-3 py-1"
-                    style={{
-                      color: "rgba(255,255,255,0.5)",
-                      border: "1px solid rgba(255,255,255,0.15)",
-                      borderRadius: "100px",
-                    }}
-                  >
-                    {cs.year}
-                  </span>
-                </div>
-
-                {/* Structured content below */}
-                <div className="flex flex-col flex-1 p-7 bg-bg gap-4">
-                  {/* Title */}
-                  <h3
-                    className="font-display font-bold text-fg leading-snug group-hover:text-accent transition-colors duration-200"
-                    style={{ fontSize: "1.125rem", letterSpacing: "-0.01em" }}
-                  >
-                    {cs.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p
-                    className="font-body text-muted leading-relaxed flex-1"
-                    style={{ fontSize: "0.875rem" }}
-                  >
-                    {cs.description}
-                  </p>
-
-                  {/* Meta pills */}
-                  <div className="flex flex-wrap gap-2 pt-2 border-t border-border">
-                    {/* Category tags */}
-                    {cs.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="font-body text-xs px-3 py-1 text-muted"
-                        style={{
-                          backgroundColor: "#F0F0F0",
-                          borderRadius: "100px",
-                        }}
-                      >
-                        {t}
-                      </span>
-                    ))}
-                    {/* Separator + company + role */}
-                    <span
-                      className="font-body text-xs px-3 py-1 text-fg font-medium"
-                      style={{
-                        backgroundColor: "#E8E8E8",
-                        borderRadius: "100px",
-                      }}
-                    >
-                      {cs.company}
-                    </span>
-                  </div>
                 </div>
               </div>
             </Link>
