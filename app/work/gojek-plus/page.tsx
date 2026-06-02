@@ -541,7 +541,8 @@ export default function GojekPlusPage() {
                 {
                   dates: "Feb – Mar 2024",
                   phase: "Phase 1",
-                  title: "Validate",
+                  title: "Validate Demand",
+                  description: "Rapid experimentation, leveraging existing infrastructure and touchpoints",
                   items: [
                     "Pilot launch with existing infrastructure",
                     "Business construct design",
@@ -553,7 +554,8 @@ export default function GojekPlusPage() {
                 {
                   dates: "Mar – Apr 2024",
                   phase: "Phase 2",
-                  title: "Design to Scale",
+                  title: "Brand & Experience Design",
+                  description: "Deep research, purchase journey redesign, and new brand identity, running in parallel",
                   items: [
                     "Post-pilot user research (700+ participants)",
                     "Full UX research programme",
@@ -565,7 +567,8 @@ export default function GojekPlusPage() {
                 {
                   dates: "Apr – May 2024",
                   phase: "Phase 3",
-                  title: "Launch to Grow",
+                  title: "Nationwide Launch",
+                  description: "Ship the redesigned experience, launch the new brand, migrate all GoFood+ users",
                   items: [
                     "New Gojek PLUS brand system",
                     "Nationwide launch campaign",
@@ -609,7 +612,12 @@ export default function GojekPlusPage() {
                           {p.title}
                         </p>
 
-                        <div className="flex-1 min-h-4" />
+                        {/* Description */}
+                        <p className="font-body text-muted leading-relaxed mb-2" style={{ fontSize: "0.8125rem" }}>
+                          {p.description}
+                        </p>
+
+                        <div className="flex-1 min-h-2" />
 
                         {/* Footer row */}
                         <div
@@ -857,124 +865,218 @@ export default function GojekPlusPage() {
             </h3>
             <div className="mt-3 mb-8 max-w-3xl">
               <Paragraph>
-                A structured research programme was commissioned: surveys distributed to over 350
-                subscribers and 350 non-subscribers to understand who adopted the pilot plan, and why.
-                The findings shaped every design decision in Phase 2.
+                To guide the next phase, a post-pilot research study was conducted through in-app
+                surveys with 468 subscribers and 822 non-subscribers. The findings identified key
+                adoption drivers and informed the Phase 2 strategy and design direction.
               </Paragraph>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {/* Bento grid: 5-col explicit grid — stats cols 1–3, insights cols 4–5 */}
+            <div className="grid gap-4 mb-8" style={{ gridTemplateColumns: "repeat(5, 1fr)" }}>
+              {/* Row 1 stat cards — cols 1–3 */}
               {[
-                { pct: "60%", label: "Of new subscribers were power users" },
-                { pct: "70%", label: "Of power user subscribers were GoFood users" },
-                { pct: "67%", label: "Of new subscribers had GoFood+ before" },
-                { pct: "80%", label: "Felt the new plan was an upgrade on GoFood+" },
+                { pct: "60%", label: "of new subscribers were power users", row: 1, col: 1 },
+                { pct: "70%", label: "of power user subscribers were GoFood users", row: 1, col: 2 },
+                { pct: "67%", label: "of subscribers had purchased GoFood+ subscription before", row: 1, col: 3 },
+                { pct: "80%", label: "Felt the new plan was an upgrade on GoFood+", row: 2, col: 1 },
+                { pct: "79%", label: "of existing GoFood Plus subscribers aware the new plan has extended benefits", row: 2, col: 2 },
+                { pct: "66%", label: "of users felt the current offering was an upgrade from the previous GoFood+ plan", row: 2, col: 3 },
               ].map((s) => (
-                <div key={s.label} className="rounded-2xl p-7" style={{ backgroundColor: "#fff", border: `1px solid ${CARD_BORDER}` }}>
-                  <div
-                    className="font-display font-bold mb-2 text-fg"
-                    style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", lineHeight: 1 }}
-                  >
+                <div
+                  key={s.label}
+                  className="rounded-2xl p-7"
+                  style={{ backgroundColor: "#fff", border: `1px solid ${CARD_BORDER}`, gridColumn: s.col, gridRow: s.row }}
+                >
+                  <div className="font-display font-bold mb-2 text-fg" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", lineHeight: 1 }}>
                     {s.pct}
                   </div>
                   <p className="font-body text-muted text-xs leading-snug">{s.label}</p>
                 </div>
               ))}
+
+              {/* Insight cards — cols 4–5, one per row */}
+              <div
+                className="rounded-2xl p-7 flex flex-col justify-center"
+                style={{ backgroundColor: "#fff", border: `1px solid ${CARD_BORDER}`, gridColumn: "4 / span 2", gridRow: 1 }}
+              >
+                <p className="font-body text-xs uppercase tracking-widest text-muted mb-3">Usage</p>
+                <p className="font-body text-sm text-fg leading-relaxed">The new subscription increased transaction frequency and basket size across users&apos; existing product usage.</p>
+              </div>
+              <div
+                className="rounded-2xl p-7 flex flex-col justify-center"
+                style={{ backgroundColor: "#fff", border: `1px solid ${CARD_BORDER}`, gridColumn: "4 / span 2", gridRow: 2 }}
+              >
+                <p className="font-body text-xs uppercase tracking-widest text-muted mb-3">Opportunity</p>
+                <p className="font-body text-sm text-fg leading-relaxed">Non-subscribers were largely transport-only users who had never tried the subscription programme, highlighting a clear cross-sell opportunity.</p>
+              </div>
             </div>
 
-            {/* Critical finding */}
-            <div
-              className="rounded-2xl p-8 mb-12"
-              style={{ backgroundColor: HERO_BG }}
-            >
-              <p
-                className="font-body text-xs uppercase tracking-widest mb-4"
-                style={{ color: "rgba(255,255,255,0.3)" }}
-              >
-                Critical finding
-              </p>
-              <p
-                className="font-display font-semibold leading-snug"
-                style={{ color: "white", fontSize: "clamp(1rem, 2vw, 1.25rem)", maxWidth: "42ch" }}
-              >
-                Non-subscribers skewed heavily toward transport-only users who had never tried the
-                subscription programme, revealing a clear growth opportunity in product cross-sell.
-              </p>
-            </div>
 
-            {/* 7 questions + 5 content clusters */}
-            <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.375rem" }}>
-              Understanding decision-making
+            {/* Questions → Clusters mapping */}
+            <h3 className="font-display font-semibold text-fg mt-12 mb-3" style={{ fontSize: "1.375rem" }}>
+              IA built from users' mental models
             </h3>
             <div className="mt-3 mb-8 max-w-3xl">
               <Paragraph>
-                Working with the UX research team, the key questions users had when evaluating a
-                subscription were mapped and structured. These became the backbone of the purchase
-                page redesign. 20+ subscription products across different industries were also
-                studied for UX patterns and design benchmarks.
+                Working with the UX research team, we mapped the key questions users had when
+                evaluating a subscription. These directly informed the content structure of the
+                purchase page redesign.
               </Paragraph>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-14">
-              <div className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${CARD_BORDER}` }}>
-                <div className="px-8 py-5 bg-card" style={{ borderBottom: `1px solid ${CARD_BORDER}` }}>
-                  <p className="font-body text-xs uppercase tracking-widest text-muted">
-                    User mental model · 7 key questions
-                  </p>
+            {/* Mapping visualisation — SVG bezier diagram */}
+            <div className="rounded-2xl p-8 mb-0" style={{ backgroundColor: "var(--color-bg)", border: `1px solid ${CARD_BORDER}` }}>
+              {/* Column headers */}
+              <div className="flex items-center mb-4 max-w-2xl mx-auto w-full">
+                <div className="flex-1">
+                  <p className="font-body text-xs uppercase tracking-widest text-muted">User questions</p>
                 </div>
-                <div className="bg-bg">
-                  {[
-                    "What is this about?",
-                    "What are the benefits?",
-                    "Which product is this for?",
-                    "Is it worth the price?",
-                    "How long is this for?",
-                    "Can I cancel after purchase?",
-                    "Are there any restrictions?",
-                  ].map((q, i, arr) => (
-                    <div key={q} className="flex items-center gap-4 px-8 py-4" style={{ borderBottom: i < arr.length - 1 ? `1px solid ${CARD_BORDER}` : "none" }}>
-                      <span
-                        className="font-display font-bold shrink-0"
-                        style={{ fontSize: "0.875rem", color: BRAND_GREEN, width: 24 }}
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <p className="font-body text-fg text-sm">{q}</p>
-                    </div>
-                  ))}
+                <div style={{ width: 160 }} />
+                <div className="flex-1">
+                  <p className="font-body text-xs uppercase tracking-widest text-muted">Purchase page section</p>
                 </div>
               </div>
+              <div className="max-w-2xl mx-auto w-full" style={{ borderTop: `1px solid ${CARD_BORDER}`, marginBottom: 32 }} />
 
-              <div className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${CARD_BORDER}` }}>
-                <div className="px-8 py-5 bg-card" style={{ borderBottom: `1px solid ${CARD_BORDER}` }}>
-                  <p className="font-body text-xs uppercase tracking-widest text-muted">
-                    Purchase page architecture · 5 content clusters
-                  </p>
-                </div>
-                <div className="bg-bg">
-                  {[
-                    "Brand + Intro",
-                    "Benefits",
-                    "Package Selection",
-                    "T&Cs, FAQ + Social Proof",
-                    "Trial Pricing + Renewal Info",
-                  ].map((c, i, arr) => (
-                    <div key={c} className="flex items-center gap-4 px-8 py-5" style={{ borderBottom: i < arr.length - 1 ? `1px solid ${CARD_BORDER}` : "none" }}>
-                      <span
-                        className="font-display font-bold shrink-0"
-                        style={{ fontSize: "0.875rem", color: BRAND_GREEN, width: 24 }}
+              {/* Groups */}
+              <div className="flex flex-col gap-10 max-w-2xl mx-auto w-full">
+                {(
+                  [
+                    {
+                      color: "#4DB87A",
+                      bg: "rgba(77,184,122,0.08)",
+                      questions: ["What is this about?", "What are the benefits?"],
+                      clusters: ["Brand + Intro", "Benefits"],
+                    },
+                    {
+                      color: "#8B6FD4",
+                      bg: "rgba(139,111,212,0.08)",
+                      questions: ["Which product is this for?", "Is it worth the price?", "How long is this for?"],
+                      clusters: ["Package Selection", "Trial Pricing + Renewal Info"],
+                    },
+                    {
+                      color: "#6B7FD4",
+                      bg: "rgba(107,127,212,0.08)",
+                      questions: ["Can I cancel after purchase?", "Are there any restrictions?"],
+                      clusters: ["T&Cs, FAQ + Social Proof"],
+                    },
+                  ] as { color: string; bg: string; questions: string[]; clusters: string[] }[]
+                ).map((group, gi) => {
+                  const PILL_H = 36;
+                  const PILL_GAP = 10;
+                  const SVG_W = 160;
+                  const qTotalH = group.questions.length * PILL_H + (group.questions.length - 1) * PILL_GAP;
+                  const cTotalH = group.clusters.length * PILL_H + (group.clusters.length - 1) * PILL_GAP;
+                  const innerH = Math.max(qTotalH, cTotalH);
+                  const svgH = innerH + 24;
+                  const qStartY = (svgH - qTotalH) / 2;
+                  const cStartY = (svgH - cTotalH) / 2;
+                  const qYs = group.questions.map((_, i) => qStartY + i * (PILL_H + PILL_GAP) + PILL_H / 2);
+                  const cYs = group.clusters.map((_, i) => cStartY + i * (PILL_H + PILL_GAP) + PILL_H / 2);
+                  const cx = SVG_W / 2;
+                  const cy = svgH / 2;
+                  const groupDelay = gi * 0.15;
+
+                  return (
+                    <div key={gi} className="flex items-stretch">
+                      {/* Question pills */}
+                      <div
+                        className="flex-1 flex flex-col justify-center"
+                        style={{ gap: PILL_GAP, height: svgH }}
                       >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <p className="font-body text-fg text-sm font-medium">{c}</p>
+                        {group.questions.map((q) => (
+                          <div
+                            key={q}
+                            className="flex items-center gap-2 px-4 font-body text-sm font-medium"
+                            style={{
+                              height: PILL_H,
+                              borderRadius: 100,
+                              backgroundColor: group.bg,
+                              color: group.color,
+                              border: `1px solid ${group.color}50`,
+                            }}
+                          >
+                            <span
+                              className="w-1.5 h-1.5 rounded-full shrink-0"
+                              style={{ backgroundColor: group.color }}
+                            />
+                            {q}
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* SVG bezier connector — animated */}
+                      <svg width={SVG_W} height={svgH} style={{ flexShrink: 0, overflow: "visible" }}>
+                        {/* Question lines → center */}
+                        {qYs.map((y, i) => (
+                          <motion.path
+                            key={`q${i}`}
+                            d={`M 0,${y} C ${SVG_W * 0.38},${y} ${SVG_W * 0.38},${cy} ${cx},${cy}`}
+                            fill="none"
+                            stroke={group.color}
+                            strokeWidth="1.5"
+                            strokeOpacity="0.55"
+                            initial={{ pathLength: 0 }}
+                            whileInView={{ pathLength: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, ease: "easeInOut", delay: groupDelay + i * 0.08 }}
+                          />
+                        ))}
+                        {/* Center → cluster lines */}
+                        {cYs.map((y, i) => (
+                          <motion.path
+                            key={`c${i}`}
+                            d={`M ${cx},${cy} C ${SVG_W * 0.62},${cy} ${SVG_W * 0.62},${y} ${SVG_W},${y}`}
+                            fill="none"
+                            stroke={group.color}
+                            strokeWidth="1.5"
+                            strokeOpacity="0.55"
+                            initial={{ pathLength: 0 }}
+                            whileInView={{ pathLength: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, ease: "easeInOut", delay: groupDelay + 0.55 + i * 0.08 }}
+                          />
+                        ))}
+                        {/* Central dot — appears when lines meet */}
+                        <motion.circle
+                          cx={cx} cy={cy} r="4" fill={group.color}
+                          initial={{ scale: 0, opacity: 0 }}
+                          whileInView={{ scale: 1, opacity: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.25, delay: groupDelay + 0.5 }}
+                          style={{ transformOrigin: `${cx}px ${cy}px` }}
+                        />
+                      </svg>
+
+                      {/* Cluster pills */}
+                      <div
+                        className="flex-1 flex flex-col justify-center"
+                        style={{ gap: PILL_GAP, height: svgH }}
+                      >
+                        {group.clusters.map((c) => (
+                          <div
+                            key={c}
+                            className="flex items-center px-4 font-body text-sm font-medium"
+                            style={{
+                              height: PILL_H,
+                              borderRadius: 10,
+                              color: group.color,
+                              border: `1px solid ${group.color}50`,
+                              backgroundColor: group.bg,
+                            }}
+                          >
+                            {c}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
             </div>
 
             {/* Usability testing */}
-            <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.375rem" }}>
+            <h3 className="font-display font-semibold text-fg mt-12 mb-3" style={{ fontSize: "1.375rem" }}>
               Usability testing: two design explorations
             </h3>
             <div className="mt-3 mb-8 max-w-3xl">
