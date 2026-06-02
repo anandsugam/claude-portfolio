@@ -52,13 +52,14 @@ const caseStudies = [
 
 export default function Work() {
   return (
-    <section id="work" className="pt-12 pb-24">
+    <section id="work" className="px-6 pt-12 pb-24">
+      <div className="max-w-7xl mx-auto w-full">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="flex items-end justify-between mb-12 px-6 max-w-7xl mx-auto"
+        className="flex items-end justify-between mb-12"
       >
         <div className="w-full">
           <h2 className="font-display text-fg mt-3 leading-[1.05]" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.03em" }}>
@@ -67,7 +68,7 @@ export default function Work() {
         </div>
       </motion.div>
 
-      <div className="flex flex-col gap-4 px-6 max-w-7xl mx-auto w-full">
+      <div className="flex flex-col gap-4 w-full">
         {caseStudies.map((cs, i) => (
           <motion.div
             key={cs.slug}
@@ -179,6 +180,7 @@ export default function Work() {
             </Link>
           </motion.div>
         ))}
+      </div>
       </div>
     </section>
   );

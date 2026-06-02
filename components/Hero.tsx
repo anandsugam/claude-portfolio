@@ -45,7 +45,7 @@ function PhotoPlaceholder() {
 
 export default function Hero() {
   return (
-    <section className="px-6 pt-20 pb-12 lg:pt-28 lg:pb-20 overflow-hidden">
+    <section className="px-6 pt-36 pb-12 lg:pt-52 lg:pb-20 overflow-hidden">
       <div className="max-w-7xl mx-auto w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
@@ -117,7 +117,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.85, delay: 0.08 }}
-            className="lg:col-span-5 order-first lg:order-none"
+            className="lg:col-span-5 order-first lg:order-none max-w-[260px] lg:max-w-[320px] mx-auto w-full"
           >
             <PhotoPlaceholder />
           </motion.div>

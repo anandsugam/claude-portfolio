@@ -229,12 +229,32 @@ function ImageZone({
   sublabel,
   aspect = "16/9",
   tall = false,
+  figmaEmbed,
 }: {
   label: string;
   sublabel?: string;
   aspect?: string;
   tall?: boolean;
+  figmaEmbed?: string;
 }) {
+  if (figmaEmbed) {
+    return (
+      <div
+        className="w-full rounded-2xl overflow-hidden"
+        style={{
+          aspectRatio: tall ? "9/16" : aspect,
+          maxHeight: tall ? "640px" : undefined,
+        }}
+      >
+        <iframe
+          src={figmaEmbed}
+          className="w-full h-full border-0"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className="w-full rounded-2xl flex flex-col items-center justify-center border-2 border-dashed"
@@ -1100,7 +1120,7 @@ export default function GojekPlusPage() {
                 </div>
                 {/* Body */}
                 <div className="px-7 py-5 border-t border-border flex flex-col" style={{ backgroundColor: "var(--color-bg)" }}>
-                  <ImageZone label="Design A screens" sublabel="Benefit view separate from plan selection" aspect="4/3" />
+                  <ImageZone label="Design A screens" sublabel="Benefit view separate from plan selection" aspect="4/3" figmaEmbed="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/R1oRy8MCYAEi4Gl2Xbhhd1/Usability-Testing?node-id=0-3090%26viewport=744%2C1202%2C0.28%26t=ODy8Nq7qYEqwHh5Q-1%26scaling=min-zoom%26content-scaling=fixed%26starting-point-node-id=0%3A15071%26page-id=0%3A1" />
                   <div className="mt-5 flex flex-col">
                     {[
                       "Required back-and-forth to compare benefits and plans",
