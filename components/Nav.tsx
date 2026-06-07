@@ -24,14 +24,6 @@ export default function Nav() {
             Work
           </Link>
           <Link
-            href="/journey"
-            className={`font-body text-sm transition-colors hidden sm:block ${
-              pathname === "/journey" ? "text-fg" : "text-muted hover:text-fg"
-            }`}
-          >
-            Journey
-          </Link>
-          <Link
             href="/about"
             className={`font-body text-sm transition-colors hidden sm:block ${
               pathname === "/about" ? "text-fg" : "text-muted hover:text-fg"

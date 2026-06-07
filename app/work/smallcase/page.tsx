@@ -306,7 +306,7 @@ export default function SmallcasePage() {
                     {/* Logo lockup */}
                     <div className="flex items-center mb-4">
                       <img
-                        src={p.id === "smallcase" ? "/logos/smallcase.png" : "/logos/tickertape.png"}
+                        src={p.id === "smallcase" ? "/images/smallcase.png" : "/images/tickertape.png"}
                         alt={`${p.id} logo`}
                         style={{ height: "44px", width: "auto" }}
                       />

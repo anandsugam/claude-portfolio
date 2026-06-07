@@ -90,11 +90,11 @@ export default function Hero() {
                 See Case Studies ↓
               </a>
               <a
-                href="/journey"
+                href="/about"
                 className="px-6 py-3 border border-border text-fg font-body font-medium text-sm hover:border-fg transition-colors"
                 style={{ borderRadius: "100px" }}
               >
-                View My Journey →
+                About me →
               </a>
             </motion.div>
 
