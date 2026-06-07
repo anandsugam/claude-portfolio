@@ -47,8 +47,11 @@ const caseStudies = [
     tags: ["Search", "Discovery", "Mobile"],
     color: "#1E1A2E",
     year: "2020–2021",
+    hidden: true,
   },
 ];
+
+const visibleCaseStudies = caseStudies.filter((cs) => !cs.hidden);
 
 export default function Work() {
   return (
@@ -69,7 +72,7 @@ export default function Work() {
       </motion.div>
 
       <div className="flex flex-col gap-4 w-full">
-        {caseStudies.map((cs, i) => (
+        {visibleCaseStudies.map((cs, i) => (
           <motion.div
             key={cs.slug}
             initial={{ opacity: 0, y: 24 }}
