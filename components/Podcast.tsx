@@ -10,7 +10,7 @@ const SPOTIFY_URL = "https://open.spotify.com/episode/5FGkl834yg7R2Ovhjq5Ajd";
 export default function Podcast() {
   return (
     <section
-      className="px-6 py-24 relative overflow-hidden"
+      className="px-6 py-36 relative overflow-hidden"
       style={{ backgroundColor: "#111110" }}
     >
       {/* Grain texture overlay */}
@@ -32,7 +32,7 @@ export default function Podcast() {
         >
           <h2
             className="font-display font-bold leading-tight"
-            style={{ color: "white", fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", fontWeight: 700 }}
+            style={{ color: "white", fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.03em" }}
           >
             Featured Talks &amp; Podcasts
           </h2>

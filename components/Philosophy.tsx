@@ -27,7 +27,7 @@ const principles = [
 
 export default function Philosophy() {
   return (
-    <section className="px-6 py-24 bg-card">
+    <section className="px-6 py-36">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -44,7 +44,7 @@ export default function Philosophy() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {principles.map((p, i) => (
             <motion.div
               key={p.num}
@@ -52,7 +52,8 @@ export default function Philosophy() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: i * 0.07 }}
-              className="bg-bg rounded-2xl p-7 flex flex-col"
+              className="rounded-2xl p-7 flex flex-col border"
+              style={{ borderColor: "rgba(0,0,0,0.11)" }}
             >
               <p
                 className="font-display font-bold text-fg mb-2"

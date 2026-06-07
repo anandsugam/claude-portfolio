@@ -63,7 +63,7 @@ const visibleCaseStudies = caseStudies.filter((cs) => !cs.hidden);
 
 export default function Work() {
   return (
-    <section id="work" className="px-6 pt-12 pb-24">
+    <section id="work" className="px-6 pt-12 pb-40">
       <div className="max-w-7xl mx-auto w-full">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
