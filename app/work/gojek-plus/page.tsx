@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import PdfPreview from "./PdfPreview";
 
 // ─── Section tabs ─────────────────────────────────────────────────────────────
 const TABS = [
@@ -415,7 +416,7 @@ export default function GojekPlusPage() {
                   </Paragraph>
                 </div>
 
-                <ThesisBlock logo="/logos/gojek/gofood+.png">
+                <ThesisBlock logo="/images/gojek/gofood+.png">
                   Leadership&apos;s ask: replicate what GoFood+ did, but at the Gojek level, spanning all six products.
                 </ThesisBlock>
               </div>
@@ -439,7 +440,7 @@ export default function GojekPlusPage() {
                     >
                       <div className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden">
                         <img
-                          src={`/logos/gojek/${p.logo}.png`}
+                          src={`/images/gojek/${p.logo}.png`}
                           alt={p.name}
                           style={{ width: 40, height: 40, objectFit: "contain" }}
                         />
@@ -726,7 +727,7 @@ export default function GojekPlusPage() {
                     label: "New entry points",
                     sublabel: "Cross-product entry points across 6 verticals",
                     caption: "Entry points surfaced the subscription across all 6 product journeys, not just GoFood.",
-                    image: "/logos/carousel/img2.png",
+                    image: "/images/carousel/img2.png",
                   },
                   {
                     label: "Updated branding",
@@ -737,7 +738,7 @@ export default function GojekPlusPage() {
                     label: "Reframed purchase page",
                     sublabel: "Same page, new content hierarchy",
                     caption: "The existing purchase page reframed with a new content hierarchy to sell cross-vertical benefits without engineering overhead.",
-                    image: "/logos/carousel/img1.png",
+                    image: "/images/carousel/img1.png",
                   },
                 ]}
               />
@@ -770,12 +771,12 @@ export default function GojekPlusPage() {
                   { duration: "14 days", tier: "Entry",      actual: "Rp18,900", price: "Rp8,900"  },
                 ];
                 const services = [
-                  { icon: "/logos/gojek/gofood.png",    label: "GoFood",    values: ["Up to 12k off", "Up to 12k off", "Up to 12k off"], vch: ["900 vouchers", "300 vouchers", "140 vouchers"] },
-                  { icon: "/logos/gojek/goride.png",    label: "GoRide",    values: ["Up to 8k off",  "Up to 8k off",  "Up to 8k off" ], vch: ["360 vouchers", "120 vouchers", "60 vouchers"  ] },
-                  { icon: "/logos/gojek/gocar.png",     label: "GoCar",     values: ["Up to 8k off",  "Up to 8k off",  "Up to 8k off" ], vch: ["360 vouchers", "120 vouchers", "60 vouchers"  ] },
-                  { icon: "/logos/gojek/gotransit.png", label: "GoTransit", values: ["Up to 15k off", "Up to 15k off", "Up to 15k off"], vch: ["360 vouchers", "120 vouchers", "60 vouchers"  ] },
-                  { icon: "/logos/gojek/gosend.png",    label: "GoSend",    values: ["Up to 4k off",  "Up to 4k off",  "Up to 4k off" ], vch: ["180 vouchers", "60 vouchers",  "30 vouchers"  ] },
-                  { icon: "/logos/gojek/gomart.png",    label: "GoMart",    values: ["Up to 8k off",  "Up to 8k off",  "Up to 8k off" ], vch: ["60 vouchers",  "20 vouchers",  "10 vouchers"  ] },
+                  { icon: "/images/gojek/gofood.png",    label: "GoFood",    values: ["Up to 12k off", "Up to 12k off", "Up to 12k off"], vch: ["900 vouchers", "300 vouchers", "140 vouchers"] },
+                  { icon: "/images/gojek/goride.png",    label: "GoRide",    values: ["Up to 8k off",  "Up to 8k off",  "Up to 8k off" ], vch: ["360 vouchers", "120 vouchers", "60 vouchers"  ] },
+                  { icon: "/images/gojek/gocar.png",     label: "GoCar",     values: ["Up to 8k off",  "Up to 8k off",  "Up to 8k off" ], vch: ["360 vouchers", "120 vouchers", "60 vouchers"  ] },
+                  { icon: "/images/gojek/gotransit.png", label: "GoTransit", values: ["Up to 15k off", "Up to 15k off", "Up to 15k off"], vch: ["360 vouchers", "120 vouchers", "60 vouchers"  ] },
+                  { icon: "/images/gojek/gosend.png",    label: "GoSend",    values: ["Up to 4k off",  "Up to 4k off",  "Up to 4k off" ], vch: ["180 vouchers", "60 vouchers",  "30 vouchers"  ] },
+                  { icon: "/images/gojek/gomart.png",    label: "GoMart",    values: ["Up to 8k off",  "Up to 8k off",  "Up to 8k off" ], vch: ["60 vouchers",  "20 vouchers",  "10 vouchers"  ] },
                 ];
                 const col = "1fr";
                 const border = `1px solid ${CARD_BORDER}`;
@@ -1099,70 +1100,19 @@ export default function GojekPlusPage() {
             <h3 className="font-display font-semibold text-fg mt-12 mb-3" style={{ fontSize: "1.375rem" }}>
               Usability testing: two design explorations
             </h3>
-            <div className="mt-3 mb-8 max-w-3xl">
+            <div className="mt-3 max-w-3xl">
               <Paragraph>
                 Usability testing was run with both existing GoFood+ subscribers and non-subscribers,
                 evaluating two design directions against the user mental model framework.
               </Paragraph>
             </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              {/* Design A */}
-              <div className="rounded-2xl border overflow-hidden flex flex-col" style={{ borderColor: "var(--color-border)" }}>
-                {/* Header */}
-                <div className="px-7 pt-7 pb-0 flex flex-col" style={{ backgroundColor: "var(--color-card)" }}>
-                  <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.25rem", letterSpacing: "-0.02em" }}>Design A</p>
-                  <div className="flex-1 min-h-4" />
-                  <div className="flex items-center justify-between pt-4 pb-5 mt-auto border-t border-border">
-                    <span className="font-body text-xs uppercase tracking-widest text-muted">Two-step flow</span>
-                    <span className="font-body text-xs font-medium text-muted">Rejected</span>
-                  </div>
-                </div>
-                {/* Body */}
-                <div className="px-7 py-5 border-t border-border flex flex-col" style={{ backgroundColor: "var(--color-bg)" }}>
-                  <ImageZone label="Design A screens" sublabel="Benefit view separate from plan selection" aspect="4/3" figmaEmbed="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/R1oRy8MCYAEi4Gl2Xbhhd1/Usability-Testing?node-id=0-3090%26viewport=744%2C1202%2C0.28%26t=ODy8Nq7qYEqwHh5Q-1%26scaling=min-zoom%26content-scaling=fixed%26starting-point-node-id=0%3A15071%26page-id=0%3A1" />
-                  <div className="mt-5 flex flex-col">
-                    {[
-                      "Required back-and-forth to compare benefits and plans",
-                      "Package options not visible on first scan",
-                      "Difficult to compare differences between subscription tiers",
-                    ].map((item) => (
-                      <div key={item} className="py-3 border-b border-border last:border-0 first:pt-0 last:pb-0">
-                        <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{item}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Design B */}
-              <div className="rounded-2xl border overflow-hidden flex flex-col" style={{ borderColor: ACCENT_BORDER }}>
-                {/* Header */}
-                <div className="px-7 pt-7 pb-0 flex flex-col" style={{ backgroundColor: ACCENT_DIM }}>
-                  <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.25rem", letterSpacing: "-0.02em" }}>Design B</p>
-                  <div className="flex-1 min-h-4" />
-                  <div className="flex items-center justify-between pt-4 pb-5 mt-auto border-t" style={{ borderColor: ACCENT_BORDER }}>
-                    <span className="font-body text-xs uppercase tracking-widest text-muted">One-step flow</span>
-                    <span className="font-body text-xs font-medium" style={{ color: "var(--color-fg)" }}>Preferred</span>
-                  </div>
-                </div>
-                {/* Body */}
-                <div className="px-7 py-5 border-t flex flex-col" style={{ backgroundColor: "var(--color-bg)", borderColor: ACCENT_BORDER }}>
-                  <ImageZone label="Design B screens" sublabel="Benefits and plan selection on a single screen" aspect="4/3" />
-                  <div className="mt-5 flex flex-col">
-                    {[
-                      "Users immediately noticed all plan options and compared price and duration at a glance",
-                      "Duration labelling refined: \"14 days\" perceived as 2 weeks, \"30 days\" as 1 month",
-                      "Benefit usage indicators needed stronger visual weight, addressed in final design",
-                    ].map((item) => (
-                      <div key={item} className="py-3 border-b border-border last:border-0 first:pt-0 last:pb-0">
-                        <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{item}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+            <div className="mb-6 mt-6 rounded-2xl overflow-hidden" style={{ backgroundColor: "var(--color-bg)", border: `1px solid ${CARD_BORDER}` }}>
+              <img src="/images/designOptions.png" alt="Design options" className="w-full" />
             </div>
+            <div className="mb-8">
+              <img src="/images/testing.png" alt="Usability testing" className="w-full rounded-2xl" />
+            </div>
+
           </motion.div>
         </section>
 
@@ -1256,11 +1206,7 @@ export default function GojekPlusPage() {
                 ))}
               </div>
 
-              <ImageZone
-                label="Brand exploration + final Gojek PLUS identity"
-                sublabel="Naming explorations, logo system, colour palette, and visual language applied across in-app and marketing surfaces"
-                aspect="16/7"
-              />
+              <PdfPreview src="/documents/Gojek%20PLUS_Brand%20Guidelines_2024.pdf" />
 
               {/* Brand deliverable */}
               <div
@@ -1315,11 +1261,7 @@ export default function GojekPlusPage() {
                 ))}
               </div>
 
-              <ImageZone
-                label="Final shipped UI"
-                sublabel="Purchase page, active plan view, and post-subscription confirmation screen"
-                aspect="16/7"
-              />
+              <img src="/images/touchpoints.png" alt="Final shipped UI touchpoints" className="w-full rounded-2xl" />
 
               {/* Cross-functional */}
               <div className="mt-12">
