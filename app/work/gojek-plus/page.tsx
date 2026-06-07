@@ -108,8 +108,8 @@ function Paragraph({ children }: { children: React.ReactNode }) {
 function ThesisBlock({ children, logo }: { children: React.ReactNode; logo?: string }) {
   return (
     <div
-      className="my-10 px-8 py-8 rounded-2xl border-l-4"
-      style={{ backgroundColor: ACCENT_DIM, borderColor: BRAND_GREEN }}
+      className="my-10 rounded-2xl p-8"
+      style={{ backgroundColor: ACCENT_DIM, border: `1px solid ${ACCENT_BORDER}` }}
     >
       {logo && (
         <img
@@ -119,8 +119,8 @@ function ThesisBlock({ children, logo }: { children: React.ReactNode; logo?: str
         />
       )}
       <p
-        className="font-display font-bold text-fg leading-snug"
-        style={{ fontSize: "clamp(0.875rem, 1.5vw, 1.0625rem)" }}
+        className="font-display font-semibold text-fg leading-snug"
+        style={{ fontSize: "clamp(1rem, 2vw, 1.25rem)", maxWidth: "40ch" }}
       >
         {children}
       </p>
@@ -351,8 +351,7 @@ export default function GojekPlusPage() {
                 className="font-body leading-relaxed mt-7"
                 style={{ color: "rgba(255,255,255,0.5)", fontSize: "clamp(1rem, 1.5vw, 1.125rem)" }}
               >
-                This case study talks about the story of designing Gojek&apos;s first unified subscription
-                brand from an early experiment to a nationwide launch that set record daily purchases.
+                From a GoFood-only loyalty programme to a Gojek-wide subscription brand. Built, validated, and launched in 3 months.
               </p>
 
             </motion.div>
@@ -1112,6 +1111,7 @@ export default function GojekPlusPage() {
             </div>
             <div className="mb-8">
               <img src="/images/testing.png" alt="Usability testing" className="w-full rounded-2xl" />
+              <img src="/images/finalscreen.png" alt="Final shipped screens" className="w-full rounded-2xl mt-5" />
             </div>
 
           </motion.div>
@@ -1168,46 +1168,44 @@ export default function GojekPlusPage() {
                 design teams, three principles guided the final naming and identity decision.
               </p>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
-                {[
-                  {
-                    letter: "A",
-                    title: "Retain Gojek green",
-                    body: "The brand needed to feel connected to Gojek so users would immediately recognise it as a Gojek product, not a third-party service.",
-                  },
-                  {
-                    letter: "B",
-                    title: "Add distinct identity",
-                    body: "Gojek PLUS needed its own visual language, distinct enough to stand apart and signal exclusivity and premium value.",
-                  },
-                  {
-                    letter: "C",
-                    title: "Retain PLUS equity",
-                    body: "After testing naming options, PLUS was retained. Existing GoFood+ subscribers already associated PLUS with subscription value.",
-                  },
-                ].map((p) => (
-                  <div
-                    key={p.letter}
-                    className="rounded-2xl p-7"
-                    style={{ backgroundColor: "rgba(255,255,255,0.05)" }}
-                  >
-                    <span
-                      className="font-display font-bold block mb-3"
-                      style={{ fontSize: "2rem", color: BRAND_GREEN, lineHeight: 1 }}
+              <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-5 mb-10 items-stretch">
+                {/* Cards column */}
+                <div className="flex flex-col justify-between gap-4">
+                  {[
+                    {
+                      letter: "A",
+                      title: "Retain Gojek green",
+                      body: "Maintain a strong connection to Gojek, ensuring instant recognition and trust.",
+                    },
+                    {
+                      letter: "B",
+                      title: "Add distinct identity",
+                      body: "Design a language that feels exclusive but still part of the Gojek ecosystem.",
+                    },
+                    {
+                      letter: "C",
+                      title: "Retain PLUS equity",
+                      body: "Keep the PLUS name, leveraging existing subscriber familiarity and perceived value.",
+                    },
+                  ].map((p) => (
+                    <div
+                      key={p.letter}
+                      className="rounded-2xl p-6"
+                      style={{ backgroundColor: "rgba(255,255,255,0.05)" }}
                     >
-                      {p.letter}
-                    </span>
-                    <p className="font-display font-bold mb-2" style={{ color: "white", fontSize: "1rem" }}>
-                      {p.title}
-                    </p>
-                    <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                      {p.body}
-                    </p>
-                  </div>
-                ))}
-              </div>
+                      <p className="font-display font-bold mb-1" style={{ color: "white", fontSize: "0.9375rem" }}>
+                        {p.title}
+                      </p>
+                      <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+                        {p.body}
+                      </p>
+                    </div>
+                  ))}
+                </div>
 
-              <PdfPreview src="/documents/Gojek%20PLUS_Brand%20Guidelines_2024.pdf" />
+                {/* PDF */}
+                <PdfPreview src="/documents/Gojek%20PLUS_Brand%20Guidelines_2024.pdf" />
+              </div>
 
               {/* Brand deliverable */}
               <div
@@ -1265,40 +1263,6 @@ export default function GojekPlusPage() {
               <img src="/images/touchpoints.png" alt="Final shipped UI touchpoints" className="w-full rounded-2xl" />
 
               {/* Cross-functional */}
-              <div className="mt-12">
-                <h3
-                  className="font-display font-semibold mb-4"
-                  style={{ color: "white", fontSize: "clamp(1.375rem, 2.5vw, 1.875rem)" }}
-                >
-                  Cross-functional leadership
-                </h3>
-                <p
-                  className="font-body leading-relaxed mb-8 max-w-2xl"
-                  style={{ color: "rgba(255,255,255,0.45)", fontSize: "1.0625rem" }}
-                >
-                  Launching Gojek PLUS required orchestrating across eight distinct teams simultaneously.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {[
-                    "Product Management",
-                    "UX Research",
-                    "Brand Design",
-                    "Creative Design",
-                    "Marketing",
-                    "On-Ground Ops",
-                    "Engineering",
-                    "Data + Analytics",
-                  ].map((team) => (
-                    <span
-                      key={team}
-                      className="font-body text-sm px-4 py-2 rounded-full"
-                      style={{ backgroundColor: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.7)" }}
-                    >
-                      {team}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </motion.div>
           </div>
         </section>
@@ -1438,8 +1402,8 @@ export default function GojekPlusPage() {
               ].map((r) => (
                 <div
                   key={r.title}
-                  className="bg-card rounded-2xl p-8"
-                  style={{ borderLeft: `3px solid ${BRAND_GREEN}` }}
+                  className="rounded-2xl p-8 flex flex-col"
+                  style={{ backgroundColor: "var(--color-bg)", border: "1px solid rgba(0,0,0,0.15)" }}
                 >
                   <p className="font-display font-bold text-fg mb-3" style={{ fontSize: "1.0625rem" }}>
                     {r.title}
