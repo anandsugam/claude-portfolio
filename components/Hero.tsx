@@ -64,7 +64,7 @@ export default function Hero() {
               >
                 <MaskReveal lines={["I'm Sugam Anand"]} delay={0} stagger={0.045} duration={0.5} />
               </span>
-              <MaskReveal lines={["A full-stack", "design leader"]} delay={0.18} stagger={0.06} duration={0.6} />
+              <MaskReveal lines={["A full-stack design leader"]} delay={0.18} stagger={0.06} duration={0.6} />
             </h1>
 
             {/* Body */}
@@ -94,14 +94,14 @@ export default function Hero() {
                 className="px-6 py-3 bg-fg text-bg font-body font-medium text-sm hover:opacity-80 transition-opacity"
                 style={{ borderRadius: "100px" }}
               >
-                See Case Studies ↓
+                See my work ↓
               </a>
               <a
                 href="/about"
                 className="px-6 py-3 border border-border bg-bg text-fg font-body font-medium text-sm hover:border-fg transition-colors"
                 style={{ borderRadius: "100px" }}
               >
-                About me →
+                Know about me →
               </a>
             </motion.div>
 

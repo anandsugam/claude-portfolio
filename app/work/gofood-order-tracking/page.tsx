@@ -252,7 +252,7 @@ export default function GoFoodOrderTrackingPage() {
             HERO
         ══════════════════════════════════════════════════════════════════ */}
         <section
-          className="min-h-screen flex flex-col justify-end px-6 pb-20 pt-36 relative overflow-hidden"
+          className="flex flex-col justify-end px-6 pb-16 pt-36 relative overflow-hidden"
           style={{ backgroundColor: HERO_BG }}
         >
           <div
@@ -284,7 +284,7 @@ export default function GoFoodOrderTrackingPage() {
 
               <h1
                 className="font-display font-bold leading-[1.0] tracking-tight"
-                style={{ color: "white", fontSize: "clamp(2.25rem, 5vw, 4.5rem)" }}
+                style={{ color: "white", fontSize: "clamp(1.75rem, 3.5vw, 3rem)" }}
               >
                 Redesigning the order tracking experience to{" "}
                 <span style={{ color: ACCENT }}>reduce customer anxiety</span>
@@ -704,15 +704,22 @@ export default function GoFoodOrderTrackingPage() {
                       "Support contacts during the active delivery window — the clearest signal of UX failure.",
                   },
                 ].map((m) => (
-                  <div key={m.metric} className="flex items-start gap-4">
-                    <span className="text-2xl shrink-0 mt-0.5">{m.icon}</span>
-                    <div>
-                      <p className="font-display font-semibold text-fg" style={{ fontSize: "1rem" }}>
-                        {m.metric}{" "}
-                        <span className="font-body font-normal text-muted text-sm">{m.sub}</span>
-                      </p>
-                      <p className="font-body text-muted text-sm mt-1 leading-relaxed">{m.detail}</p>
-                    </div>
+                  <div
+                    key={m.metric}
+                    className="rounded-2xl border border-border p-6 flex flex-col"
+                    style={{ backgroundColor: "var(--color-bg)" }}
+                  >
+                    <span
+                      className="flex items-center justify-center rounded-xl text-xl mb-4"
+                      style={{ width: 44, height: 44, backgroundColor: "var(--color-card)" }}
+                    >
+                      {m.icon}
+                    </span>
+                    <p className="font-display font-semibold text-fg" style={{ fontSize: "1rem" }}>
+                      {m.metric}
+                    </p>
+                    <p className="font-body text-muted text-sm mb-3">{m.sub}</p>
+                    <p className="font-body text-muted text-sm leading-relaxed">{m.detail}</p>
                   </div>
                 ))}
               </div>

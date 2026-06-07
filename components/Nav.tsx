@@ -32,11 +32,12 @@ export default function Nav() {
             About
           </Link>
           <a
-            href="mailto:sugam.anand@gmail.com"
+            href="/documents/SugamAnand-Resume.pdf"
+            download
             className="font-body text-sm text-fg border border-border px-4 py-1.5 hover:border-fg transition-colors"
             style={{ borderRadius: "100px" }}
           >
-            Connect →
+            Resume ↓
           </a>
         </div>
       </nav>

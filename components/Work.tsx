@@ -8,7 +8,7 @@ const caseStudies = [
     slug: "smallcase",
     company: "Smallcase & Tickertape",
     logos: ["/images/smallcase.png", "/images/tickertape.png"],
-    image: "",
+    image: "/images/teamcover.png",
     role: "Senior Director of Product Design",
     title: "Elevating Product Design from Execution to Strategic Influence",
     description:
@@ -21,7 +21,7 @@ const caseStudies = [
     slug: "gojek-plus",
     company: "Gojek",
     logos: ["/images/gojek.png"],
-    image: "",
+    image: "/images/gojekpluscover.png",
     role: "Product Design Lead",
     title: "Gojek PLUS: Building a new subscription brand for Gojek",
     description:
@@ -34,7 +34,7 @@ const caseStudies = [
     slug: "gofood-order-tracking",
     company: "Gojek",
     logos: ["/images/gojek.png"],
-    image: "",
+    image: "/images/ordertrackingcover.png",
     role: "Product Design Lead",
     title: "Redesigning Order Tracking Experience in GoFood",
     description:
@@ -90,8 +90,8 @@ export default function Work() {
           >
             <Link href={`/work/${cs.slug}`} className="group block">
               <div
-                className="flex flex-col lg:flex-row overflow-hidden border border-border hover:border-fg/30 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
-                style={{ borderRadius: "24px" }}
+                className="flex flex-col lg:flex-row overflow-hidden border hover:border-fg/30 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+                style={{ borderRadius: "24px", borderColor: "rgba(0,0,0,0.11)" }}
               >
                 {/* LEFT — text content */}
                 <div className="flex flex-col justify-center flex-1 p-8 lg:p-10 bg-bg gap-5">
@@ -120,7 +120,7 @@ export default function Work() {
                   {/* Title + description */}
                   <div className="flex flex-col gap-3">
                     <h3
-                      className="font-display font-bold text-fg leading-snug group-hover:text-accent transition-colors duration-200"
+                      className="font-display font-bold text-fg leading-snug"
                       style={{ fontSize: "clamp(1.125rem, 1.75vw, 1.375rem)", letterSpacing: "-0.02em" }}
                     >
                       {cs.title}
@@ -156,7 +156,7 @@ export default function Work() {
                     <img
                       src={cs.image}
                       alt={cs.title}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                     />
                   ) : (
                     /* Image placeholder */
