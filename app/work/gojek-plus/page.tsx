@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import PdfPreview from "./PdfPreview";
+import dynamic from "next/dynamic";
+const PdfPreview = dynamic(() => import("./PdfPreview"), { ssr: false });
 
 // ─── Section tabs ─────────────────────────────────────────────────────────────
 const TABS = [
