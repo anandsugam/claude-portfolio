@@ -313,7 +313,7 @@ export default function GoFoodOrderTrackingPage() {
               className="grid grid-cols-2 lg:grid-cols-4 gap-8"
             >
               {[
-                { label: "My Role", value: "Senior Product Designer" },
+                { label: "My Role", value: "Product Design Lead" },
                 { label: "Team", value: "GoFood · cross-functional" },
                 { label: "Duration", value: "5 months (June–Oct 2023)" },
                 { label: "Platform", value: "Mobile (Android + iOS)" },

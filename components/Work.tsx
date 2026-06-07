@@ -7,10 +7,12 @@ const caseStudies = [
   {
     slug: "smallcase",
     company: "Smallcase & Tickertape",
+    logos: ["/images/smallcase.png", "/images/tickertape.png"],
+    image: "",
     role: "Senior Director of Product Design",
-    title: "From Execution Layer to the Strategy Table",
+    title: "Elevating Product Design from Execution to Strategic Influence",
     description:
-      "Joined as Head of Design and turned a scattered, service-oriented team into a strategic function — with career infrastructure, an AI-ready craft system, and a seat on the core leadership team.",
+      "Took ownership of design leadership and elevated the function from a service team into a strategic force. Within 12 months, design earned a permanent seat at the leadership table and a hand in shaping product strategy.",
     tags: ["Leadership", "Org Building", "Fintech"],
     color: "#1A3550",
     year: "2024–Present",
@@ -18,21 +20,25 @@ const caseStudies = [
   {
     slug: "gojek-plus",
     company: "Gojek",
+    logos: ["/images/gojek.png"],
+    image: "",
     role: "Product Design Lead",
-    title: "One Subscription. Six Products. One Brand.",
+    title: "Gojek PLUS: Building a new subscription brand for Gojek",
     description:
-      "Led the design of Gojek PLUS — a unified subscription brand spanning 6 products across Southeast Asia, from 0 to launch.",
+      "Led the creation of Gojek PLUS, the company's first subscription brand unifying six products. Took it from concept to a nationwide launch that set record daily purchases.",
     tags: ["Brand", "Product Design", "Scale"],
     color: "#1B3A2C",
     year: "2021–2024",
   },
   {
     slug: "gofood-order-tracking",
-    company: "Gojek · GoFood",
-    role: "Senior Product Designer",
-    title: "Redesigning the Order Tracking Experience to Reduce Customer Anxiety",
+    company: "Gojek",
+    logos: ["/images/gojek.png"],
+    image: "",
+    role: "Product Design Lead",
+    title: "Redesigning Order Tracking Experience in GoFood",
     description:
-      "Rethought the GoFood post-order journey — from confirmation to delivery — reducing anxiety and support contacts at scale.",
+      "Led a redesign of GoFood's order tracking that eased delivery anxiety from order pooling, unblocking the business to roll the cost-saving model out fully.",
     tags: ["Consumer UX", "Mobile", "GoFood"],
     color: "#2E1F1A",
     year: "2021–2022",
@@ -40,6 +46,8 @@ const caseStudies = [
   {
     slug: "gofood-text-search",
     company: "Gojek · GoFood",
+    logos: ["/images/gojek.png"],
+    image: "",
     role: "Product Designer",
     title: "Redesigning How 20M Users Find Food",
     description:
@@ -66,7 +74,7 @@ export default function Work() {
       >
         <div className="w-full">
           <h2 className="font-display text-fg mt-3 leading-[1.05]" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.03em" }}>
-            Selected work
+            Case Studies
           </h2>
         </div>
       </motion.div>
@@ -86,23 +94,30 @@ export default function Work() {
                 style={{ borderRadius: "24px" }}
               >
                 {/* LEFT — text content */}
-                <div className="flex flex-col justify-between flex-1 p-8 lg:p-10 bg-bg gap-6">
-                  {/* Top: company + year */}
-                  <div className="flex items-center justify-between">
-                    <span
-                      className="font-body text-xs font-medium text-muted uppercase tracking-widest"
-                    >
-                      {cs.company}
+                <div className="flex flex-col justify-center flex-1 p-8 lg:p-10 bg-bg gap-5">
+                  {/* Top: company logo(s) + designation */}
+                  <div className="flex items-center flex-wrap gap-2.5">
+                    <span className="flex items-center gap-3">
+                      {cs.logos.map((logo) => (
+                        <img
+                          key={logo}
+                          src={logo}
+                          alt={cs.company}
+                          style={{
+                            height: logo.includes("tickertape") || logo.includes("smallcase") ? "26px" : "22px",
+                            width: "auto",
+                            objectFit: "contain",
+                          }}
+                        />
+                      ))}
                     </span>
-                    <span
-                      className="font-body text-xs px-3 py-1 text-muted"
-                      style={{ backgroundColor: "#F0F0F0", borderRadius: "100px" }}
-                    >
-                      {cs.year}
+                    <span className="w-1 h-1 rounded-full bg-border" />
+                    <span className="font-body text-xs font-medium text-fg">
+                      {cs.role}
                     </span>
                   </div>
 
-                  {/* Middle: title + description */}
+                  {/* Title + description */}
                   <div className="flex flex-col gap-3">
                     <h3
                       className="font-display font-bold text-fg leading-snug group-hover:text-accent transition-colors duration-200"
@@ -118,8 +133,8 @@ export default function Work() {
                     </p>
                   </div>
 
-                  {/* Bottom: tags */}
-                  <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
+                  {/* Focus area pills */}
+                  <div className="flex flex-wrap gap-2">
                     {cs.tags.map((t) => (
                       <span
                         key={t}
@@ -129,12 +144,6 @@ export default function Work() {
                         {t}
                       </span>
                     ))}
-                    <span
-                      className="font-body text-xs px-3 py-1 text-fg font-medium"
-                      style={{ backgroundColor: "#E8E8E8", borderRadius: "100px" }}
-                    >
-                      {cs.role}
-                    </span>
                   </div>
                 </div>
 
@@ -143,41 +152,34 @@ export default function Work() {
                   className="relative overflow-hidden shrink-0 lg:w-2/5"
                   style={{ backgroundColor: cs.color, minHeight: "240px" }}
                 >
-                  {/* Noise overlay */}
-                  <div
-                    className="absolute inset-0 opacity-30"
-                    style={{
-                      backgroundImage:
-                        "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E\")",
-                      backgroundRepeat: "repeat",
-                    }}
-                  />
-                  {/* Ghost number */}
-                  <span
-                    className="absolute font-display font-bold select-none"
-                    style={{
-                      fontSize: "clamp(7rem, 10vw, 11rem)",
-                      lineHeight: 1,
-                      color: "rgba(255,255,255,0.07)",
-                      bottom: "-8px",
-                      right: "24px",
-                    }}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  {/* Role label */}
-                  <span
-                    className="absolute font-body uppercase tracking-widest select-none"
-                    style={{
-                      fontSize: "0.6rem",
-                      color: "rgba(255,255,255,0.3)",
-                      bottom: "24px",
-                      left: "28px",
-                      letterSpacing: "0.14em",
-                    }}
-                  >
-                    {cs.role}
-                  </span>
+                  {cs.image ? (
+                    <img
+                      src={cs.image}
+                      alt={cs.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    /* Image placeholder */
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                      <svg
+                        width="28"
+                        height="28"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        style={{ color: "rgba(255,255,255,0.35)" }}
+                      >
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                        <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+                        <path d="M21 15l-5-5L5 21" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                      </svg>
+                      <span
+                        className="font-body uppercase tracking-widest"
+                        style={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.4)", letterSpacing: "0.14em" }}
+                      >
+                        1600 × 1000
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </Link>

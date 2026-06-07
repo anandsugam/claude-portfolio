@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import MaskReveal from "./MaskReveal";
 
 function PhotoPlaceholder() {
   return (
@@ -53,27 +54,33 @@ export default function Hero() {
           <div className="lg:col-span-7 flex flex-col">
 
             {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.12 }}
+            <h1
               className="font-display text-fg leading-[1.05]"
               style={{ fontSize: "clamp(2.25rem, 4.5vw, 4rem)", fontWeight: 700, letterSpacing: "-0.03em" }}
             >
-              <span className="block" style={{ fontSize: "0.45em", fontWeight: 500, letterSpacing: "-0.01em", opacity: 0.5, marginBottom: "0.3em" }}>I&apos;m Sugam Anand</span>
-              A full-stack<br />design leader.
-            </motion.h1>
+              <span
+                className="block"
+                style={{ fontSize: "0.45em", fontWeight: 500, letterSpacing: "-0.01em", opacity: 0.5, marginBottom: "0.3em" }}
+              >
+                <MaskReveal lines={["I'm Sugam Anand"]} delay={0} stagger={0.045} duration={0.5} />
+              </span>
+              <MaskReveal lines={["A full-stack", "design leader"]} delay={0.18} stagger={0.06} duration={0.6} />
+            </h1>
 
             {/* Body */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.25 }}
+            <div
               className="font-body text-muted leading-relaxed mt-6"
               style={{ fontSize: "1.0625rem", maxWidth: "42rem" }}
             >
-              Hands-on enough to know what great feels like, fluent enough in technology to shape how it&apos;s built, and grounded enough in people to build teams that last.
-            </motion.p>
+              <MaskReveal
+                lines={[
+                  "Hands-on enough to know what great feels like, fluent enough in technology to shape how it's built, and grounded enough in people to build teams that last.",
+                ]}
+                delay={0.6}
+                stagger={0.016}
+                duration={0.5}
+              />
+            </div>
 
             {/* CTAs */}
             <motion.div
@@ -91,7 +98,7 @@ export default function Hero() {
               </a>
               <a
                 href="/about"
-                className="px-6 py-3 border border-border text-fg font-body font-medium text-sm hover:border-fg transition-colors"
+                className="px-6 py-3 border border-border bg-bg text-fg font-body font-medium text-sm hover:border-fg transition-colors"
                 style={{ borderRadius: "100px" }}
               >
                 About me →

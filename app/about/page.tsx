@@ -261,7 +261,7 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="group relative pl-12 pb-10 last:pb-0"
+                  className="group relative pl-8 pb-10 last:pb-0"
                 >
                   {/* Timeline node */}
                   <div className="absolute left-0 top-[1.6rem]" style={{ transform: "translateX(1px)" }}>
@@ -285,10 +285,10 @@ export default function AboutPage() {
                   </div>
 
                   {/* Entry card */}
-                  <div className="px-5 py-5 -ml-1">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-8">
+                  <div className="py-5 -ml-1">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
                       {/* Left: meta */}
-                      <div className="lg:col-span-4">
+                      <div className="lg:col-span-3">
                         <span
                           className="inline-block font-body text-xs uppercase tracking-widest rounded-full px-2.5 py-1 mb-2.5"
                           style={{
@@ -306,12 +306,16 @@ export default function AboutPage() {
                         </p>
                       </div>
 
-                      {/* Right: body — one or more phases */}
-                      <div className="lg:col-span-8 space-y-8">
+                      {/* Right: body — one or more phases in a single card */}
+                      <div
+                        className="lg:col-span-9 rounded-2xl px-6 py-5 space-y-6"
+                        style={{ border: "1px solid rgba(0,0,0,0.12)" }}
+                      >
                         {entry.phases.map((phase, pi) => (
                           <div
                             key={phase.chapter}
-                            className={pi > 0 ? "pt-8 border-t border-border" : ""}
+                            className={pi > 0 ? "pt-6" : ""}
+                            style={pi > 0 ? { borderTop: "1px solid rgba(0,0,0,0.1)" } : undefined}
                           >
                             <div className="mb-3">
                               <p
