@@ -8,38 +8,15 @@ function PhotoPlaceholder() {
     <div
       className="relative w-full overflow-hidden"
       style={{
-        aspectRatio: "3/4",
-        borderRadius: "32px",
-        background: "linear-gradient(160deg, #E8E4DE 0%, #D4CFC8 50%, #C2BBB2 100%)",
+        aspectRatio: "1/1",
+        borderRadius: "50%",
       }}
     >
-      <div
-        className="absolute"
-        style={{
-          top: "8%", left: "10%", width: "60%", height: "60%",
-          borderRadius: "60% 40% 60% 40% / 40% 60% 40% 60%",
-          background: "rgba(79,70,229,0.07)",
-        }}
+      <img
+        src="/images/profile.png"
+        alt="Sugam Anand"
+        className="absolute inset-0 w-full h-full object-cover scale-125"
       />
-      <div
-        className="absolute"
-        style={{
-          bottom: "10%", right: "8%", width: "50%", height: "50%",
-          borderRadius: "40% 60% 40% 60% / 60% 40% 60% 40%",
-          background: "rgba(79,70,229,0.04)",
-        }}
-      />
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-        <span
-          className="font-display select-none"
-          style={{ fontSize: "clamp(5rem, 12vw, 9rem)", fontWeight: 800, color: "rgba(17,17,16,0.09)", lineHeight: 1 }}
-        >
-          SA
-        </span>
-        <span className="font-body text-xs" style={{ color: "rgba(17,17,16,0.25)", letterSpacing: "0.18em" }}>
-          ADD PHOTO
-        </span>
-      </div>
     </div>
   );
 }
