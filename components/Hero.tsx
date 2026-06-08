@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion";
 import MaskReveal from "./MaskReveal";
 
 function PhotoPlaceholder() {
@@ -22,9 +23,32 @@ function PhotoPlaceholder() {
 }
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [heroHeight, setHeroHeight] = useState(0);
+
+  useEffect(() => {
+    const measure = () => setHeroHeight(sectionRef.current?.offsetHeight ?? 0);
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  // Track the window scroll in pixels — a sticky element's own rect stays
+  // pinned at the top, so target-based progress never advances.
+  const { scrollY } = useScroll();
+  const range = heroHeight || 1;
+
+  const blur = useTransform(scrollY, [range * 0.15, range * 0.85], [0, 18]);
+  const blurFilter = useMotionTemplate`blur(${blur}px)`;
+  const opacity = useTransform(scrollY, [range * 0.1, range * 0.8], [1, 0]);
+  const scale = useTransform(scrollY, [0, range], [1, 0.94]);
+
   return (
-    <section className="px-6 pt-36 pb-12 lg:pt-52 lg:pb-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto w-full">
+    <section ref={sectionRef} className="sticky top-0 z-0 px-6 pt-36 pb-24 lg:pt-52 lg:pb-36 overflow-hidden">
+      <motion.div
+        className="max-w-7xl mx-auto w-full"
+        style={{ filter: blurFilter, opacity, scale }}
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
           {/* LEFT — text content */}
@@ -107,7 +131,7 @@ export default function Hero() {
           </motion.div>
 
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

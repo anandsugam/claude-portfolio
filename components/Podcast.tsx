@@ -10,7 +10,7 @@ const SPOTIFY_URL = "https://open.spotify.com/episode/5FGkl834yg7R2Ovhjq5Ajd";
 export default function Podcast() {
   return (
     <section
-      className="px-6 py-36 relative overflow-hidden"
+      className="px-6 py-36 relative z-10 overflow-hidden"
       style={{ backgroundColor: "#111110" }}
     >
       {/* Grain texture overlay */}

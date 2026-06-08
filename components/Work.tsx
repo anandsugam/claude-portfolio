@@ -63,21 +63,27 @@ const visibleCaseStudies = caseStudies.filter((cs) => !cs.hidden);
 
 export default function Work() {
   return (
-    <section id="work" className="px-6 pt-12 pb-40">
+    <section id="work" className="relative z-10 bg-bg px-6 pt-12 pb-40 scroll-mt-24">
       <div className="max-w-7xl mx-auto w-full">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="flex items-end justify-between mb-12"
+      {/* Sticky header — stays pinned under the nav until the cards scroll away */}
+      <div
+        className="sticky top-14 z-30 bg-bg pt-8 pb-8"
+        style={{ boxShadow: "0 8px 16px -12px rgba(0,0,0,0.12)" }}
       >
-        <div className="w-full">
-          <h2 className="font-display text-fg mt-3 leading-[1.05]" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.03em" }}>
-            Case Studies
-          </h2>
-        </div>
-      </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex items-end justify-between"
+        >
+          <div className="w-full">
+            <h2 className="font-display text-fg leading-[1.05]" style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)", fontWeight: 700, letterSpacing: "-0.03em" }}>
+              Case Studies
+            </h2>
+          </div>
+        </motion.div>
+      </div>
 
       <div className="flex flex-col gap-7 w-full">
         {visibleCaseStudies.map((cs, i) => (

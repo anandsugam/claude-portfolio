@@ -154,51 +154,67 @@ export default function Contact() {
 
   return (
     <>
-      <section id="contact" className="px-6 py-24 max-w-7xl mx-auto">
-        <div className="border border-border rounded-3xl p-8 lg:p-14 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-xl"
+      <section
+        id="contact"
+        className="relative z-10 px-6 py-24"
+        style={{ backgroundColor: "#111110" }}
+      >
+        <div className="max-w-7xl mx-auto">
+          <div
+            className="rounded-3xl p-8 lg:p-14 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10"
+            style={{ border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.03)" }}
           >
-            <span className="font-body font-medium text-xs text-muted uppercase tracking-widest block mb-5">
-              Get in Touch
-            </span>
-            <h2
-              className="font-display text-fg leading-[1.05]"
-              style={{ fontSize: "clamp(1.375rem, 2.5vw, 2rem)", fontWeight: 700, letterSpacing: "-0.03em" }}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="max-w-xl"
             >
-              Interested in working together?
-            </h2>
-            <p className="font-body text-muted leading-relaxed mt-5" style={{ fontSize: "1rem" }}>
-              I&apos;m open to senior design leadership roles, advisory engagements, and interesting conversations about design, product, and building teams.
-            </p>
-          </motion.div>
+              <span
+                className="font-body font-medium text-xs uppercase tracking-widest block mb-5"
+                style={{ color: "rgba(255,255,255,0.5)" }}
+              >
+                Get in Touch
+              </span>
+              <h2
+                className="font-display leading-[1.05]"
+                style={{ color: "white", fontSize: "clamp(1.375rem, 2.5vw, 2rem)", fontWeight: 700, letterSpacing: "-0.03em" }}
+              >
+                Interested in working together?
+              </h2>
+              <p
+                className="font-body leading-relaxed mt-5"
+                style={{ color: "rgba(255,255,255,0.65)", fontSize: "1rem" }}
+              >
+                I&apos;m open to senior design leadership roles, advisory engagements, and interesting conversations about design, product, and building teams.
+              </p>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="flex flex-col gap-3 shrink-0"
-          >
-            <button
-              onClick={() => setModalOpen(true)}
-              className="px-8 py-4 bg-fg text-bg font-body font-medium text-sm rounded-full hover:opacity-75 transition-opacity text-center"
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="flex flex-col gap-3 shrink-0"
             >
-              Contact me →
-            </button>
-            <a
-              href="https://linkedin.com/in/sugamanand"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 border border-border text-fg font-body font-medium text-sm rounded-full hover:border-fg transition-colors text-center"
-            >
-              LinkedIn
-            </a>
-          </motion.div>
+              <button
+                onClick={() => setModalOpen(true)}
+                className="px-8 py-4 bg-bg text-fg font-body font-medium text-sm rounded-full hover:opacity-80 transition-opacity text-center"
+              >
+                Contact me →
+              </button>
+              <a
+                href="https://linkedin.com/in/sugamanand"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 font-body font-medium text-sm rounded-full transition-colors text-center"
+                style={{ border: "1px solid rgba(255,255,255,0.2)", color: "white" }}
+              >
+                LinkedIn
+              </a>
+            </motion.div>
+          </div>
         </div>
       </section>
 

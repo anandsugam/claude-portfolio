@@ -5,29 +5,29 @@ import { motion } from "framer-motion";
 const principles = [
   {
     num: "01",
-    title: "Great products are orchestrated, not designed by one function alone",
-    body: "Orchestration is the design skill nobody talks about. Business, product, design, brand — same vision, different instruments, one output.",
+    title: "The best design happens across functions",
+    body: "Orchestration is the design skill nobody talks about. Business, product, design, and brand are different instruments playing the same score. Great products emerge when they're aligned.",
   },
   {
     num: "02",
-    title: "Simplicity is where rigorous thinking meets uncompromising craft",
-    body: "The simplest experiences are the hardest to make. Most designers commit to one end. I won't compromise on either.",
+    title: "Simplicity is where thinking meets craft",
+    body: "The simplest experiences are often the hardest to create. They require rigorous thinking and exceptional craft. I don't believe in choosing one over the other.",
   },
   {
     num: "03",
-    title: "Great design requires both user empathy and domain fluency",
-    body: "User research tells you how people experience a domain. Domain knowledge tells you what's actually possible inside it. Know the user. Know the domain.",
+    title: "Great design requires both empathy and expertise",
+    body: "User empathy reveals how people experience a problem. Domain expertise reveals what's possible within the system. Great design requires both. Know the user. Know the domain.",
   },
   {
     num: "04",
-    title: "People are a design problem too",
-    body: "A demotivated team is the same problem type as a product nobody uses. Diagnose honestly, intervene at the right points.",
+    title: "Great products start with great teams",
+    body: "A demotivated team is often the same kind of problem as a product nobody uses. The solution isn't guesswork, it's understanding the root cause and intervening where it matters most.",
   },
 ];
 
 export default function Philosophy() {
   return (
-    <section className="px-6 py-36">
+    <section className="relative z-10 bg-bg px-6 py-36">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
