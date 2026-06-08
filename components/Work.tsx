@@ -13,7 +13,7 @@ const caseStudies = [
     role: "Senior Director of Product Design",
     title: "Elevating Product Design from Execution to Strategic Influence",
     description:
-      "Took ownership of design leadership and elevated the function from a service team into a strategic force. Within 12 months, design earned a permanent seat at the leadership table and a hand in shaping product strategy.",
+      "Led a team of 8 product designers, transforming design into a strategic partner and securing a permanent seat on the core leadership team.",
     tags: ["Leadership", "Org Building", "Fintech"],
     color: "#1A3550",
     year: "2024–Present",
@@ -39,7 +39,7 @@ const caseStudies = [
     role: "Product Design Lead",
     title: "Redesigning Order Tracking Experience in GoFood",
     description:
-      "Led a redesign of GoFood's order tracking that eased delivery anxiety from order pooling, unblocking the business to roll the cost-saving model out fully.",
+      "Led a multi-phase transformation of GoFood's tracking experience, improving customer confidence, reducing operational costs, and enabling order pooling at scale.",
     tags: ["Consumer UX", "Mobile", "GoFood"],
     color: "#2E1F1A",
     year: "2021–2022",
@@ -134,7 +134,7 @@ export default function Work() {
                     </h3>
                     <p
                       className="font-body text-muted leading-relaxed"
-                      style={{ fontSize: "0.9375rem", maxWidth: "52ch" }}
+                      style={{ fontSize: "0.9375rem", maxWidth: "calc(64ch - 24px)" }}
                     >
                       {cs.description}
                     </p>
