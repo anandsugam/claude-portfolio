@@ -78,22 +78,6 @@ function Paragraph({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ThesisBlock({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      className="my-10 px-8 py-8 rounded-2xl border-l-4"
-      style={{ backgroundColor: ACCENT_DIM, borderColor: ACCENT }}
-    >
-      <p
-        className="font-display font-bold text-fg leading-snug"
-        style={{ fontSize: "clamp(1.125rem, 2.5vw, 1.625rem)" }}
-      >
-        {children}
-      </p>
-    </div>
-  );
-}
-
 function ImageZone({
   label,
   sublabel,
@@ -359,11 +343,6 @@ export default function GoFoodOrderTrackingPage() {
                     It didn&apos;t go well.
                   </Paragraph>
                 </div>
-
-                <ThesisBlock>
-                  A good logistics model had a UX problem. And that UX problem had a measurable,
-                  growing cost.
-                </ThesisBlock>
               </div>
 
               {/* Failure metrics */}
@@ -406,167 +385,11 @@ export default function GoFoodOrderTrackingPage() {
             <div className="mt-16">
               <SectionLabel>How Mode Hemat worked</SectionLabel>
               <div className="w-full rounded-2xl border border-border overflow-hidden" style={{ background: "#F8F7F4" }}>
-                <div className="px-8 py-10">
-                  <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-4 lg:gap-3">
-
-                    {/* ── Phone helper ── */}
-                    {/* SCREEN 1 — Checkout */}
-                    <div className="flex flex-col items-center gap-3 shrink-0" style={{ width: "190px" }}>
-                      <div className="w-full rounded-[20px] overflow-hidden shadow border border-gray-200 bg-white" style={{ fontSize: "10px" }}>
-                        {/* status bar */}
-                        <div className="flex justify-between px-3 pt-2 pb-0.5 bg-white text-[8px] text-gray-500">
-                          <span className="font-medium">08:08</span><span>▲◆▲</span>
-                        </div>
-                        {/* nav */}
-                        <div className="flex items-center justify-between px-3 py-2 border-b border-gray-100">
-                          <div className="flex items-center gap-1.5"><span className="text-gray-400 text-xs">←</span><span className="font-semibold text-gray-800" style={{ fontSize: "9.5px" }}>Ayam Geprek, Kemang</span></div>
-                          <div className="w-5 h-5 rounded-full flex items-center justify-center" style={{ background: "#FFF0E5" }}><span style={{ fontSize: "8px" }}>🛒</span></div>
-                        </div>
-                        {/* delivery label */}
-                        <div className="flex items-center justify-between px-3 py-1.5 border-b border-gray-100">
-                          <span className="font-semibold text-gray-700">Delivery</span>
-                          <span className="border border-green-700 text-green-700 rounded px-1.5 py-0.5" style={{ fontSize: "7.5px" }}>Change</span>
-                        </div>
-                        {/* options */}
-                        <div className="px-3 py-2 space-y-1.5">
-                          {/* Regular */}
-                          <div className="flex items-start gap-2">
-                            <div className="w-3 h-3 mt-0.5 rounded-full border border-gray-300 shrink-0" />
-                            <div className="flex-1 flex justify-between"><span className="text-gray-700">Regular</span><span className="text-gray-400">Rp11,000<br/><span className="text-[8px]">30 min</span></span></div>
-                          </div>
-                          {/* Mode Hemat selected */}
-                          <div className="flex items-start gap-2 px-2 py-1.5 -mx-1 rounded-lg" style={{ background: "#F0FDF4" }}>
-                            <div className="w-3 h-3 mt-0.5 rounded-full border-2 border-green-600 flex items-center justify-center shrink-0"><div className="w-1.5 h-1.5 rounded-full bg-green-600"/></div>
-                            <div className="flex-1">
-                              <div className="flex justify-between"><span className="font-semibold" style={{ color: "#15601A" }}>Mode Hemat</span><span className="font-medium text-green-600">Free</span></div>
-                              <div><span style={{ color: "#C05300", fontSize: "9px" }}>46 min</span><span className="text-gray-400 ml-1" style={{ fontSize: "8px" }}>· Stays fresh</span></div>
-                            </div>
-                          </div>
-                        </div>
-                        {/* address */}
-                        <div className="px-3 py-1.5 border-t border-gray-100">
-                          <span className="text-gray-400 block" style={{ fontSize: "7.5px" }}>Delivery to</span>
-                          <span className="font-medium text-gray-700">Rumah</span>
-                        </div>
-                        {/* CTA */}
-                        <div className="px-3 pb-3 pt-1">
-                          <div className="w-full py-1.5 rounded-full text-center text-white font-bold" style={{ background: "#00880A", fontSize: "9px" }}>Order with Mode Hemat</div>
-                          <p className="text-center text-green-600 mt-1" style={{ fontSize: "7px" }}>✓ You'll save Rp20,000 on this order</p>
-                        </div>
-                      </div>
-                      <div className="text-center"><p className="font-body text-xs font-semibold text-fg">Checkout</p></div>
-                    </div>
-
-                    {/* ── Arrow ── */}
-                    <div className="flex lg:flex-col items-center gap-1.5 self-center shrink-0 lg:mt-[-60px]" style={{ minWidth: "80px" }}>
-                      <div className="flex items-center lg:flex-col gap-1">
-                        <div className="w-12 h-px lg:w-px lg:h-8 bg-gray-300" />
-                        <svg className="rotate-0 lg:rotate-90" width="8" height="10" viewBox="0 0 8 10"><path d="M1 1.5l5 3.5-5 3.5" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      </div>
-                      <div className="text-center" style={{ maxWidth: "80px" }}>
-                        <p className="text-gray-500 leading-tight" style={{ fontSize: "9px" }}>Customer accepts higher ETA</p>
-                        <p className="text-gray-400 italic" style={{ fontSize: "8px" }}>Order eligible for pooling</p>
-                      </div>
-                    </div>
-
-                    {/* SCREEN 2 — First delivery (map-first, no pooling indicator) */}
-                    <div className="flex flex-col items-center gap-3 shrink-0" style={{ width: "190px" }}>
-                      <div className="w-full rounded-[20px] overflow-hidden shadow border border-gray-200 bg-white" style={{ fontSize: "10px" }}>
-                        <div className="flex justify-between px-3 pt-2 pb-0.5 text-[8px] text-gray-500"><span className="font-medium">08:08</span><span>▲◆▲</span></div>
-                        {/* Green ETA bar */}
-                        <div className="flex items-center gap-2 px-3 py-2" style={{ background: "#00880A" }}>
-                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.6)" strokeWidth="2"/><path d="M12 7v5l3 2.5" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
-                          <span className="text-white font-medium" style={{ fontSize: "8.5px" }}>On time · Delivery in 15 mins</span>
-                          <svg className="ml-auto" width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.4)" strokeWidth="2"/><path d="M12 8v4M12 16h.01" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
-                        </div>
-                        {/* Map area */}
-                        <div className="relative overflow-hidden" style={{ height: "88px", background: "#E8EDCE" }}>
-                          <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
-                            <rect x="55" y="0" width="12" height="88" fill="#D0D5B8" rx="2"/>
-                            <rect x="0" y="38" width="190" height="12" fill="#D0D5B8" rx="2"/>
-                          </svg>
-                          {/* Driver pin */}
-                          <div className="absolute flex items-center justify-center w-6 h-6 rounded-full border-2 border-white shadow-md" style={{ top: "28px", left: "44px", background: "#00880A" }}>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 2C8 2 4 5 4 9c0 5.25 8 13 8 13s8-7.75 8-13c0-4-4-7-8-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                          </div>
-                          {/* Destination */}
-                          <div className="absolute w-3 h-3 rounded-full border-2 border-white shadow" style={{ top: "12px", right: "36px", background: "#EF4444" }}/>
-                        </div>
-                        {/* Info */}
-                        <div className="px-3 py-2">
-                          <p className="font-bold text-gray-800">Good food is coming</p>
-                          <p className="text-gray-400" style={{ fontSize: "9px" }}>Driver is on the way to you</p>
-                          <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-gray-100">
-                            <div><p className="font-medium text-gray-700">Galih Pambudi</p><p className="text-gray-400" style={{ fontSize: "8.5px" }}>B 1060 JEK</p></div>
-                            <div className="flex gap-1.5">
-                              <div className="w-5 h-5 rounded-full border border-green-600 flex items-center justify-center"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#00880A" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 013.6 2.26h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 9.91a16 16 0 006.16 6.16l1.02-.87a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
-                              <div className="w-5 h-5 rounded-full border border-green-600 flex items-center justify-center"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#00880A" strokeWidth="2.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-center">
-                        <p className="font-body text-xs font-semibold text-fg">First delivery</p>
-                        <p className="font-body text-muted italic" style={{ fontSize: "9.5px" }}>Pooled order</p>
-                      </div>
-                    </div>
-
-                    {/* SCREEN 3 — Second delivery (pooling banner visible) */}
-                    <div className="flex flex-col items-center gap-3 shrink-0" style={{ width: "190px" }}>
-                      <div className="w-full rounded-[20px] overflow-hidden shadow border border-gray-200 bg-white" style={{ fontSize: "10px" }}>
-                        <div className="flex justify-between px-3 pt-2 pb-0.5 text-[8px] text-gray-500"><span className="font-medium">08:08</span><span>▲◆▲</span></div>
-                        {/* Green ETA bar */}
-                        <div className="flex items-center gap-2 px-3 py-2" style={{ background: "#00880A" }}>
-                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.6)" strokeWidth="2"/><path d="M12 7v5l3 2.5" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
-                          <span className="text-white font-medium" style={{ fontSize: "8.5px" }}>On time · Delivery in 15 mins</span>
-                          <svg className="ml-auto" width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.4)" strokeWidth="2"/><path d="M12 8v4M12 16h.01" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
-                        </div>
-                        {/* Map area — with "First delivery" toast */}
-                        <div className="relative overflow-hidden" style={{ height: "88px", background: "#E8EDCE" }}>
-                          <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
-                            <rect x="55" y="0" width="12" height="88" fill="#D0D5B8" rx="2"/>
-                            <rect x="0" y="38" width="190" height="12" fill="#D0D5B8" rx="2"/>
-                          </svg>
-                          {/* Driver pin */}
-                          <div className="absolute flex items-center justify-center w-6 h-6 rounded-full border-2 border-white shadow-md" style={{ top: "28px", left: "44px", background: "#00880A" }}>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 2C8 2 4 5 4 9c0 5.25 8 13 8 13s8-7.75 8-13c0-4-4-7-8-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                          </div>
-                          {/* Second customer pin */}
-                          <div className="absolute flex items-center justify-center w-5 h-5 rounded-full border-2 border-white shadow" style={{ top: "14px", left: "110px", background: "#FF7A3D" }}>
-                            <svg width="8" height="8" viewBox="0 0 24 24" fill="white"><path d="M12 2C8 2 4 5 4 9c0 5.25 8 13 8 13s8-7.75 8-13c0-4-4-7-8-7z"/></svg>
-                          </div>
-                          {/* "First delivery" chip */}
-                          <div className="absolute flex items-center gap-1 px-2 py-1 rounded-lg shadow" style={{ top: "6px", right: "6px", background: "white", fontSize: "7.5px" }}>
-                            <span className="font-semibold text-gray-700">First delivery</span>
-                            <span className="text-gray-400">×</span>
-                          </div>
-                        </div>
-                        {/* Pooling banner */}
-                        <div className="mx-2 mt-1.5 px-2.5 py-2 rounded-xl flex items-start gap-2" style={{ background: "#00880A", fontSize: "8px" }}>
-                          <svg className="shrink-0 mt-0.5" width="10" height="10" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="white" strokeWidth="2"/><path d="M12 8v4M12 16h.01" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
-                          <p className="text-white leading-snug">Driver is delivering to another location first. Don&apos;t worry, it&apos;s not far from you. <span className="underline">They ordered from the same resto as you.</span></p>
-                        </div>
-                        {/* Info */}
-                        <div className="px-3 py-2 mt-0.5">
-                          <p className="font-bold text-gray-800">Good food is coming</p>
-                          <p className="text-gray-400" style={{ fontSize: "9px" }}>Driver is on the way to you</p>
-                          <div className="flex items-center justify-between mt-1.5 pt-1.5 border-t border-gray-100">
-                            <div><p className="font-medium text-gray-700">Galih Pambudi</p><p className="text-gray-400" style={{ fontSize: "8.5px" }}>B 1060 JEK</p></div>
-                            <div className="flex gap-1.5">
-                              <div className="w-5 h-5 rounded-full border border-green-600 flex items-center justify-center"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#00880A" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 013.6 2.26h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 9.91a16 16 0 006.16 6.16l1.02-.87a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
-                              <div className="w-5 h-5 rounded-full border border-green-600 flex items-center justify-center"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#00880A" strokeWidth="2.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-center">
-                        <p className="font-body text-xs font-semibold text-fg">Second delivery</p>
-                        <p className="font-body text-muted italic" style={{ fontSize: "9.5px" }}>Pooled order</p>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
+                <img
+                  src="/images/carousel/gofood%20tracking/modehemat.png"
+                  alt="How Mode Hemat worked"
+                  className="w-full h-auto block"
+                />
               </div>
             </div>
           </motion.div>
@@ -585,55 +408,72 @@ export default function GoFoodOrderTrackingPage() {
             >
               <ChapterMark num="02" label="The Diagnosis" />
 
-              <H2>Three structural problems in the existing tracking screen.</H2>
+              <H2>Pooling exposed structural limitations in the tracking experience</H2>
               <div className="mt-4 mb-12">
                 <Paragraph>
-                  The tracking screen wasn&apos;t designed for pooling — but it had deeper structural
-                  issues that would have broken any high-ETA, multi-state delivery model. We audited
-                  the current experience and found three root causes.
+                  Beyond pooling, the tracking screen had deeper structural issues that would have
+                  broken any high-ETA, multi-state delivery model. We audited the current experience
+                  and found four root causes.
                 </Paragraph>
               </div>
 
-              {/* 3 problems */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-14">
-                {[
-                  {
-                    num: "01",
-                    title: "Map = center of attention",
-                    body: "The design forced users to focus on driver movements on the map — not order states, not ETA. If the driver paused, changed route, or GPS lagged, users read it as 'something went wrong' and raised a ticket. Pooling made this worse: when drivers were unassigned or detouring to a first delivery, anxiety spiked.",
-                  },
-                  {
-                    num: "02",
-                    title: "ETA = buried in hierarchy",
-                    body: "ETA information sat at the lowest level of visual hierarchy on the screen. With historically poor ETA compliance (now made worse by pooling's longer ETAs), users had learned not to trust the number — and there was no stronger signal to anchor to.",
-                  },
-                  {
-                    num: "03",
-                    title: "Linear order lifecycle",
-                    body: "The state model assumed a fixed sequence: restaurant confirms → driver assigned → food picked up → delivered. Pooling broke this. Driver assignment and food prep could happen out of order, but the UI had no way to represent it — leaving users with unexplained states that looked like failures.",
-                  },
-                ].map((p) => (
-                  <div key={p.num} className="bg-bg rounded-2xl p-7">
-                    <span className="font-body text-xs text-muted block mb-3">{p.num}</span>
-                    <h3
-                      className="font-display font-semibold text-fg mb-3"
-                      style={{ fontSize: "1rem" }}
-                    >
-                      {p.title}
-                    </h3>
-                    <p className="font-body text-muted text-sm leading-relaxed">{p.body}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Annotated screen */}
+              {/* Annotated screen + stacked problem cards */}
               <div className="mb-14">
                 <SectionLabel>Current experience audit</SectionLabel>
-                <ImageZone
-                  label="Annotated existing tracking screen"
-                  sublabel="Three callouts on the live UI: map dominance, ETA visual hierarchy, and the linear state model — showing exactly where the experience broke under the pooling model"
-                  aspect="16/9"
-                />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
+                  {/* Image container with numbered callouts mapping to the cards */}
+                  <div className="relative rounded-2xl overflow-hidden bg-bg h-full min-h-[420px]">
+                    <img
+                      src="/images/carousel/gofood%20tracking/currentexp.png"
+                      alt="Annotated existing GoFood tracking screen with four callouts"
+                      className="absolute inset-0 w-full h-full object-contain"
+                    />
+                  </div>
+
+                  {/* Stacked problem cards */}
+                <div className="flex flex-col gap-4">
+                  {[
+                    {
+                      num: "01",
+                      title: "Linear order lifecycle",
+                      body: "The tracking experience assumed a fixed sequence of events. As logistics evolved to support pooling and new fulfillment models, order preparation and driver assignment could happen in parallel, making the existing state model inadequate.",
+                    },
+                    {
+                      num: "02",
+                      title: "Map dominates the experience",
+                      body: "The map occupied most of the screen despite providing little value before a driver was assigned or en route. It also increased operational costs through frequent map API calls.",
+                    },
+                    {
+                      num: "03",
+                      title: "Excessive focus on driver movement",
+                      body: "Customers closely associated driver activity with order progress. Delayed driver assignment, stationary drivers, route changes, or location inaccuracies often created uncertainty and led to unnecessary cancellations and support requests.",
+                    },
+                    {
+                      num: "04",
+                      title: "ETA lacks prominence",
+                      body: "The promised delivery time had low visual priority and was easy to miss. Combined with historically inconsistent ETA accuracy, this reduced customer trust in the delivery promise.",
+                    },
+                  ].map((p) => (
+                    <div key={p.num} className="bg-bg rounded-2xl p-6 flex gap-4 items-start">
+                      <span
+                        className="shrink-0 flex items-center justify-center rounded-full font-display font-bold text-white"
+                        style={{ width: 30, height: 30, fontSize: "0.8125rem", backgroundColor: ACCENT }}
+                      >
+                        {p.num.replace(/^0/, "")}
+                      </span>
+                      <div>
+                        <h3
+                          className="font-display font-bold text-fg mb-1.5"
+                          style={{ fontSize: "1.0625rem", letterSpacing: "-0.02em" }}
+                        >
+                          {p.title}
+                        </h3>
+                        <p className="font-body text-muted text-sm leading-relaxed">{p.body}</p>
+                      </div>
+                    </div>
+                  ))}
+                  </div>
+                </div>
               </div>
 
               {/* HMW */}
