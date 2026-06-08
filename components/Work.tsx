@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import PixelImage from "./PixelImage";
 
 const caseStudies = [
   {
@@ -159,10 +160,13 @@ export default function Work() {
                   style={{ backgroundColor: cs.color, minHeight: "240px" }}
                 >
                   {cs.image ? (
-                    <img
+                    <PixelImage
                       src={cs.image}
                       alt={cs.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full"
+                      imgClassName="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      pixelColor={cs.color}
+                      pixelSize={34}
                     />
                   ) : (
                     /* Image placeholder */
