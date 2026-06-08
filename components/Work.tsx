@@ -79,7 +79,7 @@ export default function Work() {
         </div>
       </motion.div>
 
-      <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col gap-7 w-full">
         {visibleCaseStudies.map((cs, i) => (
           <motion.div
             key={cs.slug}
