@@ -502,66 +502,57 @@ export default function GoFoodOrderTrackingPage() {
                   </div>
                 ))}
               </div>
-            </motion.div>
-          </div>
-        </section>
 
-        {/* ══════════════════════════════════════════════════════════════════
-            SUCCESS METRICS BAR
-        ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-14 border-b border-border">
-          <div className="max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-            >
-              <p className="font-body text-xs text-muted uppercase tracking-widest mb-10">
-                How we measured customer anxiety
-              </p>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {[
-                  {
-                    icon: "⏱",
-                    metric: "Time spent",
-                    sub: "on the order tracking screen",
-                    detail:
-                      "Proxy for anxiety — longer dwell time means more checking, less confidence in the system.",
-                  },
-                  {
-                    icon: "👆",
-                    metric: "Screen open rate",
-                    sub: "of the order tracking screen",
-                    detail:
-                      "How often users actively re-opened the screen mid-delivery — a signal of uncertainty.",
-                  },
-                  {
-                    icon: "🎫",
-                    metric: "Tickets raised",
-                    sub: "for ongoing orders",
-                    detail:
-                      "Support contacts during the active delivery window — the clearest signal of UX failure.",
-                  },
-                ].map((m) => (
-                  <div
-                    key={m.metric}
-                    className="rounded-2xl border border-border p-6 flex flex-col"
-                    style={{ backgroundColor: "var(--color-bg)" }}
-                  >
-                    <span
-                      className="flex items-center justify-center rounded-xl text-xl mb-4"
-                      style={{ width: 44, height: 44, backgroundColor: "var(--color-card)" }}
-                    >
-                      {m.icon}
-                    </span>
-                    <p className="font-display font-semibold text-fg" style={{ fontSize: "1rem" }}>
-                      {m.metric}
-                    </p>
-                    <p className="font-body text-muted text-sm mb-3">{m.sub}</p>
-                    <p className="font-body text-muted text-sm leading-relaxed">{m.detail}</p>
-                  </div>
-                ))}
+              {/* How we measured customer anxiety */}
+              <div className="mt-14">
+                <h3 className="font-display font-semibold text-fg mb-3" style={{ fontSize: "1.375rem" }}>
+                  How to measure customer anxiety?
+                </h3>
+                <div className="mb-8 max-w-3xl">
+                  <Paragraph>
+                    We identified three behavioral proxies, each representing a distinct way customers
+                    respond to uncertainty while waiting for their orders.
+                  </Paragraph>
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  {[
+                    {
+                      icon: "⏱",
+                      metric: "Time spent",
+                      sub: "on the order tracking screen",
+                      detail:
+                        "A proxy for anxiety: longer dwell time means more checking and less confidence in the system.",
+                    },
+                    {
+                      icon: "👆",
+                      metric: "Screen open rate",
+                      sub: "of the order tracking screen",
+                      detail:
+                        "How often users actively re-opened the screen mid-delivery, a signal of uncertainty.",
+                    },
+                    {
+                      icon: "🎫",
+                      metric: "Tickets raised",
+                      sub: "for ongoing orders",
+                      detail:
+                        "Support contacts during the active delivery window, the clearest signal of UX failure.",
+                    },
+                  ].map((m) => (
+                    <div key={m.metric} className="bg-bg rounded-2xl p-6 flex flex-col">
+                      <span
+                        className="flex items-center justify-center rounded-xl text-xl mb-4"
+                        style={{ width: 44, height: 44, backgroundColor: "var(--color-card)" }}
+                      >
+                        {m.icon}
+                      </span>
+                      <p className="font-display font-semibold text-fg" style={{ fontSize: "1rem" }}>
+                        {m.metric}
+                      </p>
+                      <p className="font-body text-muted text-sm mb-3">{m.sub}</p>
+                      <p className="font-body text-muted text-sm leading-relaxed">{m.detail}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </div>
