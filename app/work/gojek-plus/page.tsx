@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Nav from "@/components/Nav";
@@ -128,50 +128,80 @@ function ThesisBlock({ children, logo }: { children: React.ReactNode; logo?: str
   );
 }
 
+const CAROUSEL_INTERVAL = 4000;
+
 function PhaseCarousel({
   slides,
 }: {
   slides: { label: string; sublabel?: string; caption: string; image?: string }[];
 }) {
   const [current, setCurrent] = useState(0);
-  const prev = () => setCurrent((c) => (c - 1 + slides.length) % slides.length);
-  const next = () => setCurrent((c) => (c + 1) % slides.length);
-  const slide = slides[current];
+  const [visible, setVisible] = useState(0);
+  const [fading, setFading] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [progressKey, setProgressKey] = useState(0);
+
+  const goTo = (i: number) => {
+    if (i === current) return;
+    setFading(true);
+    setTimeout(() => {
+      setCurrent(i);
+      setVisible(i);
+      setFading(false);
+      setProgressKey((k) => k + 1);
+    }, 300);
+  };
+
+  const prev = () => goTo((current - 1 + slides.length) % slides.length);
+  const next = () => goTo((current + 1) % slides.length);
+
+  // Auto-advance
+  useEffect(() => {
+    timerRef.current = setTimeout(() => {
+      goTo((current + 1) % slides.length);
+    }, CAROUSEL_INTERVAL);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [current, slides.length]);
+
+  const slide = slides[visible];
 
   return (
     <div className="mb-14 rounded-2xl overflow-hidden" style={{ backgroundColor: "#fff" }}>
-      {/* Image */}
-      {slide.image ? (
-        <div className="w-full" style={{ height: 560 }}>
+      {/* Image with fade */}
+      <div className="w-full relative" style={{ height: 560 }}>
+        {slide.image ? (
           <img
+            key={current}
             src={slide.image}
             alt={slide.label}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover absolute inset-0"
+            style={{ opacity: fading ? 0 : 1, transition: "opacity 300ms ease" }}
           />
-        </div>
-      ) : (
-        <div
-          className="w-full flex flex-col items-center justify-center"
-          style={{ height: 560, backgroundColor: "#f5f5f5" }}
-        >
-          <div className="text-center px-8">
-            <div
-              className="mx-auto mb-3 flex items-center justify-center rounded-xl"
-              style={{ width: 40, height: 40, backgroundColor: ACCENT_DIM }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ color: BRAND_GREEN }}>
-                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M21 15l-5-5L5 21" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-              </svg>
+        ) : (
+          <div
+            key={current}
+            className="w-full h-full flex flex-col items-center justify-center absolute inset-0"
+            style={{ backgroundColor: "#f5f5f5", opacity: fading ? 0 : 1, transition: "opacity 300ms ease" }}
+          >
+            <div className="text-center px-8">
+              <div
+                className="mx-auto mb-3 flex items-center justify-center rounded-xl"
+                style={{ width: 40, height: 40, backgroundColor: ACCENT_DIM }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ color: BRAND_GREEN }}>
+                  <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                  <circle cx="8.5" cy="8.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M21 15l-5-5L5 21" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <p className="font-body font-medium text-fg text-sm">{slide.label}</p>
+              {slide.sublabel && (
+                <p className="font-body text-muted text-xs mt-1 leading-relaxed max-w-xs">{slide.sublabel}</p>
+              )}
             </div>
-            <p className="font-body font-medium text-fg text-sm">{slide.label}</p>
-            {slide.sublabel && (
-              <p className="font-body text-muted text-xs mt-1 leading-relaxed max-w-xs">{slide.sublabel}</p>
-            )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Divider */}
       <div style={{ height: 1, backgroundColor: "var(--color-border)" }} />
@@ -184,20 +214,44 @@ function PhaseCarousel({
             {slides.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setCurrent(i)}
-                className="rounded-full transition-all"
+                onClick={() => goTo(i)}
+                className="rounded-full overflow-hidden relative"
                 style={{
-                  width: i === current ? 20 : 6,
+                  width: i === current ? 28 : 6,
                   height: 6,
-                  backgroundColor: i === current ? BRAND_GREEN : "var(--color-border)",
+                  backgroundColor: i === current ? "var(--color-border)" : "var(--color-border)",
+                  transition: "width 300ms ease",
+                  flexShrink: 0,
                 }}
-              />
+              >
+                {i === current && (
+                  <span
+                    key={progressKey}
+                    className="absolute inset-y-0 left-0 rounded-full"
+                    style={{
+                      backgroundColor: BRAND_GREEN,
+                      width: "100%",
+                      transformOrigin: "left",
+                      transform: "scaleX(0)",
+                      animation: `pill-fill ${CAROUSEL_INTERVAL}ms linear forwards`,
+                    }}
+                  />
+                )}
+              </button>
             ))}
           </div>
-          <p className="font-body font-semibold text-fg" style={{ fontSize: "0.9375rem" }}>
+          <p
+            className="font-body font-semibold text-fg"
+            style={{ fontSize: "0.9375rem", opacity: fading ? 0 : 1, transition: "opacity 300ms ease" }}
+          >
             {slide.label}
           </p>
-          <p className="font-body text-muted text-sm leading-relaxed mt-0.5">{slide.caption}</p>
+          <p
+            className="font-body text-muted text-sm leading-relaxed mt-0.5"
+            style={{ opacity: fading ? 0 : 1, transition: "opacity 300ms ease" }}
+          >
+            {slide.caption}
+          </p>
         </div>
 
         {/* Prev / Next */}
@@ -222,6 +276,13 @@ function PhaseCarousel({
           </button>
         </div>
       </div>
+
+      <style>{`
+        @keyframes pill-fill {
+          from { transform: scaleX(0); }
+          to   { transform: scaleX(1); }
+        }
+      `}</style>
     </div>
   );
 }
@@ -757,6 +818,12 @@ export default function GojekPlusPage() {
               <PhaseCarousel
                 slides={[
                   {
+                    label: "Reframed purchase page",
+                    sublabel: "Same page, new content hierarchy",
+                    caption: "The existing purchase page reframed with a new content hierarchy to sell cross-vertical benefits without engineering overhead.",
+                    image: "/images/carousel/img1.png",
+                  },
+                  {
                     label: "New entry points",
                     sublabel: "Cross-product entry points across 6 verticals",
                     caption: "Entry points surfaced the subscription across all 6 product journeys, not just GoFood.",
@@ -766,12 +833,6 @@ export default function GojekPlusPage() {
                     label: "Updated branding",
                     sublabel: "GoFood+ touchpoints updated with multi-product messaging",
                     caption: "GoFood+ branding updated to communicate multi-product value while retaining existing subscriber recognition and familiarity.",
-                  },
-                  {
-                    label: "Reframed purchase page",
-                    sublabel: "Same page, new content hierarchy",
-                    caption: "The existing purchase page reframed with a new content hierarchy to sell cross-vertical benefits without engineering overhead.",
-                    image: "/images/carousel/img1.png",
                   },
                 ]}
               />
@@ -1144,7 +1205,18 @@ export default function GojekPlusPage() {
             </div>
             <div className="mb-8">
               <img src="/images/testing.png" alt="Usability testing" className="w-full rounded-2xl" />
-              <img src="/images/finalscreen.png" alt="Final shipped screens" className="w-full rounded-2xl mt-5 border" style={{ borderColor: "rgba(0,0,0,0.1)" }} />
+            </div>
+
+            <h3 className="font-display font-semibold text-fg mt-12 mb-3" style={{ fontSize: "1.375rem" }}>
+              Final shipped screens
+            </h3>
+            <div className="mt-3 max-w-3xl">
+              <Paragraph>
+                The final design unified benefits discovery and plan selection into a single view, making it easier for users to compare options and commit — reflecting the mental model surfaced in research.
+              </Paragraph>
+            </div>
+            <div className="mb-8 mt-6">
+              <img src="/images/finalscreen.png" alt="Final shipped screens" className="w-full rounded-2xl border" style={{ borderColor: "rgba(0,0,0,0.1)" }} />
             </div>
 
           </motion.div>
