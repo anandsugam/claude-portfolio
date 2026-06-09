@@ -35,6 +35,14 @@ export default function Hero() {
 
   // Track the window scroll in pixels — a sticky element's own rect stays
   // pinned at the top, so target-based progress never advances.
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const { scrollY } = useScroll();
   const range = heroHeight || 1;
 
@@ -47,7 +55,7 @@ export default function Hero() {
     <section ref={sectionRef} className="sticky top-0 z-0 px-6 pt-36 pb-24 lg:pt-52 lg:pb-36 overflow-hidden">
       <motion.div
         className="max-w-7xl mx-auto w-full"
-        style={{ filter: blurFilter, opacity, scale }}
+        style={isMobile ? {} : { filter: blurFilter, opacity, scale }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
