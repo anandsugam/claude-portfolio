@@ -91,6 +91,25 @@ export default function Hero() {
               />
             </div>
 
+            {/* Title + workplace */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.4 }}
+              className="flex items-center gap-3 flex-wrap mt-8"
+            >
+              <span className="font-body text-sm font-medium text-fg">Senior Director of Product Design</span>
+              <span className="w-1 h-1 rounded-full bg-border" />
+              <span className="flex items-center gap-3">
+                <a href="https://www.smallcase.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
+                  <img src="/images/smallcase.png" alt="Smallcase" style={{ height: "30px", width: "auto", objectFit: "contain" }} />
+                </a>
+                <a href="https://www.tickertape.in" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
+                  <img src="/images/tickertape.png" alt="Tickertape" style={{ height: "36px", width: "auto", objectFit: "contain" }} />
+                </a>
+              </span>
+            </motion.div>
+
             {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -113,19 +132,6 @@ export default function Hero() {
                 Know about me →
               </a>
             </motion.div>
-
-            {/* Availability status */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.45, delay: 0.55 }}
-              className="flex items-center gap-2 mt-10"
-            >
-              <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#00C047" }} />
-              <span className="font-body text-sm text-muted">
-                Open to senior design leadership roles
-              </span>
-            </motion.div>
           </div>
 
           {/* RIGHT — portrait photo */}
@@ -139,6 +145,7 @@ export default function Hero() {
           </motion.div>
 
         </div>
+
       </motion.div>
     </section>
   );
