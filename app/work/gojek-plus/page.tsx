@@ -1144,7 +1144,7 @@ export default function GojekPlusPage() {
             </div>
             <div className="mb-8">
               <img src="/images/testing.png" alt="Usability testing" className="w-full rounded-2xl" />
-              <img src="/images/finalscreen.png" alt="Final shipped screens" className="w-full rounded-2xl mt-5" />
+              <img src="/images/finalscreen.png" alt="Final shipped screens" className="w-full rounded-2xl mt-5 border" style={{ borderColor: "rgba(0,0,0,0.1)" }} />
             </div>
 
           </motion.div>
