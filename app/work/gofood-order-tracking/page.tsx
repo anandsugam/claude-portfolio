@@ -1,10 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+
+// ─── Navigation tabs ──────────────────────────────────────────────────────────
+const TABS = [
+  { id: "situation",   label: "The Situation" },
+  { id: "diagnosis",   label: "The Diagnosis" },
+  { id: "experiments", label: "Experiments" },
+  { id: "solution",    label: "The Solution" },
+  { id: "outcome",     label: "Outcome" },
+] as const;
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const HERO_BG = "#1A1008";
@@ -311,6 +320,42 @@ function ExperimentTabs({ tabs }: { tabs: ExpTab[] }) {
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
 export default function GoFoodOrderTrackingPage() {
+  const [activeSection, setActiveSection] = useState<string>("situation");
+  const [showNav, setShowNav] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: "-20% 0px -65% 0px", threshold: 0 }
+    );
+    TABS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const sentinel = document.getElementById("nav-sentinel");
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting && entry.boundingClientRect.bottom < 0) {
+          setShowNav(true);
+        } else if (entry.isIntersecting) {
+          setShowNav(false);
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <Nav />
@@ -320,6 +365,7 @@ export default function GoFoodOrderTrackingPage() {
             HERO
         ══════════════════════════════════════════════════════════════════ */}
         <section
+          id="hero"
           className="flex flex-col justify-end px-6 pb-16 pt-36 relative overflow-hidden"
           style={{ backgroundColor: HERO_BG }}
         >
@@ -378,13 +424,13 @@ export default function GoFoodOrderTrackingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
-              className="grid grid-cols-2 lg:grid-cols-4 gap-8"
+              className="grid grid-cols-2 gap-8 lg:grid-cols-[1fr_2fr_1fr_1fr]"
             >
               {[
                 { label: "My Role", value: "Product Design Lead" },
-                { label: "Team", value: "GoFood · cross-functional" },
-                { label: "Duration", value: "5 months (June–Oct 2023)" },
-                { label: "Platform", value: "Mobile (Android + iOS)" },
+                { label: "Team", value: "1 Product Designer, 1 Motion Designer, 1 UX Writer" },
+                { label: "Duration", value: "5 months (Jun–Oct 2023)" },
+                { label: "Market", value: "Indonesia (Nationwide)" },
               ].map((item) => (
                 <div key={item.label}>
                   <p className="font-body text-xs text-muted uppercase tracking-widest mb-1.5">{item.label}</p>
@@ -395,10 +441,49 @@ export default function GoFoodOrderTrackingPage() {
           </div>
         </section>
 
+        {/* ── Sentinel: nav appears after this point ──────────────────── */}
+        <div id="nav-sentinel" aria-hidden="true" style={{ height: 1, marginBottom: -1 }} />
+
+        {/* ── Sticky section tabs ─────────────────────────────────────── */}
+        <div
+          className="sticky top-14 z-40 border-b border-border"
+          style={{
+            background: "var(--color-bg)",
+            backdropFilter: "blur(12px)",
+            opacity: showNav ? 1 : 0,
+            transform: showNav ? "translateY(0)" : "translateY(-10px)",
+            pointerEvents: showNav ? "auto" : "none",
+            boxShadow: showNav ? "0 4px 24px rgba(0,0,0,0.06)" : "none",
+            transition: "opacity 350ms ease, transform 350ms ease, box-shadow 350ms ease",
+          }}
+        >
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="flex items-center overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+              {TABS.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => { setActiveSection(tab.id); document.getElementById(tab.id)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
+                  className="relative shrink-0 font-body text-sm px-4 py-3.5 transition-colors cursor-pointer"
+                  style={{ color: activeSection === tab.id ? "var(--color-fg)" : "var(--color-muted)" }}
+                >
+                  {tab.label}
+                  {activeSection === tab.id && (
+                    <span
+                      className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
+                      style={{ backgroundColor: ACCENT }}
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* ══════════════════════════════════════════════════════════════════
             01 — THE SITUATION
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-20 max-w-5xl mx-auto">
+        <section id="situation" className="px-6 py-20 scroll-mt-28">
+          <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -477,12 +562,13 @@ export default function GoFoodOrderTrackingPage() {
               </div>
             </div>
           </motion.div>
+          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════
             02 — THE DIAGNOSIS
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-20 bg-card">
+        <section id="diagnosis" className="px-6 py-20 bg-card scroll-mt-28">
           <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -642,7 +728,8 @@ export default function GoFoodOrderTrackingPage() {
             03 — THE EXPERIMENTS
         ══════════════════════════════════════════════════════════════════ */}
         <section
-          className="px-6 py-20 relative overflow-hidden"
+          id="experiments"
+          className="px-6 py-20 relative overflow-hidden scroll-mt-28"
           style={{ backgroundColor: HERO_BG }}
         >
           <div
@@ -781,7 +868,8 @@ export default function GoFoodOrderTrackingPage() {
         {/* ══════════════════════════════════════════════════════════════════
             04 — THE SOLUTION
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-20 max-w-5xl mx-auto">
+        <section id="solution" className="px-6 py-20 scroll-mt-28">
+          <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -919,12 +1007,13 @@ export default function GoFoodOrderTrackingPage() {
               </div>
             </div>
           </motion.div>
+          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════
             05 — OUTCOME
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-20 bg-card">
+        <section id="outcome" className="px-6 py-20 bg-card scroll-mt-28">
           <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 16 }}

@@ -5,23 +5,27 @@ import { motion } from "framer-motion";
 const principles = [
   {
     num: "01",
+    icon: "/images/Icons/icon1.png",
     title: "The best design happens across functions",
-    body: "Orchestration is the design skill nobody talks about. Business, product, design, and brand are different instruments playing the same score. Great products emerge when they're aligned.",
+    body: "Business, product, design, engineering are different instruments. Alignment around a shared vision is what turns them into an orchestra.",
   },
   {
     num: "02",
+    icon: "/images/Icons/icon2.png",
     title: "Simplicity is where thinking meets craft",
     body: "The simplest experiences are often the hardest to create. They require rigorous thinking and exceptional craft. I don't believe in choosing one over the other.",
   },
   {
     num: "03",
+    icon: "/images/Icons/icon3.png",
     title: "Great design requires both empathy and expertise",
-    body: "User empathy reveals how people experience a problem. Domain expertise reveals what's possible within the system. Great design requires both. Know the user. Know the domain.",
+    body: "User empathy reveals the human side of a problem. Domain expertise reveals the system behind it. Great design requires both.",
   },
   {
     num: "04",
+    icon: "/images/Icons/icon4.png",
     title: "Great products start with great teams",
-    body: "A demotivated team is often the same kind of problem as a product nobody uses. The solution isn't guesswork, it's understanding the root cause and intervening where it matters most.",
+    body: "A demotivated team is often no different from a product nobody uses. Both require understanding the underlying problem before intervention.",
   },
 ];
 
@@ -55,6 +59,7 @@ export default function Philosophy() {
               className="rounded-2xl p-7 flex flex-col border"
               style={{ borderColor: "rgba(0,0,0,0.11)" }}
             >
+              <img src={p.icon} alt="" className="w-16 h-16 mb-4" />
               <p
                 className="font-display font-bold text-fg mb-2"
                 style={{ fontSize: "1.25rem", letterSpacing: "-0.02em" }}

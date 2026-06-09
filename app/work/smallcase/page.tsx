@@ -178,6 +178,7 @@ export default function SmallcasePage() {
   const [careerModalOpen, setCareerModalOpen] = useState(false);
   const [growthModalOpen, setGrowthModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("context");
+  const [showNav, setShowNav] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -195,6 +196,23 @@ export default function SmallcasePage() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const sentinel = document.getElementById("nav-sentinel");
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting && entry.boundingClientRect.bottom < 0) {
+          setShowNav(true);
+        } else if (entry.isIntersecting) {
+          setShowNav(false);
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <Nav />
@@ -204,6 +222,7 @@ export default function SmallcasePage() {
             HERO
         ══════════════════════════════════════════════════════════════════ */}
         <section
+          id="hero"
           className="px-6 pt-36 pb-16 lg:pb-20"
           style={{ backgroundColor: HERO_BG }}
         >
@@ -241,8 +260,22 @@ export default function SmallcasePage() {
           </div>
         </section>
 
+        {/* ── Sentinel: nav appears after this point ──────────────────── */}
+        <div id="nav-sentinel" aria-hidden="true" style={{ height: 1, marginBottom: -1 }} />
+
         {/* ── Sticky section tabs ─────────────────────────────────────── */}
-        <div className="sticky top-14 z-40 border-b border-border" style={{ background: "var(--color-bg)", backdropFilter: "blur(12px)" }}>
+        <div
+          className="sticky top-14 z-40 border-b border-border"
+          style={{
+            background: "var(--color-bg)",
+            backdropFilter: "blur(12px)",
+            opacity: showNav ? 1 : 0,
+            transform: showNav ? "translateY(0)" : "translateY(-10px)",
+            pointerEvents: showNav ? "auto" : "none",
+            boxShadow: showNav ? "0 4px 24px rgba(0,0,0,0.06)" : "none",
+            transition: "opacity 350ms ease, transform 350ms ease, box-shadow 350ms ease",
+          }}
+        >
           <div className="max-w-5xl mx-auto px-6">
             <div className="flex items-center overflow-x-auto" style={{ scrollbarWidth: "none" }}>
               {TABS.map((tab) => (
@@ -899,14 +932,22 @@ export default function SmallcasePage() {
         {/* ══════════════════════════════════════════════════════════════════
             NAV
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-16 max-w-5xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-t border-border pt-10">
-            <Link href="/#work" className="font-body text-sm text-muted hover:text-fg transition-colors">
+        <section
+          className="px-6 py-16 border-t border-border"
+          style={{ backgroundColor: HERO_BG }}
+        >
+          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <Link
+              href="/#work"
+              className="font-body text-sm font-medium px-5 py-2.5 hover:opacity-80 transition-opacity"
+              style={{ color: "white", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "100px" }}
+            >
               ← All Work
             </Link>
             <Link
               href="/work/gojek-plus"
-              className="font-body text-sm text-fg border border-border px-5 py-2.5 rounded-full hover:border-fg transition-colors"
+              className="font-body text-sm font-medium px-5 py-2.5 hover:opacity-80 transition-opacity"
+              style={{ color: "white", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "100px" }}
             >
               Next: Gojek PLUS →
             </Link>
