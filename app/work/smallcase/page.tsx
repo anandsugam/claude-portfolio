@@ -301,7 +301,8 @@ export default function SmallcasePage() {
         {/* ══════════════════════════════════════════════════════════════════
             CONTEXT — about the organization
         ══════════════════════════════════════════════════════════════════ */}
-        <section id="context" className="px-6 pt-24 pb-4 max-w-5xl mx-auto scroll-mt-28">
+        <section id="context" className="px-6 pt-24 pb-4 scroll-mt-28">
+          <div className="max-w-5xl mx-auto">
           <motion.div {...fade}>
             <Label>Context · The organization</Label>
             <H2>One of India&apos;s leading wealth-tech companies</H2>
@@ -376,12 +377,14 @@ export default function SmallcasePage() {
               </div>
             </div>
           </motion.div>
+          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════
             01 — THE SITUATION
         ══════════════════════════════════════════════════════════════════ */}
-        <section id="situation" className="px-6 py-24 max-w-5xl mx-auto scroll-mt-28">
+        <section id="situation" className="px-6 py-24 scroll-mt-28">
+          <div className="max-w-5xl mx-auto">
           <motion.div {...fade}>
             <Label>01 — The situation at the start</Label>
             <H2>Design existed. A design function didn&apos;t</H2>
@@ -429,6 +432,7 @@ export default function SmallcasePage() {
               ))}
             </div>
           </motion.div>
+          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════
@@ -453,7 +457,8 @@ export default function SmallcasePage() {
         {/* ══════════════════════════════════════════════════════════════════
             02 — THE APPROACH (merged overview + what was built)
         ══════════════════════════════════════════════════════════════════ */}
-        <section className="px-6 py-24 max-w-5xl mx-auto">
+        <section className="px-6 py-24">
+          <div className="max-w-5xl mx-auto">
           <motion.div {...fade}>
             <Label>02 — How the problem was split</Label>
             <H2>Three buckets, built in parallel</H2>
@@ -531,6 +536,7 @@ export default function SmallcasePage() {
               );
             })()}
           </motion.div>
+          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════
@@ -658,7 +664,8 @@ export default function SmallcasePage() {
         {/* ══════════════════════════════════════════════════════════════════
             BUCKET 02 — CULTURE, BUILT REMOTELY
         ══════════════════════════════════════════════════════════════════ */}
-        <section id="culture" className="px-6 py-24 max-w-5xl mx-auto scroll-mt-28">
+        <section id="culture" className="px-6 py-24 scroll-mt-28">
+          <div className="max-w-5xl mx-auto">
           <motion.div {...fade}>
             <Label>Bucket 02 · Culture, built remotely</Label>
             <H2>Turning eight people in silos into one team</H2>
@@ -758,6 +765,7 @@ export default function SmallcasePage() {
               </div>
             </motion.div>
           </motion.div>
+          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════
@@ -891,7 +899,8 @@ export default function SmallcasePage() {
         {/* ══════════════════════════════════════════════════════════════════
             IMPACT
         ══════════════════════════════════════════════════════════════════ */}
-        <section id="impact" className="px-6 py-24 max-w-5xl mx-auto scroll-mt-28">
+        <section id="impact" className="px-6 py-24 scroll-mt-28">
+          <div className="max-w-5xl mx-auto">
           <motion.div {...fade}>
             <Label>03 — Impact</Label>
             <H2>Design moved from the execution layer to the strategy table</H2>
@@ -929,6 +938,7 @@ export default function SmallcasePage() {
               felt like one unit. All of it achieved without additional resources or cost.
             </p>
           </motion.div>
+          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════

@@ -438,6 +438,33 @@ export default function GojekPlusPage() {
           </div>
         </section>
 
+        {/* ══════════════════════════════════════════════════════════════════
+            CONTEXT BAR
+        ══════════════════════════════════════════════════════════════════ */}
+        <section className="px-6 py-10 border-b border-border">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="grid grid-cols-2 gap-8 lg:grid-cols-[1fr_1fr_1fr_2fr]"
+            >
+              {[
+                { label: "Role", value: "Product Design Lead" },
+                { label: "Timeline", value: "February – May 2024" },
+                { label: "Team", value: "1 UX Writer, 1 Researcher" },
+                { label: "Scope", value: "Product Design, Research, Brand, UX Strategy" },
+              ].map((item) => (
+                <div key={item.label}>
+                  <p className="font-body text-xs text-muted uppercase tracking-widest mb-1.5">{item.label}</p>
+                  <p className="font-body font-medium text-fg" style={{ fontSize: "0.9375rem" }}>{item.value}</p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
         {/* ── Sentinel: nav appears after this point ──────────────────── */}
         <div id="nav-sentinel" aria-hidden="true" style={{ height: 1, marginBottom: -1 }} />
 
@@ -479,7 +506,8 @@ export default function GojekPlusPage() {
         {/* ══════════════════════════════════════════════════════════════════
             01 — CONTEXT
         ══════════════════════════════════════════════════════════════════ */}
-        <section id="context" className="px-6 py-20 max-w-5xl mx-auto scroll-mt-28">
+        <section id="context" className="px-6 py-20 scroll-mt-28">
+          <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -549,6 +577,7 @@ export default function GojekPlusPage() {
               </div>
             </div>
           </motion.div>
+          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════
@@ -631,7 +660,8 @@ export default function GojekPlusPage() {
         {/* ══════════════════════════════════════════════════════════════════
             03 — STRATEGY
         ══════════════════════════════════════════════════════════════════ */}
-        <section id="strategy" className="px-6 py-20 max-w-5xl mx-auto scroll-mt-28">
+        <section id="strategy" className="px-6 py-20 scroll-mt-28">
+          <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -774,6 +804,7 @@ export default function GojekPlusPage() {
               );
             })()}
           </motion.div>
+          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════
@@ -956,7 +987,8 @@ export default function GojekPlusPage() {
         {/* ══════════════════════════════════════════════════════════════════
             05 — PHASE 2
         ══════════════════════════════════════════════════════════════════ */}
-        <section id="phase-2" className="px-6 py-20 max-w-5xl mx-auto scroll-mt-28">
+        <section id="phase-2" className="px-6 py-20 scroll-mt-28">
+          <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1220,6 +1252,7 @@ export default function GojekPlusPage() {
             </div>
 
           </motion.div>
+          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════
@@ -1476,7 +1509,8 @@ export default function GojekPlusPage() {
         {/* ══════════════════════════════════════════════════════════════════
             08 — REFLECTION
         ══════════════════════════════════════════════════════════════════ */}
-        <section id="reflection" className="px-6 py-20 max-w-5xl mx-auto scroll-mt-28">
+        <section id="reflection" className="px-6 py-20 scroll-mt-28">
+          <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1530,37 +1564,15 @@ export default function GojekPlusPage() {
             {/* Closing quote */}
             <div className="rounded-2xl p-10" style={{ backgroundColor: HERO_BG }}>
               <p
-                className="font-display font-bold leading-snug mb-10"
+                className="font-display font-bold leading-snug"
                 style={{ color: "white", fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)" }}
               >
                 &ldquo;From a GoFood-only loyalty programme to a Gojek-wide subscription brand. Built,
                 validated, and launched in 3 months.&rdquo;
               </p>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                {[
-                  { label: "Role", value: "Product Design Lead, GoFood · Gojek" },
-                  { label: "Timeline", value: "February – May 2024" },
-                  { label: "Market", value: "Indonesia (nationwide)" },
-                  { label: "Scope", value: "Strategy, Research, Brand, UX, UI" },
-                ].map((d) => (
-                  <div key={d.label}>
-                    <p
-                      className="font-body text-xs uppercase tracking-widest mb-1"
-                      style={{ color: "rgba(255,255,255,0.35)" }}
-                    >
-                      {d.label}
-                    </p>
-                    <p
-                      className="font-body text-sm font-medium"
-                      style={{ color: "rgba(255,255,255,0.75)" }}
-                    >
-                      {d.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
             </div>
           </motion.div>
+          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════════
