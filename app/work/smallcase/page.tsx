@@ -306,12 +306,13 @@ export default function SmallcasePage() {
             <Label>Context · The organization</Label>
             <H2>One of India&apos;s leading wealth-tech companies</H2>
             <p className="font-body text-muted leading-relaxed mt-6 mb-10" style={{ fontSize: "1.0625rem" }}>
-              <a href="https://caseplatforms.com/" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">Case Platforms</a>{" "}is the parent company behind smallcase and Tickertape, two products
-              shaping how millions of Indians research, build, and manage their investments. Founded
-              in Bangalore in 2015, the company operates at the intersection of investing, technology,
-              and financial advice. Backed by investors including Peak XV, Premji Invest, State Street,
-              and Amazon, Case Platforms has become a key player in India&apos;s rapidly expanding retail
-              investing ecosystem.
+              <a href="https://caseplatforms.com/" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">Case Platforms</a>{" "}is the parent company behind smallcase and Tickertape, two leading
+              wealth-tech products helping millions of Indians research, build, and manage their
+              investments. Founded in Bangalore in 2015, the company operates at the intersection of
+              investing, technology, and financial advice, facilitating ₹1.8+ lakh crore in assets
+              transacted through an ecosystem of 250+ financial institutions and partners. Backed by
+              investors including Peak XV, Premji Invest, State Street, and Amazon, it is a key player
+              in India&apos;s rapidly growing retail investing market.
             </p>
 
             {/* ── Products panel ── */}
