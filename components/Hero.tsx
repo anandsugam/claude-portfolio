@@ -98,7 +98,7 @@ export default function Hero() {
               transition={{ duration: 0.45, delay: 0.4 }}
               className="flex items-center gap-3 flex-wrap mt-8"
             >
-              <span className="font-body text-sm font-medium text-fg">Senior Director of Product Design</span>
+              <span className="font-body text-sm font-medium text-fg">Head of Product Design</span>
               <span className="w-1 h-1 rounded-full bg-border" />
               <span className="flex items-center gap-3">
                 <a href="https://www.smallcase.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">

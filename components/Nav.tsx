@@ -44,6 +44,14 @@ export default function Nav() {
             />
           </Link>
           <a
+            href="/documents/Sugam_Anand_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-body text-sm text-muted hover:text-fg transition-colors hidden sm:block"
+          >
+            Resume
+          </a>
+          <a
             href="https://www.linkedin.com/in/sugamanand"
             target="_blank"
             rel="noopener noreferrer"
