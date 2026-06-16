@@ -52,7 +52,7 @@ export default function Hero() {
   const scale = useTransform(scrollY, [0, range], [1, 0.94]);
 
   return (
-    <section ref={sectionRef} className="sticky top-0 z-0 px-6 pt-36 pb-24 lg:pt-52 lg:pb-36 overflow-hidden">
+    <section ref={sectionRef} className="lg:sticky lg:top-0 z-0 px-6 pt-36 pb-24 lg:pt-52 lg:pb-36 overflow-hidden">
       <motion.div
         className="max-w-7xl mx-auto w-full"
         style={isMobile ? {} : { filter: blurFilter, opacity, scale }}
