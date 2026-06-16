@@ -51,7 +51,7 @@ const caseStudies = [
     role: "Product Designer",
     title: "Redesigning How 20M Users Find Food",
     description:
-      "Rebuilt GoFood's text search from scratch — improving relevance, speed, and navigation patterns for 20M+ monthly active users.",
+      "Rebuilt GoFood's text search from scratch, improving relevance, speed, and navigation patterns for 20M+ monthly active users.",
     tags: ["Search", "Discovery", "Mobile"],
     color: "#1E1A2E",
     year: "2020–2021",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Sugam Anand — Design Leader",
+  title: "Sugam Anand · Design Leader",
   description:
     "Senior Director of Product Design at Smallcase & Tickertape. A full-stack design leader with 10+ years building products at scale.",
 };

@@ -724,7 +724,7 @@ export default function GojekPlusPage() {
                 },
               ];
               return (
-                <div className="grid grid-cols-3 gap-4 mt-2 mb-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2 mb-2">
                   {phases.map((p, i) => (
                     <div
                       key={p.phase}
@@ -906,7 +906,8 @@ export default function GojekPlusPage() {
                 const col = "1fr";
                 const border = `1px solid ${CARD_BORDER}`;
                 return (
-                  <div className="mb-12 rounded-2xl overflow-hidden" style={{ display: "grid", gridTemplateColumns: `1.4fr ${col} ${col} ${col}`, backgroundColor: "#fff", border }}>
+                  <div className="mb-12 -mx-6 px-6 overflow-x-auto lg:mx-0 lg:px-0 lg:overflow-visible" style={{ scrollbarWidth: "none" }}>
+                  <div className="rounded-2xl overflow-hidden" style={{ display: "grid", gridTemplateColumns: `1.4fr ${col} ${col} ${col}`, minWidth: 620, backgroundColor: "#fff", border }}>
                     {/* Header row */}
                     <div className="px-6 py-6 flex flex-col justify-end" style={{ borderBottom: border, backgroundColor: "#fff" }}>
                       <p className="font-display font-bold text-fg" style={{ fontSize: "1.5rem", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: 8 }}>Winning construct</p>
@@ -945,6 +946,7 @@ export default function GojekPlusPage() {
                         <p className="font-display font-bold text-fg" style={{ fontSize: "1.25rem", letterSpacing: "-0.02em" }}>{p.price}</p>
                       </div>
                     ))}
+                  </div>
                   </div>
                 );
               })()}
@@ -1019,7 +1021,7 @@ export default function GojekPlusPage() {
             </div>
 
             {/* Bento grid: 5-col explicit grid — stats cols 1–3, insights cols 4–5 */}
-            <div className="grid gap-4 mb-8" style={{ gridTemplateColumns: "repeat(5, 1fr)" }}>
+            <div className="grid grid-cols-2 gap-4 mb-8 lg:[grid-template-columns:repeat(5,1fr)]">
               {/* Row 1 stat cards — cols 1–3 */}
               {[
                 { pct: "60%", label: "of new subscribers were power users", row: 1, col: 1 },
@@ -1031,8 +1033,8 @@ export default function GojekPlusPage() {
               ].map((s) => (
                 <div
                   key={s.label}
-                  className="rounded-2xl p-7"
-                  style={{ backgroundColor: "#fff", border: `1px solid ${CARD_BORDER}`, gridColumn: s.col, gridRow: s.row }}
+                  className="rounded-2xl p-7 lg:[grid-column:var(--gc)] lg:[grid-row:var(--gr)]"
+                  style={{ backgroundColor: "#fff", border: `1px solid ${CARD_BORDER}`, ["--gc" as string]: String(s.col), ["--gr" as string]: String(s.row) }}
                 >
                   <div className="font-display font-bold mb-2 text-fg" style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", lineHeight: 1 }}>
                     {s.pct}
@@ -1043,15 +1045,15 @@ export default function GojekPlusPage() {
 
               {/* Insight cards — cols 4–5, one per row */}
               <div
-                className="rounded-2xl p-7 flex flex-col justify-center"
-                style={{ backgroundColor: "#fff", border: `1px solid ${CARD_BORDER}`, gridColumn: "4 / span 2", gridRow: 1 }}
+                className="rounded-2xl p-7 flex flex-col justify-center col-span-2 lg:[grid-column:4/span_2] lg:[grid-row:1]"
+                style={{ backgroundColor: "#fff", border: `1px solid ${CARD_BORDER}` }}
               >
                 <p className="font-body text-xs uppercase tracking-widest text-muted mb-3">Usage</p>
                 <p className="font-body text-sm text-fg leading-relaxed">The new subscription increased transaction frequency and basket size across users&apos; existing product usage.</p>
               </div>
               <div
-                className="rounded-2xl p-7 flex flex-col justify-center"
-                style={{ backgroundColor: "#fff", border: `1px solid ${CARD_BORDER}`, gridColumn: "4 / span 2", gridRow: 2 }}
+                className="rounded-2xl p-7 flex flex-col justify-center col-span-2 lg:[grid-column:4/span_2] lg:[grid-row:2]"
+                style={{ backgroundColor: "#fff", border: `1px solid ${CARD_BORDER}` }}
               >
                 <p className="font-body text-xs uppercase tracking-widest text-muted mb-3">Opportunity</p>
                 <p className="font-body text-sm text-fg leading-relaxed">Non-subscribers were largely transport-only users who had never tried the subscription programme, highlighting a clear cross-sell opportunity.</p>
@@ -1072,7 +1074,8 @@ export default function GojekPlusPage() {
             </div>
 
             {/* Mapping visualisation — SVG bezier diagram */}
-            <div className="rounded-2xl p-8 mb-0" style={{ backgroundColor: "var(--color-bg)", border: `1px solid ${CARD_BORDER}` }}>
+            <div className="rounded-2xl p-8 mb-0 overflow-x-auto" style={{ backgroundColor: "var(--color-bg)", border: `1px solid ${CARD_BORDER}`, scrollbarWidth: "none" }}>
+              <div style={{ minWidth: 540 }}>
               {/* Column headers */}
               <div className="flex items-center mb-4 max-w-2xl mx-auto w-full">
                 <div className="flex-1">
@@ -1220,6 +1223,7 @@ export default function GojekPlusPage() {
                   );
                 })}
               </div>
+              </div>
             </div>
 
             {/* Usability testing */}
@@ -1244,7 +1248,7 @@ export default function GojekPlusPage() {
             </h3>
             <div className="mt-3 max-w-3xl">
               <Paragraph>
-                The final design unified benefits discovery and plan selection into a single view, making it easier for users to compare options and commit — reflecting the mental model surfaced in research.
+                The final design unified benefits discovery and plan selection into a single view, making it easier for users to compare options and commit, reflecting the mental model surfaced in research.
               </Paragraph>
             </div>
             <div className="mb-8 mt-6">

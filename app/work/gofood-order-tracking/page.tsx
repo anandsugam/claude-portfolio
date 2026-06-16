@@ -228,7 +228,7 @@ function ExperimentTabs({ tabs }: { tabs: ExpTab[] }) {
   return (
     <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
       {/* Tab header — doubles as the experiment timeline, attached to the card */}
-      <div className="grid grid-cols-3">
+      <div className="flex overflow-x-auto lg:grid lg:grid-cols-3" style={{ scrollbarWidth: "none" }}>
         {tabs.map((t, i) => {
           const on = i === active;
           const hot = !on && hovered === i;
@@ -239,7 +239,7 @@ function ExperimentTabs({ tabs }: { tabs: ExpTab[] }) {
               onClick={() => setActive(i)}
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
-              className="text-left px-6 py-5 transition-colors cursor-pointer"
+              className="text-left px-6 py-5 transition-colors cursor-pointer shrink-0 w-[75%] sm:w-[45%] lg:w-auto"
               style={{
                 backgroundColor: on
                   ? "rgba(255,255,255,0.06)"
@@ -499,14 +499,14 @@ export default function GoFoodOrderTrackingPage() {
                 <div className="mt-6 space-y-4">
                   <Paragraph>
                     In 2023, Gojek was under pressure to become profitable. For GoFood, the lever was
-                    clear: lower the delivery fee. Order pooling — &ldquo;Mode Hemat&rdquo; — was introduced as
+                    clear: lower the delivery fee. Order pooling, &ldquo;Mode Hemat&rdquo;, was introduced as
                     the solution. Customers accept a slightly higher ETA; eligible orders get assigned
                     to a single driver; logistics savings get passed on as subsidies.
                   </Paragraph>
                   <Paragraph>
                     The business ran an experiment. Orders started pooling. And the tracking screen
                     that millions of users stared at while waiting for their food stayed exactly as it
-                    was — a map-first UI designed for regular, single-order deliveries.
+                    was: a map-first UI designed for regular, single-order deliveries.
                   </Paragraph>
                   <Paragraph>
                     It didn&apos;t go well.
@@ -527,7 +527,7 @@ export default function GoFoodOrderTrackingPage() {
                     {
                       metric: "~60%",
                       label: "ETA compliance for second deliveries",
-                      note: "Down from baseline — eroding the one promise users were relying on",
+                      note: "Down from baseline, eroding the one promise users were relying on",
                     },
                     {
                       metric: "$177k",
@@ -940,7 +940,7 @@ export default function GoFoodOrderTrackingPage() {
             {/* Key screens */}
             <div className="mb-14">
               <SectionLabel>Key states</SectionLabel>
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                   {
                     label: "Chef has started cooking",
@@ -1003,7 +1003,7 @@ export default function GoFoodOrderTrackingPage() {
             <div>
               <SectionLabel>Driver card redesign</SectionLabel>
               <div className="w-full rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>
-                <img src="/images/drivercards.png" alt="Driver card redesign — before and after" className="w-full h-auto block" />
+                <img src="/images/drivercards.png" alt="Driver card redesign, before and after" className="w-full h-auto block" />
               </div>
             </div>
           </motion.div>
@@ -1063,7 +1063,7 @@ export default function GoFoodOrderTrackingPage() {
                     {
                       value: "−3.4%",
                       label: "Time spent on tracking screen",
-                      sub: "Stat-sig — less anxious checking, more confident waiting",
+                      sub: "Stat-sig: less anxious checking, more confident waiting",
                     },
                     {
                       value: "−5.8%",

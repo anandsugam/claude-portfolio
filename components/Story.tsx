@@ -10,7 +10,7 @@ const chapters = [
     place: "MAQ Software",
     role: "UX Designer",
     title: "The Foundation",
-    body: "First design role, straight out of a CS engineering degree. Not just designing — building UX process from scratch, working with enterprise clients like Microsoft and Amazon, and leading hiring before leaving for my masters. The leadership instinct showed up early.",
+    body: "First design role, straight out of a CS engineering degree. Not just designing, but building UX process from scratch, working with enterprise clients like Microsoft and Amazon, and leading hiring before leaving for my masters. The leadership instinct showed up early.",
     link: null,
     linkLabel: null,
   },
@@ -20,7 +20,7 @@ const chapters = [
     place: "IIT Kanpur",
     role: "M.Des · Product & Interaction Design",
     title: "The Deliberate Pivot",
-    body: "Left a stable job to go deeper. An engineering mind learns to think in systems of experience — not just systems of code. The two have never fully separated, and that tension is where my best work happens.",
+    body: "Left a stable job to go deeper. An engineering mind learns to think in systems of experience, not just systems of code. The two have never fully separated, and that tension is where my best work happens.",
     link: null,
     linkLabel: null,
   },
@@ -30,7 +30,7 @@ const chapters = [
     place: "Gojek",
     role: "Interaction → Product → Senior Product Designer",
     title: "Building at Scale",
-    body: "Joined Gojek as it was scaling fast across Southeast Asia. Built Asphalt — the design system powering 20+ products. Moved into product design: growth, loyalty, and GoFood's first loyalty brand. First people management experience.",
+    body: "Joined Gojek as it was scaling fast across Southeast Asia. Built Asphalt, the design system powering 20+ products. Moved into product design: growth, loyalty, and GoFood's first loyalty brand. First people management experience.",
     link: null,
     linkLabel: null,
   },
@@ -40,7 +40,7 @@ const chapters = [
     place: "Gojek",
     role: "Product Design Lead",
     title: "Leadership Emerges",
-    body: "Led consumer experience design for GoFood — interim head of design for the team. Moved to Gojek central: built Gojek PLUS, a unified subscription brand across 6 products at Southeast Asian scale. Led support AI adoption across driver, merchant, and customer ecosystems.",
+    body: "Led consumer experience design for GoFood, interim head of design for the team. Moved to Gojek central: built Gojek PLUS, a unified subscription brand across 6 products at Southeast Asian scale. Led support AI adoption across driver, merchant, and customer ecosystems.",
     link: "/work/gojek-plus",
     linkLabel: "Gojek PLUS Case Study →",
   },
@@ -77,7 +77,7 @@ export default function Story() {
         </h2>
         <p className="font-body text-muted leading-relaxed mt-5 max-w-2xl" style={{ fontSize: "1rem" }}>
           From engineering to interaction design, from craft to leadership.
-          Each role added a layer — and none of them ever fully left.
+          Each role added a layer, and none of them ever fully left.
         </p>
       </motion.div>
 

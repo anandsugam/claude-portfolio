@@ -21,7 +21,7 @@ const career = [
         linkLabel: "Leadership Case Study →",
         achievements: [
           "Built career ladders, comp bands, and hiring process from scratch",
-          "Led design system rebuild — scalable and AI-ready, without adding headcount",
+          "Led design system rebuild: scalable and AI-ready, without adding headcount",
           "Earned design a permanent seat in quarterly strategy planning (core group)",
           "0 culture-driven exits across a remote-first team of 8",
         ],
@@ -37,12 +37,12 @@ const career = [
       {
         chapter: "Leadership Emerges",
         period: "2021–2024 · Product Design Lead",
-        body: "Led consumer experience design for GoFood — served as interim head of design for the team. Moved to Gojek central: built Gojek PLUS, a unified subscription brand across 6 products at Southeast Asian scale. Led support AI adoption across driver, merchant, and customer ecosystems.",
+        body: "Led consumer experience design for GoFood, serving as interim head of design for the team. Moved to Gojek central: built Gojek PLUS, a unified subscription brand across 6 products at Southeast Asian scale. Led support AI adoption across driver, merchant, and customer ecosystems.",
         highlight: null,
         link: "/work/gojek-plus",
         linkLabel: "Gojek PLUS Case Study →",
         achievements: [
-          "Designed and launched Gojek PLUS — subscription across GoFood, GoRide, GoSend + 3 more",
+          "Designed and launched Gojek PLUS: subscription across GoFood, GoRide, GoSend + 3 more",
           "Interim Head of Design for GoFood (team of 6 designers)",
           "Led support AI redesign across driver, merchant, and consumer surfaces",
         ],
@@ -50,12 +50,12 @@ const career = [
       {
         chapter: "Building at Scale",
         period: "2018–2021 · Interaction Designer → Product Designer → Senior Product Designer",
-        body: "Joined Gojek as it was scaling fast across Southeast Asia. Built Asphalt — the design system powering 20+ products. Moved into product design: growth, loyalty, and GoFood's first loyalty brand. First people management experience.",
+        body: "Joined Gojek as it was scaling fast across Southeast Asia. Built Asphalt, the design system powering 20+ products. Moved into product design: growth, loyalty, and GoFood's first loyalty brand. First people management experience.",
         highlight: null,
         link: null,
         linkLabel: null,
         achievements: [
-          "Core contributor to Asphalt — Gojek's design system (20+ products)",
+          "Core contributor to Asphalt, Gojek's design system (20+ products)",
           "Redesigned GoFood text search for 20M+ monthly users",
           "Led GoFood post-booking experience redesign",
           "First people management experience",
@@ -89,7 +89,7 @@ const career = [
       {
         chapter: "The Foundation",
         period: null,
-        body: "First design role, straight out of a CS engineering degree. Not just designing — building UX process from scratch, working with enterprise clients like Microsoft and Amazon, and leading hiring before leaving for my masters. The leadership instinct showed up early.",
+        body: "First design role, straight out of a CS engineering degree. Not just designing, but building UX process from scratch, working with enterprise clients like Microsoft and Amazon, and leading hiring before leaving for my masters. The leadership instinct showed up early.",
         highlight: null,
         link: null,
         linkLabel: null,

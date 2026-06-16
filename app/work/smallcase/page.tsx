@@ -386,7 +386,7 @@ export default function SmallcasePage() {
         <section id="situation" className="px-6 py-24 scroll-mt-28">
           <div className="max-w-5xl mx-auto">
           <motion.div {...fade}>
-            <Label>01 — The situation at the start</Label>
+            <Label>01 · The situation at the start</Label>
             <H2>Design existed. A design function didn&apos;t</H2>
             <p className="font-body text-muted leading-relaxed mt-6 mb-10" style={{ fontSize: "1.0625rem" }}>
               After several years without design leadership, design had become fragmented across product
@@ -460,7 +460,7 @@ export default function SmallcasePage() {
         <section className="px-6 py-24">
           <div className="max-w-5xl mx-auto">
           <motion.div {...fade}>
-            <Label>02 — How the problem was split</Label>
+            <Label>02 · How the problem was split</Label>
             <H2>Three buckets, built in parallel</H2>
             <p className="font-body text-muted leading-relaxed mt-6 mb-12" style={{ fontSize: "1.0625rem" }}>
               High-performing design orgs don&apos;t emerge from talent alone. They need
@@ -505,31 +505,31 @@ export default function SmallcasePage() {
                 },
               ];
               return (
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-5 gap-y-0">
-                  {/* Row 1 — overviews: grid enforces equal height across all three */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-[auto_auto] gap-x-5 gap-y-0">
                   {BUCKETS.map((b) => (
-                    <div key={`${b.num}-overview`} className="flex flex-col p-8 rounded-t-2xl border border-b-0 border-border" style={{ background: "var(--color-card)" }}>
-                      <div className="flex items-center justify-between mb-5">
-                        <span className="font-display font-bold" style={{ color: ACCENT, fontSize: "2rem", lineHeight: 1 }}>{b.num}</span>
-                        <span className="font-body text-xs uppercase tracking-widest text-muted">{b.cadence}</span>
-                      </div>
-                      <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.25rem" }}>{b.title}</p>
-                      <p className="font-body text-muted text-sm leading-relaxed mb-8">{b.body}</p>
-                      <div className="mt-auto pt-4 border-t border-border flex items-center justify-between">
-                        <span className="font-body text-xs uppercase tracking-widest text-muted">Focus</span>
-                        <span className="font-body text-xs font-medium text-fg">{b.focus}</span>
-                      </div>
-                    </div>
-                  ))}
-                  {/* Row 2 — initiatives: starts at the same level for all three */}
-                  {BUCKETS.map((b) => (
-                    <div key={`${b.num}-items`} className="flex flex-col rounded-b-2xl border border-t border-border px-8 py-6 gap-4" style={{ background: "var(--color-bg)" }}>
-                      {b.items.map((item) => (
-                        <div key={item.head} className="pb-4 border-b border-border last:border-0 last:pb-0">
-                          <p className="font-display font-semibold text-fg mb-1" style={{ fontSize: "0.875rem" }}>{item.head}</p>
-                          <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{item.body}</p>
+                    <div key={b.num} className="flex flex-col lg:grid lg:row-span-2 lg:grid-rows-subgrid">
+                      {/* Overview */}
+                      <div className="flex flex-col p-8 rounded-t-2xl border border-b-0 border-border" style={{ background: "var(--color-card)" }}>
+                        <div className="flex items-center justify-between mb-5">
+                          <span className="font-display font-bold" style={{ color: ACCENT, fontSize: "2rem", lineHeight: 1 }}>{b.num}</span>
+                          <span className="font-body text-xs uppercase tracking-widest text-muted">{b.cadence}</span>
                         </div>
-                      ))}
+                        <p className="font-display font-bold text-fg mb-2" style={{ fontSize: "1.25rem" }}>{b.title}</p>
+                        <p className="font-body text-muted text-sm leading-relaxed mb-8">{b.body}</p>
+                        <div className="mt-auto pt-4 border-t border-border flex items-center justify-between">
+                          <span className="font-body text-xs uppercase tracking-widest text-muted">Focus</span>
+                          <span className="font-body text-xs font-medium text-fg">{b.focus}</span>
+                        </div>
+                      </div>
+                      {/* Initiatives */}
+                      <div className="flex flex-col rounded-b-2xl border border-t border-border px-8 py-6 gap-4" style={{ background: "var(--color-bg)" }}>
+                        {b.items.map((item) => (
+                          <div key={item.head} className="pb-4 border-b border-border last:border-0 last:pb-0">
+                            <p className="font-display font-semibold text-fg mb-1" style={{ fontSize: "0.875rem" }}>{item.head}</p>
+                            <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{item.body}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -636,22 +636,20 @@ export default function SmallcasePage() {
                   },
                 ];
                 return (
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-0">
-                    {/* Row 1 — titles */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[auto_auto] gap-x-5 gap-y-0">
                     {PILLARS.map((pillar) => (
-                      <div key={`${pillar.title}-header`} className="flex flex-col px-8 py-4 rounded-t-2xl border border-b-0 border-border" style={{ background: "var(--color-card)" }}>
-                        <p className="font-display font-bold text-fg" style={{ fontSize: "1.125rem" }}>{pillar.title}</p>
-                      </div>
-                    ))}
-                    {/* Row 2 — items */}
-                    {PILLARS.map((pillar) => (
-                      <div key={`${pillar.title}-items`} className="flex flex-col rounded-b-2xl border border-t border-border px-8 py-6 gap-4" style={{ background: "var(--color-bg)" }}>
-                        {pillar.items.map(([head, body]) => (
-                          <div key={head} className="pb-4 border-b border-border last:border-0 last:pb-0">
-                            <p className="font-display font-semibold text-fg mb-1" style={{ fontSize: "0.875rem" }}>{head}</p>
-                            <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{body}</p>
-                          </div>
-                        ))}
+                      <div key={pillar.title} className="flex flex-col lg:grid lg:row-span-2 lg:grid-rows-subgrid">
+                        <div className="flex flex-col px-8 py-4 rounded-t-2xl border border-b-0 border-border" style={{ background: "var(--color-card)" }}>
+                          <p className="font-display font-bold text-fg" style={{ fontSize: "1.125rem" }}>{pillar.title}</p>
+                        </div>
+                        <div className="flex flex-col rounded-b-2xl border border-t border-border px-8 py-6 gap-4" style={{ background: "var(--color-bg)" }}>
+                          {pillar.items.map(([head, body]) => (
+                            <div key={head} className="pb-4 border-b border-border last:border-0 last:pb-0">
+                              <p className="font-display font-semibold text-fg mb-1" style={{ fontSize: "0.875rem" }}>{head}</p>
+                              <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{body}</p>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -697,22 +695,20 @@ export default function SmallcasePage() {
                 },
               ];
               return (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-0">
-                  {/* Row 1 — overviews */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-[auto_auto] gap-x-5 gap-y-0">
                   {GROUPS.map((g) => (
-                    <div key={`${g.title}-overview`} className="flex flex-col px-8 py-4 rounded-t-2xl border border-b-0 border-border" style={{ background: "var(--color-card)" }}>
-                      <p className="font-display font-bold text-fg" style={{ fontSize: "1.125rem" }}>{g.title}</p>
-                    </div>
-                  ))}
-                  {/* Row 2 — items */}
-                  {GROUPS.map((g) => (
-                    <div key={`${g.title}-items`} className="flex flex-col rounded-b-2xl border border-t border-border px-8 py-6 gap-4" style={{ background: "var(--color-bg)" }}>
-                      {g.items.map((item) => (
-                        <div key={item.head} className="pb-4 border-b border-border last:border-0 last:pb-0">
-                          <p className="font-display font-semibold text-fg mb-1" style={{ fontSize: "0.875rem" }}>{item.head}</p>
-                          <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{item.body}</p>
-                        </div>
-                      ))}
+                    <div key={g.title} className="flex flex-col lg:grid lg:row-span-2 lg:grid-rows-subgrid">
+                      <div className="flex flex-col px-8 py-4 rounded-t-2xl border border-b-0 border-border" style={{ background: "var(--color-card)" }}>
+                        <p className="font-display font-bold text-fg" style={{ fontSize: "1.125rem" }}>{g.title}</p>
+                      </div>
+                      <div className="flex flex-col rounded-b-2xl border border-t border-border px-8 py-6 gap-4" style={{ background: "var(--color-bg)" }}>
+                        {g.items.map((item) => (
+                          <div key={item.head} className="pb-4 border-b border-border last:border-0 last:pb-0">
+                            <p className="font-display font-semibold text-fg mb-1" style={{ fontSize: "0.875rem" }}>{item.head}</p>
+                            <p className="font-body text-muted leading-relaxed" style={{ fontSize: "0.8125rem" }}>{item.body}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -902,7 +898,7 @@ export default function SmallcasePage() {
         <section id="impact" className="px-6 py-24 scroll-mt-28">
           <div className="max-w-5xl mx-auto">
           <motion.div {...fade}>
-            <Label>03 — Impact</Label>
+            <Label>03 · Impact</Label>
             <H2>Design moved from the execution layer to the strategy table</H2>
 
             {/* Core team spotlight */}

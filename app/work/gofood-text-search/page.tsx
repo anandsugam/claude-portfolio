@@ -84,7 +84,7 @@ function IntentDistribution() {
       <div className="bg-bg p-8 lg:p-10" style={{ borderRadius: "16px 16px 0 0", border: "1px solid var(--color-border)" }}>
 
         {/* Title + toggle pill row */}
-        <div className="flex items-center justify-between gap-4 mb-8">
+        <div className="flex flex-col items-start gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-display font-bold text-fg" style={{ fontSize: "1.25rem" }}>
             Distribution of {mode} count by intent
           </p>
@@ -175,7 +175,7 @@ function IntentDistribution() {
       >
         <span className="font-body text-xs font-semibold uppercase tracking-widest shrink-0 mt-0.5" style={{ color: ACCENT }}>Key insight</span>
         <p className="font-body text-muted" style={{ fontSize: "0.9375rem", lineHeight: 1.6 }}>
-          Dish intent dominates search volume — but Brand intent drives a disproportionately higher
+          Dish intent dominates search volume, but Brand intent drives a disproportionately higher
           share of bookings. Brand searchers convert better. They know what they want.
         </p>
       </div>
@@ -237,7 +237,7 @@ export default function GoFoodTextSearchPage() {
               >
                 Every day more than 1.2 million GoFood orders are placed using search. With close to
                 half a million merchants on the platform, quickly surfacing relevant results is a
-                fundamental product problem — not just a UX one.
+                fundamental product problem, not just a UX one.
               </p>
             </motion.div>
           </div>
@@ -276,13 +276,13 @@ export default function GoFoodTextSearchPage() {
                   Search to booking conversion was very low. And search was primitive.
                 </h2>
                 <p className="font-body text-muted leading-relaxed" style={{ fontSize: "1rem" }}>
-                  More than 65% of all GoFood bookings were made from search — but the search-to-booking
+                  More than 65% of all GoFood bookings were made from search, but the search-to-booking
                   conversion was critically low. Search was built as a name lookup: type a restaurant
                   name, get a list. It couldn&apos;t handle dish intent, brand intent, or cuisine exploration.
                 </p>
                 <p className="font-body text-muted leading-relaxed mt-4" style={{ fontSize: "1rem" }}>
                   As the Senior Product Designer on GoFood, I was tasked with rethinking the search experience
-                  from the ground up — grounded in data, validated by users, and designed for how people
+                  from the ground up, grounded in data, validated by users, and designed for how people
                   actually think about food.
                 </p>
               </div>
@@ -334,7 +334,7 @@ export default function GoFoodTextSearchPage() {
                   Why do users search the same thing twice?
                 </h2>
                 <p className="font-body text-muted leading-relaxed" style={{ fontSize: "1rem" }}>
-                  We analysed repeat searches — tracking the original query to the final query in a booking
+                  We analysed repeat searches, tracking the original query to the final query in a booking
                   session. Three distinct patterns explained most of the re-typing behaviour.
                 </p>
               </div>
@@ -347,12 +347,12 @@ export default function GoFoodTextSearchPage() {
                   },
                   {
                     label: "Identic",
-                    desc: "The final search query is exactly the same as the original. Users retry because results didn't satisfy — not because the query was wrong.",
+                    desc: "The final search query is exactly the same as the original. Users retry because results didn't satisfy, not because the query was wrong.",
                     color: ACCENT,
                   },
                   {
                     label: "Expanded",
-                    desc: "The final query is an expansion of the original. Users add words to narrow down — a signal they need better filters or smarter suggestions upfront.",
+                    desc: "The final query is an expansion of the original. Users add words to narrow down, a signal they need better filters or smarter suggestions upfront.",
                     color: "#4FC3F7",
                   },
                 ].map((item) => (
@@ -386,15 +386,15 @@ export default function GoFoodTextSearchPage() {
                 7 things users told us in interviews.
               </h2>
               <p className="font-body leading-relaxed mb-10 max-w-2xl" style={{ color: "rgba(255,255,255,0.55)", fontSize: "1rem" }}>
-                In-depth interviews with users in Indonesia and India — a careful mix of age, gender, and order
+                In-depth interviews with users in Indonesia and India, a careful mix of age, gender, and order
                 frequency. These were the signal insights that shaped our design direction.
               </p>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                 {[
-                  "Users start with a restaurant first, then look for dishes — not the other way around.",
+                  "Users start with a restaurant first, then look for dishes, not the other way around.",
                   "Users search for dishes but expect a list of restaurants as results.",
                   "Brands are associated with trust, quality, and consistency of taste.",
-                  "Search is the primary mode of discovery on GoFood — not browsing.",
+                  "Search is the primary mode of discovery on GoFood, not browsing.",
                   "Users know what they don't want before they start searching.",
                   "Users decide on a cuisine before they start searching.",
                   "Social media and recommendations from friends heavily influence restaurant selection.",
@@ -429,12 +429,12 @@ export default function GoFoodTextSearchPage() {
             </p>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               {[
-                { num: "01", title: "Help users make a decision at every step", body: "Not just at the results stage — every moment of the search journey should reduce hesitation." },
+                { num: "01", title: "Help users make a decision at every step", body: "Not just at the results stage. Every moment of the search journey should reduce hesitation." },
                 { num: "02", title: "Reduce search-to-selection time", body: "The faster a user finds what they want, the more they trust the app. Speed is a design quality." },
                 { num: "03", title: "Reduce number of repeat searches", body: "Repeat searches signal failure. Each re-query is a user telling us the previous result wasn't right." },
                 { num: "04", title: "Reduce cognitive load on users", body: "Show less, mean more. Every unnecessary result or option is friction." },
                 { num: "05", title: "Focus on restaurant funnelling", body: "Users ultimately order from a restaurant. Design the search to move them confidently toward that decision." },
-                { num: "06", title: "Reach search results faster", body: "Pre-search should do work for users — surfacing recent, relevant, and contextual options before they type." },
+                { num: "06", title: "Reach search results faster", body: "Pre-search should do work for users, surfacing recent, relevant, and contextual options before they type." },
               ].map((item) => (
                 <div key={item.num} className="border border-border rounded-2xl p-7">
                   <span className="font-body text-xs text-muted block mb-4">{item.num}</span>
@@ -463,25 +463,25 @@ export default function GoFoodTextSearchPage() {
                   {
                     num: "01",
                     title: "Predictive suggestions & intent classification",
-                    detail: "Before the user finishes typing, the system predicts their intent — dish, brand, restaurant, or cuisine — and shapes the suggestion list accordingly. Dish intent surfaces dishes. Brand intent surfaces brand hubs.",
+                    detail: "Before the user finishes typing, the system predicts their intent (dish, brand, restaurant, or cuisine) and shapes the suggestion list accordingly. Dish intent surfaces dishes. Brand intent surfaces brand hubs.",
                     tag: "Pre-search",
                   },
                   {
                     num: "02",
                     title: "Recent restaurant searches, not just queries",
-                    detail: "Previous versions only remembered query strings. We redesigned recents to show restaurant cards — because users return to places, not words. This dramatically reduced time-to-first-tap for returning users.",
+                    detail: "Previous versions only remembered query strings. We redesigned recents to show restaurant cards, because users return to places, not words. This dramatically reduced time-to-first-tap for returning users.",
                     tag: "Pre-search",
                   },
                   {
                     num: "03",
                     title: "Spell check, auto-correct, and no more empty states",
-                    detail: "Zero-result screens were replaced with smart recovery flows. Typos get corrected. When there's no exact match, adjacent results are surfaced automatically — with clear explanation of what was expanded.",
+                    detail: "Zero-result screens were replaced with smart recovery flows. Typos get corrected. When there's no exact match, adjacent results are surfaced automatically, with clear explanation of what was expanded.",
                     tag: "During search",
                   },
                   {
                     num: "04",
                     title: "Restaurant-focused dish results & new brand intent",
-                    detail: "Dish searches now show a two-layer result: the dish in context of a restaurant, with the menu item visible. Brand intent results show a dedicated brand hub — logo, all outlets, top dishes — not just a restaurant list.",
+                    detail: "Dish searches now show a two-layer result: the dish in context of a restaurant, with the menu item visible. Brand intent results show a dedicated brand hub (logo, all outlets, top dishes), not just a restaurant list.",
                     tag: "Results",
                   },
                   {
@@ -529,7 +529,7 @@ export default function GoFoodTextSearchPage() {
               Search is a journey, not a single step.
             </h2>
             <p className="font-body text-muted leading-relaxed mb-10 max-w-2xl" style={{ fontSize: "1rem" }}>
-              We broke the experience into four sub-experiences. Each step carries search context forward — so
+              We broke the experience into four sub-experiences. Each step carries search context forward, so
               the user never loses their intent as they move through the flow.
             </p>
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
@@ -537,7 +537,7 @@ export default function GoFoodTextSearchPage() {
                 {
                   phase: "Pre-Search",
                   num: "01",
-                  desc: "Predictive suggestions, recent restaurant cards, and contextual chips — before the user types a single character.",
+                  desc: "Predictive suggestions, recent restaurant cards, and contextual chips, before the user types a single character.",
                 },
                 {
                   phase: "During Search",
@@ -552,7 +552,7 @@ export default function GoFoodTextSearchPage() {
                 {
                   phase: "Within Restaurant",
                   num: "04",
-                  desc: "Search context persists into the restaurant menu — users who searched for 'gado-gado' land on the relevant menu section, not the top.",
+                  desc: "Search context persists into the restaurant menu: users who searched for 'gado-gado' land on the relevant menu section, not the top.",
                 },
               ].map((item) => (
                 <div key={item.num} className="border border-border rounded-2xl p-7 relative overflow-hidden">
