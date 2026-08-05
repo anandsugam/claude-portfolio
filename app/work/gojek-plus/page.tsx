@@ -140,6 +140,7 @@ function PhaseCarousel({
   const [fading, setFading] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [progressKey, setProgressKey] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   const goTo = (i: number) => {
     if (i === current) return;
@@ -155,18 +156,24 @@ function PhaseCarousel({
   const prev = () => goTo((current - 1 + slides.length) % slides.length);
   const next = () => goTo((current + 1) % slides.length);
 
-  // Auto-advance
+  // Auto-advance — pauses while hovered
   useEffect(() => {
+    if (paused) return;
     timerRef.current = setTimeout(() => {
       goTo((current + 1) % slides.length);
     }, CAROUSEL_INTERVAL);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [current, slides.length]);
+  }, [current, slides.length, paused]);
 
   const slide = slides[visible];
 
   return (
-    <div className="mb-14 rounded-2xl overflow-hidden" style={{ backgroundColor: "#fff" }}>
+    <div
+      className="mb-14 rounded-2xl overflow-hidden"
+      style={{ backgroundColor: "#fff" }}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => { setProgressKey((k) => k + 1); setPaused(false); }}
+    >
       {/* Image with fade */}
       <div className="w-full relative" style={{ height: 560 }}>
         {slide.image ? (
@@ -234,6 +241,7 @@ function PhaseCarousel({
                       transformOrigin: "left",
                       transform: "scaleX(0)",
                       animation: `pill-fill ${CAROUSEL_INTERVAL}ms linear forwards`,
+                      animationPlayState: paused ? "paused" : "running",
                     }}
                   />
                 )}
