@@ -178,7 +178,6 @@ export default function SmallcasePage() {
   const [careerModalOpen, setCareerModalOpen] = useState(false);
   const [growthModalOpen, setGrowthModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("context");
-  const [showNav, setShowNav] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -193,23 +192,6 @@ export default function SmallcasePage() {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const sentinel = document.getElementById("nav-sentinel");
-    if (!sentinel) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting && entry.boundingClientRect.bottom < 0) {
-          setShowNav(true);
-        } else if (entry.isIntersecting) {
-          setShowNav(false);
-        }
-      },
-      { threshold: 0 }
-    );
-    observer.observe(sentinel);
     return () => observer.disconnect();
   }, []);
 
@@ -260,23 +242,15 @@ export default function SmallcasePage() {
           </div>
         </section>
 
-        {/* ── Sentinel: nav appears after this point ──────────────────── */}
-        <div id="nav-sentinel" aria-hidden="true" style={{ height: 1, marginBottom: -1 }} />
-
         {/* ── Sticky section tabs ─────────────────────────────────────── */}
         <div
-          className="sticky top-14 z-40 border-b border-border"
+          className="sticky top-14 z-40 border-b border-border px-6"
           style={{
             background: "var(--color-bg)",
             backdropFilter: "blur(12px)",
-            opacity: showNav ? 1 : 0,
-            transform: showNav ? "translateY(0)" : "translateY(-10px)",
-            pointerEvents: showNav ? "auto" : "none",
-            boxShadow: showNav ? "0 4px 24px rgba(0,0,0,0.06)" : "none",
-            transition: "opacity 350ms ease, transform 350ms ease, box-shadow 350ms ease",
           }}
         >
-          <div className="max-w-5xl mx-auto px-6">
+          <div className="max-w-5xl mx-auto">
             <div className="flex items-center overflow-x-auto" style={{ scrollbarWidth: "none" }}>
               {TABS.map((tab) => (
                 <button
