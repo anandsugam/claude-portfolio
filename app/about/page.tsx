@@ -23,7 +23,7 @@ const career = [
           "Built career ladders, comp bands, and hiring process from scratch",
           "Led design system rebuild: scalable and AI-ready, without adding headcount",
           "Earned design a permanent seat in quarterly strategy planning (core group)",
-          "0 culture-driven exits across a remote-first team of 8",
+          "No attrition across a remote-first team of 8 designers",
         ],
       },
     ],
@@ -43,7 +43,7 @@ const career = [
         linkLabel: "Gojek PLUS Case Study →",
         achievements: [
           "Designed and launched Gojek PLUS: subscription across GoFood, GoRide, GoSend + 3 more",
-          "Interim Head of Design for GoFood (team of 6 designers)",
+          "Head of Design for GoFood product in the absence of Global Head of Design",
           "Led support AI redesign across driver, merchant, and consumer surfaces",
         ],
       },
