@@ -37,7 +37,7 @@ const career = [
       {
         chapter: "Leadership Emerges",
         period: "2021–2024 · Product Design Lead",
-        body: "Led consumer experience design for GoFood, serving as interim head of design for the team. Moved to Gojek central: built Gojek PLUS, a unified subscription brand across 6 products at Southeast Asian scale. Led support AI adoption across driver, merchant, and customer ecosystems.",
+        body: "Led design for GoFood Consumer, Loyalty & Subscription, Care & Support, AI initiatives, and the Central Growth Platform with a team of 10.",
         highlight: null,
         link: "/work/gojek-plus",
         linkLabel: "Gojek PLUS Case Study →",
@@ -50,10 +50,10 @@ const career = [
       {
         chapter: "Building at Scale",
         period: "2018–2021 · Interaction Designer → Product Designer → Senior Product Designer",
-        body: "Joined Gojek as it was scaling fast across Southeast Asia. Built Asphalt, the design system powering 20+ products. Moved into product design: growth, loyalty, and GoFood's first loyalty brand. First people management experience.",
+        body: "Joined Gojek as it was scaling fast across Southeast Asia. Built Asphalt, the design system powering 20+ products. Worked across growth, monetisation, loyalty, text search and recommendations & discovery teams. Built GoFood's first loyalty brand.",
         highlight: null,
-        link: null,
-        linkLabel: null,
+        link: "https://www.sugam.design/work/gofood-order-tracking",
+        linkLabel: "GoFood Order Tracking Case Study →",
         achievements: [
           "Core contributor to Asphalt, Gojek's design system (20+ products)",
           "Redesigned GoFood text search for 20M+ monthly users",
