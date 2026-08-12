@@ -37,7 +37,7 @@ const career = [
       {
         chapter: "Leadership Emerges",
         period: "2021–2024 · Product Design Lead",
-        body: "Led design for GoFood Consumer, Loyalty & Subscription, Care & Support, AI initiatives, and the Central Growth Platform with a team of 10.",
+        body: "Led design for GoFood Consumer, Loyalty & Subscription, Care & Support, AI initiatives, and the Central Growth Platform with a team of 10. Experienced Gojek's journey to a public company.",
         highlight: null,
         link: "/work/gojek-plus",
         linkLabel: "Gojek PLUS Case Study →",
