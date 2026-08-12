@@ -66,8 +66,8 @@ const career = [
   {
     num: "02",
     years: "2016–2018",
-    company: "IIT Kanpur",
-    role: "Master of Design",
+    company: "Master of Design (M.Des)",
+    role: "Indian Institute of Technology, Kanpur",
     phases: [
       {
         chapter: "The Deliberate Pivot",
