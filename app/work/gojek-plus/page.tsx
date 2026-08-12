@@ -1444,8 +1444,8 @@ export default function GojekPlusPage() {
                 {[
                   { value: "200k+", label: "Daily Active Subscribers", sub: "Sustained post-launch, not just a spike", accent: true },
                   { value: "40%", label: "Conversion Rate Uplift", sub: "New purchase page vs. old purchase page", accent: false },
-                  { value: "10.5k", label: "New Purchases on Launch Day", sub: "Previous record was 7.5k", accent: false },
-                  { value: "30k", label: "Net new subscribers per day", sub: "Up from 5k/day pre-launch", accent: false },
+                  { value: "24.9k", label: "New Purchases on Launch Day", sub: "Previous record was 7.5k", accent: false },
+                  { value: "11K", label: "Net new subscribers per day", sub: "Up from 2k/day pre-launch", accent: false },
                 ].map((s) => (
                   <div key={s.label} className="bg-bg rounded-2xl p-7 flex flex-col gap-2">
                     <span
