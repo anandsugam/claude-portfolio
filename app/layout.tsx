@@ -5,6 +5,14 @@ export const metadata: Metadata = {
   title: "Sugam Anand · Design Leader",
   description:
     "Senior Director of Product Design at Smallcase & Tickertape. A full-stack design leader with 10+ years building products at scale.",
+  icons: {
+    icon: [
+      { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

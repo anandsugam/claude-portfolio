@@ -16,7 +16,7 @@ function PhotoPlaceholder() {
       <img
         src="/images/profile.png"
         alt="Sugam Anand"
-        className="absolute inset-0 w-full h-full object-cover scale-125"
+        className="absolute inset-0 w-full h-full object-cover"
       />
     </div>
   );
